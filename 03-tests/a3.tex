@@ -1,0 +1,183 @@
+\documentclass[10pt]{exam} %versao 2.2
+\usepackage{graphicx}
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\usepackage{palatino, url, multicol}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\usepackage{amsmath}
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+\begin{document}
+
+
+%imprimir solução ----------------------------------------
+%comente o comando \printanswers a seguir para gerar a prova
+%descomente o comando \printanswers a seguir para gerar o gabarito com soluções
+%\printanswers
+
+% traduções ----------------------------------------
+\pointpoints{ponto}{pontos}
+\renewcommand{\solutiontitle}{\noindent\textbf{Solução:}\enspace}
+%\qformat{(\pointsofquestion{\arabic{question}}\points) \thequestion}
+%\qformat{Questão \thequestion \dotfill \thepoints}
+%\totalformat{Total da questão \thequestion: \totalpoints\ \points} %ou use como na próx. linha
+\totalformat{Total: \totalpoints\ \points}
+\marginpointname{ \points}
+\hqword{Questões} %substitutes text for “Question:”
+\hpgword{Páginas} %substitutes text for “Page:”
+\hpword{Total de pontos} %substitutes text for “Points:”
+\hsword{Pontos conseguidos} %substitutes text for “Score:”
+\htword{Total} %substitutes text for “Total”
+
+% ajustes ----------------------------------------
+%\pointsinrightmargin
+%\pointsinmargin
+\addpoints
+\bracketedpoints
+%\pointsdroppedatright
+\setlength\linefillheight{.1cm} %distância entre linhas
+
+
+% Cabeçalho e Rodapé ----------------------------------------
+\pagestyle{headandfoot}
+%\headrule % coloca uma linha
+\footrule
+\firstpageheader{}{}{}
+
+\chead[]{}
+\lfoot{\iflastpage{}{}}
+%\cfoot{\iflastpage{Fim do Exame}{Pág. \thepage\ de \numpages}}
+\cfoot{\iflastpage{}{ }}
+\rfoot{\iflastpage{Boa prova!}{}}
+
+\setlength\linefillheight{.30in} %modifica a distância entre as linhas para resposta das questões.
+
+\lstset{language=Java,showstringspaces=false,basicstyle=\footnotesize}
+
+\begin{table}
+\\
+  \begin{tabular}{|p{11cm}|p{5cm}|}  
+  \hline Nome: & Matrícula:\\
+   & \\
+  \hline Disciplina: Estrutura de Dados & Data: \\    
+  & \\
+  \hline Professor:  Alessandro Ferreira Leite&   Nota \\
+  & \\
+  \hline 
+  \end{tabular}
+
+\begin{center}
+  \textbf{Avaliação A3}
+\end{center}  
+
+   \begin{tabular}{|p{3cm}|p{13cm}|}
+    \hline & \\
+    & Leia  cada questão com atenção antes de responder. \\
+   \textbf{Instruções} & A prova é individual e sem consulta. \\
+    & Questões rasuradas não serão corrigidas. \\ 
+    & Esta avaliação só será corrigida se estiver escrita à caneta azul ou preta. \\
+    \hline 
+  \end{tabular}
+  
+\end{table}
+
+\begin{questions}
+
+\sloppy
+
+%\question[1] Explique porque a alocação dinâmica é melhor mesmo na situação de termos um vetor de tamanho infinito.
+
+\question[1\half] Uma árvore binária tem dez nós. Os caminhamentos \textbf{simétrico} e \textbf{pré-ordem} da árvore são mostrados a seguir. Desenhe a árvore correspondente.
+
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline \textbf{Simétrico} & \textbf{Pré-Ordem} \\
+		\hline A B C E D F J G I H  & J C B A D E F I G H \\
+		\hline 
+	\end{tabular}
+\end{center}
+
+\question[2] Escreva uma função interativa e uma função recursiva para calcular a multiplicação de números naturais.
+
+\begin{eqnarray*} 
+  \text{Uma definição interativa de $a \ * \ b$ é:} \ a \ * \ b \ = \left\{ 
+    \begin{array}{ll}
+      a, \ se \ b \ = \ 1,      \\
+     \underbrace{a + a + a + \cdots + a}_{b \ vezes}, \ se \ b \ > \ 1.            
+    \end{array} \right.     
+\end{eqnarray*}
+
+
+\begin{eqnarray*} 
+  \text{Uma definição recursiva de $a \ * \ b$ é:} \ a \ * \ b \ = \left\{ 
+    \begin{array}{ll}
+      a, \ se \ b \ = \ 1,      \\
+     a \ * \ (b - 1) + a,  \text{se $b \ > \ 1$}
+    \end{array} \right.     
+\end{eqnarray*}
+
+\question[1] Sobre os uso das funções recursivas, assinale a(s) alternativa(s) \textbf{CORRETA(S)}.
+\begin{parts} 
+  \part (\hspace{0.3cm}) Impede que se garanta a finalização de um algoritmo.
+  \part (\hspace{0.3cm}) Em geral, demanda menos memória que as alternativas iterativas, pois há apenas
+um escopo para as variáveis nas diversas chamadas.
+  \part (\hspace{0.3cm}) Pressupõe a definição do problema a ser resolvido em instâncias menores do mesmo problema.
+  \part (\hspace{0.3cm}) É sempre mais eficiente do que as alternativas baseadas em iteração.
+  \part (\hspace{0.3cm}) Uma estrutura recursiva é aquela que consiste, parcialmente, ou é definida em função dela mesmo.
+  \part (\hspace{0.3cm}) Todo algoritmo recursivo corresponde a um outro não recursivo que executa, exatamente, o mesmo trabalho computacional.
+\end{parts}
+
+\newpage
+
+\question[1] Construa um algoritmo que receba como parâmetros uma lista duplamente encadeada e dois valores (original e novo). O algoritmo deve percorrer a lista comparando o valor dos nós e trocar toda ocorrência do valor original pelo valor novo.
+
+\question[2\half] Para um dado número inteiro $n > 1$, o menor inteiro $d > 1$ que divide $n$ é chamado de \textbf{fator primo}. É possível determinar a fatoração prima de $n$ achando-se o fator primo $d$ e substituindo $n$ pelo quociente $n / d$, repetindo essa operação até que $n$ seja igual a 1. Utilizando uma das estrutura de dados estudadas em sala para auxiliá-lo na
+manipulação de dados, implemente um algoritmo que compute a fatoração prima de um número apresentando os seus fatores em ordem decrescente. Por exemplo, para $n = 3960$, deverá ser apresentado $11 * 5 * 3 * 3 * 2 * 2 * 2$. Justifique a escolha da estrutura de dados utilizada.
+
+\question[2] Uma empilhadeira carrega caixas de 3, 5, e 7 toneladas. Há três pilhas A, B e C. A pilha A é onde se encontram as todas as caixas que chegam no depósito. Com um detalhe: caixas maiores não podem ser empilhadas sobre caixas menores. Elabore um algoritmo que efetue o controle das caixas de forma que caso uma caixa de maior peso do que uma que já está em A deva ser empilhada, todas as caixas que estão em A são movidas para as pilhas auxiliares B (contendo somente caixas de 5 toneladas) e C (contendo somente caixas de 3 toneladas) até que se possa empilhar a nova caixa. Depois, todas as caixas são movidas de volta para a pilha A.
+
+%\vspace{0.1cm}
+%\gradetable[h]
+
+\end{questions}
+
+
+\end{document} 

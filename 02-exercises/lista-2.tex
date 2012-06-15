@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 1)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+\large \def\ExerciseName{Lista de Exercícios 2}
+
+\begin{Exercise*}
+
+\Question Implemente um algoritmo que receba duas pilhas, $p_1, p_2$, e passe todos os elementos da pilha $p_2$ para o topo da pilha $p_1$. 
+\Question Implemente um algoritmo que receba uma pilha e um número inteiro como parâmetros e retorne 1 se o valor informado fizer parte da pilha ou 0 (zero) caso contrário. 		
+\Question Implemente um algoritmo que receba uma pilha como parâmetro e retorne como resultado uma cópia dessa pilha.
+%\Question Implemente um algoritmo que teste se duas pilhas são ou não iguais. O algoritmo deve retornar 1 se as duas pilhas forem iguais, e 0 (zero) caso contrário. Ao final da execução, as duas pilhas devem estar no mesmo estado em que estavam no início.
+\Question Implemente um algoritmo que leia um conjunto de valores inteiros e armazene estes valores em duas pilhas, uma para os valores positivos lidos e a outra, para os valores negativos.
+\Question Imagine um colecionador de vinhos que compra vinhos recentes e os guarda em uma adega para envelhecerem, e que a cada ocasião especial abre sempre a última aquisição (para poupar os mais antigos). Construa um programa que:
+
+\begin{itemize}
+  \item permita incluir novos vinhos na adega;
+  \item informe qual vinho deve ser aberto em uma ocasião especial;
+  \item relacione as cinco aquisições mais antigas.
+  
+ Os dados básicos que o registro de vinhos deve conter são: nome do produto e safra.
+ 
+ \Question O problema das Torre de Hanói é bastante estudo em computação. O problema consiste em $N$ discos de diferentes diâmetros e três estacas: $A, B, C$. Inicialmente os discos estão encaixados na estaca $A$ onde o menor está em cima do maior disco. O objetivo é deslocar os discos para uma estaca $C$, usando a estaca $B$ como auxiliar. Somente o primeiro disco de cada estaca pode ser deslocado. Construa a resolução desse exercício considerando $N = 4$, ou seja, para quatro discos.
+ 
+ \Question Uma pilha pode ser usada para rastrear os tipos de escopos encontrados em uma expressão matemática e verificar se o uso deles está correto. Os delimitadores de escopo podem ser os parênteses, os colchetes e as chaves. Escreva um programa que leia uma expressão matemática e verifique se os escopos estão posicionados de forma correta.
+\end{itemize}
+
+\Question Escreva um programa que converta uma expressão \textbf{posfixa} na correspondente expressão \textbf{infixa}.
+
+\Question A formatação de um documentação html é definida por tags. As tags são usados em pares: um de abertura e um de fechamento. Exemplo $<em>$\textit{itálico}$</em>$  e  $<strong>$\textbf{negrito}$</strong>$. Escreva um programa que verifique se as tags de um arquivo html estão corretamente fechadas.  Considere apenas as tags strong, tt, small, big, h1, h2, h3, h4, ul, blockquote, div, table, tr, td, address, head, body, html.
+
+%http://www.ime.usp.br/~cef/mac122-2000/listas/lista-pilha/
+\Question Simule a execução do algoritmo de conversão para a notação posfixa com a expressão aritmética abaixo: 
+$$(A + B) * D + E/(F + A * D) + C$$
+
+
+\end{Exercise*}
+
+\end{document}

@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+
+\begin{document}
+
+
+\large \def\ExerciseName{Lista de Exercícios 1}
+
+\begin{Exercise*}
+
+\Question Apresente uma fórmula para o número total de operações realizadas pelo Algoritmo de Busca seqüencial (no pior caso) para uma lista com $n$ entrada. Conte o número de comparações de $x$ com as entradas da lista, comparações com a variável de índice, adição e atribuição a variável de índice.
+
+\Question Escreva um algoritmo para encontrar o segundo maior valor de uma lista contendo $n$ entradas. Quantas comparações, o seu algoritmo faz com as entradas da lista no pior caso?
+
+\Question Para os algoritmos desenvolvidos nas questões anteriores, execute os algoritmos para valores suficientemente grandes de \textit{n}, gerando casos de testes para o melhor, pior caso. Meça o tempo de execução para cada algoritmo e apresente a tabela com os tempos de cada execução.
+
+\Question O que significa dizer que um algoritmo executa em tempo proporcional a n?
+
+\Question O que significa dizer que uma função $g(n)$ é $Of((n))$?
+
+\Question Escreva uma versão do método de \textbf{Seleção Direta} que permute os elementos de um vetor $v[0..n-1]$ de modo que eles fiquem em ordem crescente.
+
+\Question Utilizando o algoritmo BubbleSort, mostre, passo a passo, os estágios da ordenação do vetor $[3; 19; 25; 24; 1; 8; 10; 7; 9; 12; 10]$
+
+%\Question Escreva uma versão recursiva do algoritmo de ordenação por seleção.
+
+
+\end{Exercise*}
+
+\end{document}

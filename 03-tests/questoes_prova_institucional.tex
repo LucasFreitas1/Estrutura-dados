@@ -1,0 +1,218 @@
+\documentclass[10pt]{exam} %versao 2.2
+\usepackage{graphicx}
+\usepackage[linesnumbered]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\usepackage{palatino, url, multicol}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\begin{document}
+
+%imprimir solução ----------------------------------------
+%comente o comando \printanswers a seguir para gerar a prova
+%descomente o comando \printanswers a seguir para gerar o gabarito com soluções
+\printanswers
+
+% traduções ----------------------------------------
+\pointpoints{ponto}{pontos}
+\renewcommand{\solutiontitle}{\noindent\textbf{Solução:}\enspace}
+%\qformat{(\pointsofquestion{\arabic{question}}\points) \thequestion}
+%\qformat{Questão \thequestion \dotfill \thepoints}
+%\totalformat{Total da questão \thequestion: \totalpoints\ \points} %ou use como na próx. linha
+\totalformat{Total: \totalpoints\ \points}
+\marginpointname{ \points}
+\hqword{Questões} %substitutes text for “Question:”
+\hpgword{Páginas} %substitutes text for “Page:”
+\hpword{Total de pontos} %substitutes text for “Points:”
+\hsword{Pontos conseguidos} %substitutes text for “Score:”
+\htword{Total} %substitutes text for “Total”
+
+% ajustes ----------------------------------------
+%\pointsinrightmargin
+%\pointsinmargin
+\addpoints
+\bracketedpoints
+%\pointsdroppedatright
+\setlength\linefillheight{.5cm} %distância entre linhas
+
+
+% Cabeçalho e Rodapé ----------------------------------------
+\pagestyle{headandfoot}
+%\headrule % coloca uma linha
+\footrule
+\firstpageheader{}{}{}
+
+\chead[]{}
+\lfoot{\iflastpage{}{}}
+%\cfoot{\iflastpage{Fim do Exame}{Pág. \thepage\ de \numpages}}
+\cfoot{\iflastpage{}{ }}
+\rfoot{\iflastpage{Boa prova!}{}}
+
+
+\begin{table}
+\\  
+\begin{center}
+  \textbf{Estrutura de Dados}
+\end{center}  
+  
+\end{table}
+
+
+\begin{questions}
+
+\sloppy
+
+\question Seja o seguinte vetor, ordenado de forma ascendente:
+  \begin{table}[htpb]
+    \centering
+     \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+        \hline
+     \end{tabular}
+  \end{table}
+
+Caso seja utilizado o algoritmo de busca binária, quantas iterações serão necessárias para que o valor 8 seja encontrado?
+
+\begin{parts}
+   \part (\hspace{0.2cm}) 2
+   \part (\hspace{0.2cm}) 3
+   \part (\hspace{0.2cm}) 4
+   \part (\hspace{0.2cm}) 8
+   \part (\hspace{0.2cm}) 9
+\end{parts}
+
+\begin{solution}
+  B
+\end{solution}
+
+
+\question Considerando-se a análise assintótica (Notação Big O), qual é a complexidade do pior caso do algoritmo de ordenação chamado de Método da Bolha?
+
+
+\begin{parts}
+   \part (\hspace{0.2cm}) $O(n^2)$
+   \part (\hspace{0.2cm}) $O(nlgn)$
+   \part (\hspace{0.2cm}) $O(n)$
+   \part (\hspace{0.2cm}) $O(lgn)$
+   \part (\hspace{0.2cm}) $O(1)$
+\end{parts}
+
+\begin{solution}
+  A
+\end{solution}
+
+\question As siglas e significados ``Last In, First Out''(LIFO) e ``First In, First Out''(FIFO) referem-se, respectivamente, às seguintes estruturas de dados:
+
+\begin{parts}
+   \part (\hspace{0.2cm}) Fila e Pilha
+   \part (\hspace{0.2cm}) Pilha e Fila
+   \part (\hspace{0.2cm}) Pilha e Lista
+   \part (\hspace{0.2cm}) Lista e Pilha
+   \part (\hspace{0.2cm}) Fila e Fila
+\end{parts}
+
+\begin{solution}
+  B
+\end{solution}
+
+\newpage
+\question Sobre pilhas é correto afirma:
+
+\begin{parts}
+   	\part (\hspace{0.2cm})  Uma lista LIFO (Last-In/First-Out) é uma estrutura estática, ou seja, é uma coleção que não pode aumentar e diminuir durante sua existência.
+   	\part (\hspace{0.2cm}) Os elementos na pilha são sempre removidos na mesma ordem em que foram inseridos.
+	\part (\hspace{0.2cm}) Uma pilha suporta apenas duas operações básicas, tradicionalmente denominadas \textbf {push} (insere um novo elemento no topo da pilha) e \textbf{pop} (remove um elemento do topo da pilha).
+	\part (\hspace{0.2cm}) Cada vez que um novo elemento deve ser inserido na pilha, ele é colocado no seu topo e, em qualquer momento, apenas aquele posicionado no topo da pilha pode ser removido.
+	\part (\hspace{0.2cm}) Sendo P uma pilha e x um elemento qualquer, a operação \textbf{push(p,x)} diminui o tamanho da pilha P, removendo o elemento x do seu topo.
+\end{parts}
+
+\begin{solution}
+  D
+\end{solution}
+
+\question Com base no algoritmo abaixo, será apresentada na tela:
+
+\begin{lstlisting}[language=Java]
+void x()
+{
+   int cont = 1, res = 0, x = 2, n = 4;
+   while (cont >= n) do 
+  {
+     res *= 4;
+     cont++;
+     imprima(res);
+  }
+  imprima(res);
+}
+\end{lstlisting}
+\begin{parts}
+    \part (\hspace{0.2cm}) 0.
+    \part (\hspace{0.2cm}) 2, 4, 8, 16 e 16
+    \part (\hspace{0.2cm}) 2, 4, 8 e 8
+    \part (\hspace{0.2cm}) 1
+    \part (\hspace{0.2cm}) 0, 0, 0, 0 e 0
+\end{parts}
+
+\begin{solution}
+  A
+\end{solution}
+
+\question Navegadores Web armazenam URLs (Uniform Resource Locators) visitadas recentemente em uma determinada estrutura de dados. Com isso, permite que o usuário visite o último \textit{site} visitado, ao recuperar a URL, usando uma operação de retorno (\textit{back}). Dentre as estruturas de dados listadas a seguir, a mais apropriada para implementar este recurso é a:
+
+\begin{parts}
+  \part  (\hspace{0.2cm})  Fila
+  \part  (\hspace{0.2cm})  Lista Encadeada Simples
+  \part (\hspace{0.2cm})   Lista
+  \part  (\hspace{0.2cm})  Pilha
+  \part  (\hspace{0.2cm})  Matriz
+\end{parts}
+
+\begin{solution}
+   B
+\end{solution}
+
+\question Seja P uma pilha que, inicialmente vazia, sofre, sequencialmente, as seguintes operações:
+
+\begin{tabular}{l}  push(p, 3) \\ 
+ push(p, 5) \\
+ pop(p) \\
+ push(p, 7) \\
+ push(p, 9) \\
+ push(p, 6) \\
+ push(p, 2) \\
+ pop(p) \\
+ pop(p) \\
+ push(p, 8) \\
+ push(p, 1) \\
+ pop(p) \\
+ pop(p) \\
+ pop(p) \\
+\end{tabular}
+
+Qual a soma dos valores dos elementos restantes de P? 
+
+\begin{parts}
+    \part (\hspace{0.2cm}) 9
+    \part (\hspace{0.2cm}) 16
+    \part (\hspace{0.2cm}) 10
+    \part (\hspace{0.2cm}) 19
+    \part (\hspace{0.2cm}) 35
+\end{parts}
+
+\begin{solution}
+  C
+\end{solution}
+
+\question Implemente as operações \textbf{push} e \textbf{pop} de uma \textbf{Pilha} utilizando de uma \textbf{Lista Encadeada}.
+
+\end{questions}
+
+%\vspace{0.1cm}
+%\gradetable[h]
+
+
+\end{document}

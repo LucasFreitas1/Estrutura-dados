@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{listings}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+
+\lstset{language=Java,basicstyle=\footnotesize,
+  keywordstyle=\ttfamily\color{brown},%OliveGreen
+ identifierstyle=\ttfamily\color{CadetBlue}\bfseries, 
+ commentstyle=\color{Brown},
+ stringstyle=\ttfamily,
+ showstringspaces=false}
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Estrutura de dados)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 6)
+   /Keywords (Exercícios, Estrutura de dados)
+}
+
+\large \def\ExerciseName{Lista de Exercícios 6}
+
+\begin{Exercise*}
+
+\Question Construa um algoritmo que receba, como parâmetro, uma lista simplesmente encadeada e retorne uma lista duplamente encadeada, resultante da cópia dos valores da lista simplesmente encadeada.
+
+\Question Construa um algoritmo que receba como parâmetros uma lista duplamente encadeada e dois valores (original e novo). O algoritmo deve percorrer a lista comparando o valor dos nós e trocar toda ocorrência do valor original pelo valor novo.
+
+\Question Os dados de um grupo de atletas foram organizados em uma lista linear simplesmente encadeada. O campo de informação de cada elemento da lista apresenta o nome e a altura de um atleta. A lista está organizada em ordem alfabética de atletas. Implemente uma aplicação para:
+
+\begin{enumerate}
+	\item gerar uma segunda lista, duplamente encadeada. Nesta segunda lista deverão estar as mesmas informações da primeira lista, porém organizadas por ordem decrescente de alturas;
+	\item excluir das duas listas o nó correspondente a um determinado atleta, dado um nome passado como parâmetro.
+\end{enumerate}
+
+\Question A lenda conta que Josephus não teria sobrevivido para tornar-se famoso se não fosse o seu talento matemático. Durante a guerra entre judeus e romanos, ele estava entre um bando de 41 judeus rebeldes encurralados pelos romanos em uma caverna. Não havia esperança de vencer os inimigos sem reforços e existia um único cavalo para escapar. Os rebeldes fizeram um pacto para determinar qual deles escaparia em busca de ajuda. Eles formaram um círculo e, começando a partir de um deles, começaram a contar no sentido horário em torno do círculo. Quando a contagem alcançava o número 3, aquele rebelde era removido do círculo e a contagem recomeçava a partir do próximo soldado, até que o último soldado restasse no círculo. Este seria o soldado que tomaria o cavalo e fugiria em busca de ajuda. Mas Josephus, com medo da morte iminente, calculou rapidamente onde ele deveria estar neste círculo para que pudesse ser ele o último soldado restante no círculo. Implemente um algoritmo para solucionar o problema de Josephus: dado um número $N$ e um número $D \leq N$, que estabelece o número fixo de remoção de elementos, determine a ordem em que os soldados são eliminados do círculo e qual deles escapará.
+
+
+\end{Exercise*}
+
+\end{document}

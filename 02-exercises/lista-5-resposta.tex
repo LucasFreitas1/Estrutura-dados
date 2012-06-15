@@ -1,0 +1,631 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 5)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+
+\large \def\ExerciseName{Gabarito da Lista de Exercícios 5}
+
+\begin{Exercise*}
+
+\Question Considere uma lista de valores inteiros e implemente um algoritmo que receba como parâmetro dois valores ($n_1$ e $n_2$) e uma lista, e insira o valor $n_2$ após o nó que contém o valor $n_1$.
+
+\begin{lstlisting}
+	/**
+	 * Adiciona um dado elemento (sucesso) após um determinado elemento existente na lista.
+	 * 
+	 * @param elemento
+	 *            Elemento existente na lista e deve ser ter como sucessor um dado elemento.
+	 * @param sucessor
+	 *            Elemento a ser colocado após um dado elemento existente na lista.
+	 */
+	public void adicionarApos(E elemento, E sucessor)
+	{
+		No<E> n1 = this.pesquisar(elemento);
+		if (n1 != null)
+		{
+			n1.setProximo(new No<E>(sucessor, n1.getProximo()));
+		}
+	}
+\end{lstlisting}
+
+\Question Construa um algoritmo que receba como parâmetros uma lista e um valor, valor este que representa a posição de um \textbf{nó} na lista. O algoritmo deverá retornar as informações contidas neste nó e a lista resultante da exclusão deste nó.
+
+\begin{lstlisting}
+	/**
+	 * Remove o elemento que está em uma dada posição na lista.
+	 * @param posicao Posição do elemento a ser removido.
+	 * @return O elemento que estava na posição removida ou <code>null</code> quando a posição informada não existe.
+	 */
+	public E remover(int posicao)
+	{
+		No<E> no = this.no(posicao);
+
+		if (no != null)
+		{
+			this.remover(no.getElemento());
+			return no.getElemento();
+		}
+		return null;
+	}
+\end{lstlisting}
+
+\Question Construa um algoritmo que receba, como parâmetro, o endereço do primeiro nó de uma lista encadeada e um valor. O algoritmo deve retornar:
+\begin{enumerate}
+  \item O número total de nós da lista;
+  \item O número de nós da lista que possuem em seu conteúdo o valor passado como parâmetro e sua respectiva posição na lista;
+  \item O número de nós que possuem em seu conteúdo valores maiores do que o valor passado como argumento.
+\end{enumerate}
+
+\Question Construa um algoritmo que receba como parâmetros a referência para o primeiro nó de uma lista encadeada e dois valores, e retorne:
+\begin{enumerate}
+   \item  A lista resultante da troca de todas as ocorrências do primeiro valor pelo segundo, ambos passados como parâmetros; 
+   \item Número total de troca efetuadas. 
+\end{enumerate}
+
+\begin{lstlisting}
+	/**
+	 * Substitui todas as ocorrências do elemento E1 pelo elemento E2 e retorna a quantidade de substituições.
+	 * @param e1 Elemento a ser substituído.
+	 * @param e2 Elemento substituto.
+	 * @return A quantidade de substituições.
+	 */
+	public int replace(E e1, E e2)
+	{
+		int cont = 0;
+		if (!this.isEmpty())
+		{
+			No<E> anterior = null;
+			No<E> atual = this.primeiro;
+
+			for (int i = 0; i < this.tamanho; i++)
+			{
+				if (atual.equals(new No<E>(e2)))
+				{
+					if (anterior != null)
+					{
+						anterior.setProximo(new No<E>(e2, atual.getProximo()));
+						cont++;
+					}
+				}
+				anterior = atual;
+				atual = atual.getProximo();
+			}
+		}
+		return cont;
+	}
+\end{lstlisting}
+
+\Question Construa um algoritmo que receba como parâmetro duas listas e um número inteiro $N$ e retorne a lista resultante da inserção da segunda lista na primeira, sequencialmente, a partir da posição $N$ da primeira lista.
+
+\begin{lstlisting}
+	/**
+	 * Concatena duas listas a partir de uma dada posição.
+	 * 
+	 * @param l1 Lista a ser concatenada a partir.
+	 * @param l2 Lista a ser concatenada a partir de uma dada posição da lista l1.
+	 * @param posicao Posição a partir da qual a lista l2 deve ser concatenada com a lista l2.
+	 */
+	public void concatenar(ListaEncadeada<E> l1, ListaEncadeada<E> l2, int posicao)
+	{
+		if (!l1.isEmpty())
+		{
+			No<E> no = l1.primeiro();
+			for (int i = 0; i < posicao; i++)
+			{
+				no = no.proximo;
+			}
+
+			l2.primeiro().setProximo(no.getProximo());
+			no.setProximo(l2.primeiro());
+		}
+	}
+\end{lstlisting}
+
+\Question Construa um algoritmo que receba como parâmetro duas listas encadeadas ordenadas e retorne a lista resultante da combinação das duas sendo que a lista resultante também deve estar ordenada.
+
+\Question Construa um algoritmo que receba como parâmetro duas listas encadeadas e retorne um valor lógico que indique se as duas listas são idênticas.
+
+\begin{lstlisting}
+	/**
+	 * Verifica se duas listas são iguais.
+	 * @param l1 Lista l1 a ser comparada com a lista l2.
+	 * @param l2 Lista l2 a ser comparada com a lista l1.
+	 * @return <code>true</code> se as listas forem iguais ou <code>false</code> caso contrário.
+	 */
+	public boolean iguais(ListaEncadeada<E> l1, ListaEncadeada<E> l2)
+	{
+		if (l1 == null && l2 == null)
+			return true;
+
+		if (l1.getTamanho() != l2.getTamanho())
+			return false;
+
+		if (!l1.isEmpty())
+		{
+			No<E> no1 = l1.primeiro;
+			No<E> no2 = l2.primeiro;
+
+			while (no1 != null)
+			{
+				if (!no1.equals(no2))
+					return false;
+
+				no1 = no1.getProximo();
+				no2 = no2.getProximo();
+			}
+		}
+		return true;
+	}
+
+\end{lstlisting}
+
+\Question $[Desafio]$ Polinômios podem ser representados por meio de listas encadeadas, cujos nós são objetos com três atributos: coeficiente, expoente e uma referência ao nó seguinte. Construa um algoritmo que receba a variável  $X \in R$ como parâmetro, e retorne o resultado do calculo de $p(x)$.
+		
+\end{Exercise*}
+
+A Listagem 1, apresenta o código-fonte completo de uma implementação de Lista Encadeada simples em Java juntamente com os métodos de todas as questões dessa lista.
+
+\begin{lstlisting}[label=lst:listaencadeada,caption=Implementação de Lista Encadeada Simples em Java]
+package br.projecao.ed.dinamica;
+
+/**
+ * Implementação de Lista Encadeada Simples com alocação dinâmica.
+ * 
+ * @author alessandro
+ * @param <E>
+ *            Tipo do valor a ser armazenado na lista.
+ */
+public class ListaEncadeada<E>
+{
+	/**
+	 * Referência ao primeiro elemento da {@link ListaEncadeada}
+	 */
+	private No<E> primeiro;
+
+	/**
+	 * Referência ao último elemento da {@link ListaEncadeada}
+	 */
+	private No<E> ultimo;
+
+	/**
+	 * Tamanho da {@link ListaEncadeada}.
+	 */
+	private int tamanho = -1;
+
+	private static class No<E>
+	{
+		private E elemento;
+
+		private No<E> proximo;
+
+		public No(E elemento)
+		{
+			this(elemento, null);
+		}
+
+		public No(E elemento, No<E> proximo)
+		{
+			this.elemento = elemento;
+			this.proximo = proximo;
+		}
+
+		public void setProximo(No<E> no)
+		{
+			this.proximo = no;
+		}
+
+		public E getElemento()
+		{
+			return elemento;
+		}
+
+		public No<E> getProximo()
+		{
+			return proximo;
+		}
+
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (obj == this)
+				return true;
+
+			if (!(obj instanceof No))
+				return false;
+
+			No<?> other = (No<?>) obj;
+
+			if (this.getElemento() == null && other.getElemento() == null)
+				return true;
+
+			if (this.getElemento() != null && this.getElemento().equals(other.getElemento()))
+				return true;
+
+			return false;
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return this.getElemento() != null ? this.getElemento().hashCode() : super.hashCode();
+		}
+	}
+
+	/**
+	 * Adiciona um dado elemento no final da lista.
+	 * 
+	 * @param elemento
+	 *            Elemento a ser adicionado a lista.
+	 */
+	public void adicionar(E elemento)
+	{
+		if (this.isEmpty())
+		{
+			this.ultimo = this.primeiro = new No<E>(elemento, this.primeiro);
+		} else
+		{
+			No<E> no = new No<E>(elemento);
+			this.ultimo.setProximo(no);
+			this.ultimo = no;
+		}
+		this.tamanho++;
+	}
+
+	/**
+	 * Adiciona um dado elemento (sucesso) após um determinado elemento existente na lista.
+	 * 
+	 * @param elemento
+	 *            Elemento existente na lista e deve ser ter como sucessor um dado elemento.
+	 * @param sucessor
+	 *            Elemento a ser colocado após um dado elemento existente na lista.
+	 */
+	public void adicionarApos(E elemento, E sucessor)
+	{
+		No<E> n1 = this.pesquisar(elemento);
+		if (n1 != null)
+		{
+			n1.setProximo(new No<E>(sucessor, n1.getProximo()));
+		}
+	}
+
+	/**
+	 * Concatena a lista l2 a essa lista a partir da posição informada.
+	 * 
+	 * @param l2
+	 *            Lista a ser concatenada com essa lista a partir de uma dada posição.
+	 * @param posicao
+	 *            Posição a partir da qual a lista l2 deve ser concatenada.
+	 */
+	public void concatenar(ListaEncadeada<E> l2, int posicao)
+	{
+		this.concatenar(this, l2, posicao);
+	}
+
+	/**
+	 * Concatena duas listas a partir de uma dada posição.
+	 * 
+	 * @param l1
+	 *            Lista a ser concatenada a partir.
+	 * @param l2
+	 *            Lista a ser concatenada a partir de uma dada posição da lista l1.
+	 * @param posicao
+	 *            posição a partir da qual a lista l2 deve ser concatenada com a lista l2.
+	 */
+	public void concatenar(ListaEncadeada<E> l1, ListaEncadeada<E> l2, int posicao)
+	{
+		if (!l1.isEmpty())
+		{
+			No<E> no = l1.primeiro();
+			for (int i = 0; i < posicao; i++)
+			{
+				no = no.proximo;
+			}
+
+			l2.primeiro().setProximo(no.getProximo());
+			no.setProximo(l2.primeiro());
+		}
+	}
+
+	/**
+	 * Remove um dado elemento da lista se o elemento pertencer a lista.
+	 * 
+	 * @param elemento
+	 *            Elemento que deve ser removido.
+	 */
+	public void remover(E elemento)
+	{
+
+		if (!this.isEmpty())
+		{
+			No<E> no_anterior_ao_que_sera_removido = null;
+			No<E> no_a_remover = this.primeiro;
+			while (no_a_remover != null && !no_a_remover.getElemento().equals(elemento))
+			{
+				no_anterior_ao_que_sera_removido = no_a_remover;
+				no_a_remover = no_a_remover.getProximo();
+			}
+
+			if (no_anterior_ao_que_sera_removido != null)
+			{
+				no_anterior_ao_que_sera_removido.setProximo(no_a_remover.getProximo());
+				this.tamanho--;
+			}
+		}
+	}
+
+	/**
+	 * Remove o elemento que está em uma dada posição na lista.
+	 * 
+	 * @param posicao
+	 *            Posição do elemento a ser removido.
+	 * @return O elemento que estava na posição removida ou <code>null</code> quando a posição
+	 *         informada não existe.
+	 */
+	public E remover(int posicao)
+	{
+		No<E> no = this.no(posicao);
+
+		if (no != null)
+		{
+			this.remover(no.getElemento());
+			return no.getElemento();
+		}
+		return null;
+	}
+
+	/**
+	 * Retorna <code>true</code> se um dado elemento pertence a {@link ListaEncadeada} ou
+	 * <code>false</code> caso contrário.
+	 * 
+	 * @param elemento
+	 *            Elemento a ser verificado se ele pertence a {@link ListaEncadeada}
+	 * @return <code>true</code> se o elemento pertence a {@link ListaEncadeada} ou
+	 *         <code>false</code> caso contrário.
+	 */
+	public boolean contem(E elemento)
+	{
+		return this.pesquisar(elemento) != null;
+	}
+
+	/**
+	 * Verifica se duas listas são iguais.
+	 * 
+	 * @param l1
+	 *            Lista l1 a ser comparada com a lista l2.
+	 * @param l2
+	 *            Lista l2 a ser comparada com a lista l1.
+	 * @return <code>true</code> se as listas forem iguais ou <code>false</code> caso contrário.
+	 */
+	public boolean iguais(ListaEncadeada<E> l1, ListaEncadeada<E> l2)
+	{
+		if (l1 == null && l2 == null)
+			return true;
+
+		if (l1.getTamanho() != l2.getTamanho())
+			return false;
+
+		if (!l1.isEmpty())
+		{
+			No<E> no1 = l1.primeiro;
+			No<E> no2 = l2.primeiro;
+
+			while (no1 != null)
+			{
+				if (!no1.equals(no2))
+					return false;
+
+				no1 = no1.getProximo();
+				no2 = no2.getProximo();
+			}
+		}
+		return true;
+	}
+
+	public boolean iguais(ListaEncadeada<E> l2)
+	{
+		return this.iguais(this, l2);
+	}
+
+	/**
+	 * Substitui todas as ocorrências do elemento E1 pelo elemento E2 e retorna a quantidade de
+	 * substituições.
+	 * 
+	 * @param e1
+	 *            Elemento a ser substituído.
+	 * @param e2
+	 *            Elemento substituto.
+	 * @return A quantidade de substituições.
+	 */
+	public int replace(E e1, E e2)
+	{
+		int cont = 0;
+		if (!this.isEmpty())
+		{
+			No<E> anterior = null;
+			No<E> atual = this.primeiro;
+
+			for (int i = 0; i < this.tamanho; i++)
+			{
+				if (atual.equals(new No<E>(e2)))
+				{
+					if (anterior != null)
+					{
+						anterior.setProximo(new No<E>(e2, atual.getProximo()));
+						cont++;
+					}
+				}
+				anterior = atual;
+				atual = atual.getProximo();
+			}
+		}
+		return cont;
+	}
+
+	/**
+	 * Retorna <code>true</code> se a lista estiver vazia ou <code>false</code> caso contrário.
+	 * 
+	 * @return <code>true</code> se a lista estiver vazia ou <code>false</code> caso contrário.
+	 */
+	public boolean isEmpty()
+	{
+		return this.tamanho < 0;
+	}
+
+	/**
+	 * Retorna o tamanho da lista.
+	 * 
+	 * @return O tamanho da lista.
+	 */
+	public int getTamanho()
+	{
+		return isEmpty() ? 0 : tamanho + 1;
+	}
+
+	/**
+	 * Retorna o primeiro elemento da lista ou <code>null</code> se a lista estiver vazia.
+	 * 
+	 * @return O primeiro elemento da lista ou <code>null</code> se a lista estiver vazia.
+	 */
+	public E getPrimeiro()
+	{
+		return !isEmpty() ? this.primeiro.getElemento() : null;
+	}
+
+	/**
+	 * Retorna o último elemento da lista ou <code>null</code> se a lista estiver vazia.
+	 * 
+	 * @return O último elemento da lista ou <code>null</code> se a lista estiver vazia.
+	 */
+	public E getUltimo()
+	{
+		return !isEmpty() ? ultimo.getElemento() : null;
+	}
+
+	/**
+	 * Retorna a referência ao {@link No} de um dado elemento, ou <code>null</code> se o elemento
+	 * não pertence a lista.
+	 * 
+	 * @param elemento
+	 *            Elemento a ser retornada a referência do {@link No} que o encapsula.
+	 * @return A referência ao {@link No} de um dado elemento, ou <code>null</code> se o elemento
+	 *         não pertence a lista.
+	 */
+	No<E> pesquisar(E elemento)
+	{
+		if (!this.isEmpty())
+		{
+			for (No<E> no = this.primeiro; no != null; no = no.getProximo())
+			{
+				if (no.getElemento().equals(elemento))
+				{
+					return no;
+				}
+			}
+		}
+		return null;
+	}
+
+	No<E> no(int posicao)
+	{
+		if (!this.isEmpty())
+			return null;
+
+		No<E> no = this.primeiro;
+
+		for (int i = 0; i < posicao; i++)
+		{
+			no = no.getProximo();
+		}
+		return no;
+	}
+
+	No<E> primeiro()
+	{
+		return this.primeiro;
+	}
+
+	No<E> ultimo()
+	{
+		return this.ultimo;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof ListaEncadeada<?>))
+			return false;
+
+		return this.iguais(this, (ListaEncadeada<E>) obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return this.primeiro() != null ? this.primeiro().hashCode() * 17 : super.hashCode();
+	}
+}
+\end{lstlisting}
+
+\end{document}

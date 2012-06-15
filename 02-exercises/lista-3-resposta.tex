@@ -1,0 +1,462 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 3)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+
+\large \def\ExerciseName{Gabarito da Lista de Exercícios 3}
+
+\begin{Exercise*}
+
+\begin{lstlisting}[label=lista,caption=Implementação de Lista Estática Linear em Java]
+package br.projecao.ed.linear;
+
+/**
+ * Implementação de uma lista sequencial linear.
+ */
+public class Lista
+{
+	private Object[] elementos;
+
+	private Integer cursor;
+
+	public Lista(Integer capacidade)
+	{
+		this.elementos = new Object[capacidade];
+		this.cursor = 0;
+	}
+
+	/**
+	 * Insere um dado valor na lista.
+	 * 
+	 * @param value
+	 *            Valor a ser inserido na lista.
+	 */
+	public void inserir(Object value)
+	{
+		if (tamanho() < elementos.length)
+			this.elementos[cursor++] = value;
+	}
+
+	/**
+	 * Remove a primeira ocorrência de um dado valor na {@link Lista}.
+	 * 
+	 * @param value
+	 *            Valor a ter a sua primeira ocorrência removida da lista.
+	 */
+	public void remover(Object value)
+	{
+		int d = pesquisar(value);
+		if (d != -1)
+		{
+			for (int i = d; i < this.cursor; i++)
+			{
+				this.elementos[i] = this.elementos[i + 1];
+			}
+			this.cursor--;
+		}
+	}
+
+	/**
+	 * Pesquisa por um dado valor na {@link Lista} e retorna a sua posição, caso esteja presente.
+	 * 
+	 * @param value
+	 *            Valor a ser pesquisado.
+	 * @return A posição da primeira ocorrência de um dado valor na lista ou -1 se o valor não
+	 *         estiver presente.
+	 */
+	public int pesquisar(Object value)
+	{
+		int i = 0;
+		while (i <= this.cursor && this.elementos[i] != value)
+			i++;
+
+		return i > this.cursor ? -1 : i;
+	}
+
+	/**
+	 * Inverte e retorna a ordem dos elementos dessa {@link Lista}, retornando uma nova
+	 * {@link Lista}.
+	 * 
+	 * @return Uma lista com os elementos dessa {@link Lista} na ordem inversa.
+	 */
+	public Lista inverter()
+	{
+		Lista listaInvertida = new Lista(this.cursor);
+
+		Pilha p = new Pilha(this.cursor);
+
+		for (int i = 0; i < this.cursor; i++)
+		{
+			p.push(this.elementos[i]);
+		}
+
+		while (!p.isEmpty())
+			listaInvertida.inserir(p.pop());
+
+		return listaInvertida;
+	}
+
+	/**
+	 * Retorna uma sublista dessa {@link Lista} a partir da posição p.
+	 * 
+	 * @param p
+	 *            Posição de início da nova sublista.
+	 * @return Uma {@link Lista} que representa a sublista dessa {@link Lista} a partir da posição
+	 *         p.
+	 */
+	public Lista subLista(int p)
+	{
+		Lista sublista = new Lista(this.cursor);
+		for (int i = p; i < this.cursor; i++)
+			sublista.inserir(this.elementos[i]);
+
+		return sublista;
+	}
+
+	/**
+	 * Intercala os elementos dessa {@link Lista} com os de uma dada {@link Lista}.
+	 * 
+	 * @param l2
+	 *            {@link Lista} a ter os seus elementos intercalados com essa {@link Lista}.
+	 * @return Uma {@link Lista} com todos os elementos da {@link Lista} dada com os dessa
+	 *         {@link Lista} de forma intercalada.
+	 */
+	public Lista intercalar(Lista l2)
+	{
+		Lista intercalada = new Lista(this.cursor + l2.cursor);
+		for (int i = 0, j = 0, k = 0; k < (this.cursor + l2.cursor); k++)
+		{
+			if (k % 2 == 0)
+			{
+				if (i < this.cursor)
+					intercalada.inserir(this.elementos[i++]);
+				else if (j < l2.cursor)
+					intercalada.inserir(l2.elementos[j++]);
+			} else
+			{
+				if (j < l2.cursor)
+					intercalada.inserir(l2.elementos[j++]);
+				else if (i < this.cursor)
+					intercalada.inserir(this.elementos[i++]);
+			}
+		}
+
+		return intercalada;
+	}
+
+	/**
+	 * Concatena essa {@link Lista} com uma dada {@link Lista}.
+	 * 
+	 * @param l2
+	 *            Lista a ser concatenada (conjunto união) com essa {@link Lista}
+	 * @return Uma {@link Lista} com todos os elementos dessa {@link Lista} mais com os da
+	 *         {@link Lista} dada.
+	 */
+	public Lista concatenar(Lista l2)
+	{
+		Lista l3 = new Lista(this.cursor + l2.cursor);
+
+		for (int i = 0; i < this.cursor; i++)
+			l3.inserir(this.elementos[i]);
+
+		for (int i = 0; i < l2.cursor; i++)
+			l3.inserir(l2.elementos[i]);
+
+		return l3;
+	}
+
+	/**
+	 * Retorna uma {@link Lista} representando o conjunto interseção entre essa {@link Lista} e uma
+	 * dada {@link Lista}.
+	 * 
+	 * @param l2
+	 *            A {@link Lista} a ser obtido o conjunto intersecção com essa {@link Lista}.
+	 * @return Uma {@link Lista} representando o conjunto interseção entre essa {@link Lista} e uma
+	 *         dada {@link Lista}
+	 */
+	public Lista interseccao(Lista l2)
+	{
+		Lista interseccao = new Lista(this.cursor < l2.cursor ? l2.cursor : this.cursor);
+
+		for (int i = 0; i < this.cursor; i++)
+		{
+			int d = l2.pesquisar(this.elementos[i]);
+			if (d > -1)
+			{
+				interseccao.inserir(elementos[i]);
+			}
+		}
+		return interseccao;
+	}
+
+	/**
+	 * Retorna uma {@link Lista} representando o conjunto diferença entre essa {@link Lista} e uma
+	 * dada {@link Lista}.
+	 * 
+	 * @param l2
+	 *            A {@link Lista} a ser obtido o conjunto diferença com essa {@link Lista}.
+	 * @return Uma {@link Lista} representando o conjunto diferença entre essa {@link Lista} e uma
+	 *         dada {@link Lista}
+	 */
+	public Lista diferenca(Lista l2)
+	{
+		Lista diff = new Lista(this.cursor < l2.cursor ? l2.cursor : this.cursor);
+
+		for (int i = 0; i < this.cursor; i++)
+		{
+			int d = l2.pesquisar(this.elementos[i]);
+			if (d == -1)
+			{
+				diff.inserir(this.elementos[i]);
+			}
+		}
+
+		for (int i = 0; i < l2.cursor; i++)
+		{
+			int d = this.pesquisar(l2.elementos[i]);
+			if (d == -1)
+			{
+				diff.inserir(l2.elementos[i]);
+			}
+		}
+
+		return diff;
+	}
+
+	/**
+	 * Retorna o tamanho da {@link Lista}.
+	 * 
+	 * @return O tamanho da {@link Lista}.
+	 */
+	public int tamanho()
+	{
+		return this.cursor;
+	}
+}
+\end{lstlisting}
+
+\Question Construa uma função que retorne o tamanho de uma lista estática.
+
+\begin{lstlisting}
+	/**
+	 * Retorna o tamanho da {@link Lista}.
+	 * 
+	 * @return O tamanho da {@link Lista}.
+	 */
+	public int tamanho()
+	{
+		return this.cursor;
+	}
+\end{lstlisting}
+
+
+\Question Dada uma lista estática de tamanho $m$, construa uma função que inverta a lista.
+
+\begin{lstlisting}
+	/**
+	 * Inverte e retorna a ordem dos elementos dessa {@link Lista}, retornando uma nova
+	 * {@link Lista}.
+	 * 
+	 * @return Uma lista com os elementos dessa {@link Lista} na ordem inversa.
+	 */
+	public Lista inverter()
+	{
+		Lista listaInvertida = new Lista(this.cursor);
+
+		Pilha p = new Pilha(this.cursor);
+
+		for (int i = 0; i < this.cursor; i++)
+		{
+			p.push(this.elementos[i]);
+		}
+
+		while (!p.isEmpty())
+			listaInvertida.inserir(p.pop());
+
+		return listaInvertida;
+	}
+\end{lstlisting}
+
+\Question Dada uma lista estática de tamanho $m$, construir uma função que retorne uma \textit{sublista} de tamanho $n$ a partir da posição $p$. Compute a complexidade de tempo da sua função.
+
+\begin{lstlisting}
+	/**
+	 * Retorna uma sublista dessa {@link Lista} a partir da posição p.
+	 * 
+	 * @param p
+	 *            Posição de início da nova sublista.
+	 * @return Uma {@link Lista} que representa a sublista dessa {@link Lista} a partir da posição
+	 *         p.
+	 */
+	public Lista subLista(int p)
+	{
+		Lista sublista = new Lista(this.cursor);
+		for (int i = p; i < this.cursor; i++)
+			sublista.inserir(this.elementos[i]);
+
+		return sublista;
+	}
+\end{lstlisting}
+
+\Question Dada duas listas estáticas de tamanho $m_1$ e $m_2$, respectivamente, construir uma função para intercalar as duas listas, gerando uma terceira.
+
+\begin{lstlisting}
+	/**
+	 * Intercala os elementos dessa {@link Lista} com os de uma dada {@link Lista}.
+	 * 
+	 * @param l2
+	 *            {@link Lista} a ter os seus elementos intercalados com essa {@link Lista}.
+	 * @return Uma {@link Lista} com todos os elementos da {@link Lista} dada com os dessa
+	 *         {@link Lista} de forma intercalada.
+	 */
+	public Lista intercalar(Lista l2)
+	{
+		Lista intercalada = new Lista(this.cursor + l2.cursor);
+		for (int i = 0, j = 0, k = 0; k < (this.cursor + l2.cursor); k++)
+		{
+			if (k % 2 == 0)
+			{
+				if (i < this.cursor)
+					intercalada.inserir(this.elementos[i++]);
+				else if (j < l2.cursor)
+					intercalada.inserir(l2.elementos[j++]);
+			} else
+			{
+				if (j < l2.cursor)
+					intercalada.inserir(l2.elementos[j++]);
+				else if (i < this.cursor)
+					intercalada.inserir(this.elementos[i++]);
+			}
+		}
+
+		return intercalada;
+	}
+\end{lstlisting}
+
+\Question Dada duas listas estáticas de tamanho $m_1$ e $m_2$, respectivamente, construir uma função para concatenar as duas listas, gerando uma terceira.
+
+\begin{lstlisting}
+	/**
+	 * Concatena essa {@link Lista} com uma dada {@link Lista}.
+	 * 
+	 * @param l2
+	 *            Lista a ser concatenada (conjunto união) com essa {@link Lista}
+	 * @return Uma {@link Lista} com todos os elementos dessa {@link Lista} mais com os da
+	 *         {@link Lista} dada.
+	 */
+	public Lista concatenar(Lista l2)
+	{
+		Lista l3 = new Lista(this.cursor + l2.cursor);
+
+		for (int i = 0; i < this.cursor; i++)
+			l3.inserir(this.elementos[i]);
+
+		for (int i = 0; i < l2.cursor; i++)
+			l3.inserir(l2.elementos[i]);
+
+		return l3;
+	}
+\end{lstlisting}
+
+\Question Uma maneira usual de representar conjuntos é listando seus elementos. Implemente uma aplicação que ofereça as operações usuais de conjuntos (união, intersecção e diferença), considerando que cada um dos conjuntos é representado por uma lista linear.
+
+\begin{lstlisting}
+	/**
+	 * Retorna uma {@link Lista} representando o conjunto diferença entre essa {@link Lista} e uma
+	 * dada {@link Lista}.
+	 * 
+	 * @param l2
+	 *            A {@link Lista} a ser obtido o conjunto diferença com essa {@link Lista}.
+	 * @return Uma {@link Lista} representando o conjunto diferença entre essa {@link Lista} e uma
+	 *         dada {@link Lista}
+	 */
+	public Lista diferenca(Lista l2)
+	{
+		Lista diff = new Lista(this.cursor < l2.cursor ? l2.cursor : this.cursor);
+
+		for (int i = 0; i < this.cursor; i++)
+		{
+			int d = l2.pesquisar(this.elementos[i]);
+			if (d == -1)
+			{
+				diff.inserir(this.elementos[i]);
+			}
+		}
+
+		for (int i = 0; i < l2.cursor; i++)
+		{
+			int d = this.pesquisar(l2.elementos[i]);
+			if (d == -1)
+			{
+				diff.inserir(l2.elementos[i]);
+			}
+		}
+
+		return diff;
+	}
+\end{lstlisting}
+		
+\end{Exercise*}
+
+\end{document}

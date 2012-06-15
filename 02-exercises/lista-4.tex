@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 4)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+
+\large \def\ExerciseName{Lista de Exercícios 4}
+
+\begin{Exercise*}
+
+\Question Escreva um algoritmo que forneça o maior, o menor e a média aritmética dos elementos de uma Fila.
+
+\Question Existem partes de sistemas operacionais que cuidam da ordem em que os programas devem ser executados. Por exemplo, em um sistema de computação de tempo compartilhado (\textit{time-shared}) existe a necessidade de manter um conjunto de processo em uma fila, esperando para serem executados. Assumindo que cada processo é representado por um registro composto por um número identificador do processo, escreva um algoritmo para retirar da fila o processo com o maior tempo de espera.
+
+\Question Se um fila representada por vetores não é considerada circular, sugere-se que a cada remoção deve-se deslocar para ``frente'' todo elemento restante de uma fila. Um método alternativo é adiar o deslocamente até que ``final'' seja igual ao último índice do vetor. Quando essa situação ocorre e faz-se uma tentativa de inserir um elemento na fila, a fila inteira é deslocada para ``frente'', de modo que o primeiroelemento da fila fique na primeira posição do vetor, ou posição 0, caso a implementação seja em C/C++/Java. Quais são as vantagens desse método sobre um deslocamento em cada operação de remoção? Quais as desvantagens? Reescreva as funções inserir, remover, vazia usando esse novo método.
+
+\Question Como você implementaria uma fila de pilhas? Uma pilha de filas? Uma fila de filas? Escreva algoritmos para implementar as operações corretas para cada uma destas estruturas de dados.
+
+\Question Considere uma fila circular. Escreva uma função que devolva o tamanho da fila. Escreva uma função que verifique se a fila está vazia e em caso negativo remova um elemento da fila e devolva esse elemento. Escreva uma função que verifique se a fila está cheia e em caso negativo insira um objeto na fila.
+
+\Question Considere a implementação de filas circulares estáticas lineares. Escreva uma função \textbf{FuraFila}(Fila* fila, Elemento e) que insere um dado elemento  na primeira posição da fila. O detalhe é que seu algoritmo deve ser \textbf{O(1)}, ou seja, não pode movimentar os outros itens da fila. Note que neste caso, estaremos desrespeitando o conceito de Fila.
+		
+\end{Exercise*}
+
+\end{document}

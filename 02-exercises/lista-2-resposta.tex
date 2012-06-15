@@ -1,0 +1,486 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Gabarito da Lista de Exercícios 2)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+\large \def\ExerciseName{Gabarito da Lista de Exercícios 2}
+
+\begin{Exercise*}
+
+\begin{lstlisting}[label=pilha,caption=Implementação de Pilha em Java]
+package br.projecao.ed.linear;
+
+/**
+ * Implementação da estrutura de uma Pilha estática sequencial linear. 
+ * Uma {@link Pilha} é uma um conjunto ordenado de itens no qual novos itens podem ser inseridos e a partir do qual podem ser eliminados em uma extremidade denominada topo da pilha. 
+ * Por ser uma implementação estática a {@link Pilha} tem um tamanho fixo, o que significa que depois de instanciada a capacidade da pilha não muda.
+ * 
+ * @author alessandro.leite
+ */
+public class Pilha
+{
+
+	/**
+	 * Elementos da {@link Pilha}.
+	 */
+	private Object[] elementos;
+
+	/**
+	 * Determina o topo da {@link Pilha}
+	 */
+	private Integer topo;
+
+	/**
+	 * Cria uma pilha vazia e com um dado tamanho.
+	 * 
+	 * @param tamanho
+	 *            Capacidade da {@link Pilha} a ser criada. Deve ser um valor maior ou igual a zero.
+	 */
+	public Pilha(int tamanho)
+	{
+		this.elementos = new Object[tamanho];
+		this.topo = 0;
+	}
+
+	/**
+	 * Empilha um dado elemento se a pilha não esteja cheia.
+	 * 
+	 * @param elemento
+	 *            Elemento a ser empilhado.
+	 * @return <code>true</code> se o elemento estiver sido empilhado, caso contrário retorna
+	 *         <code>false</code>.
+	 */
+	public boolean push(Object elemento)
+	{
+		if (this.topo < this.elementos.length)
+		{
+			this.elementos[topo++] = elemento;
+		}
+		return false;
+	}
+
+	/**
+	 * Desempilha e retorna o elemento que está no topo da pilha, desde que a pilha não esteja
+	 * vazia.
+	 * 
+	 * @return O elemento que está no topo ou <code>null</code> se a pilha estiver vazia.
+	 */
+	public Object pop()
+	{
+		return isEmpty() ? null : this.elementos[topo--];
+	}
+
+	/**
+	 * Retorna uma nova {@link Pilha} com os elementos na ordem inversa dessa {@link Pilha}. A nova
+	 * {@link Pilha} tem tamanho igual a essa {@link Pilha}.
+	 * 
+	 * @return Uma nova {@link Pilha} com os elementos na ordem inversa dessa {@link Pilha}.
+	 */
+	public Pilha inverter()
+	{
+		Pilha inversa = new Pilha(this.elementos.length);
+		inversa.topo = this.topo;
+
+		for (int i = 0, j = this.topo - 1; i < this.topo; i++, j--)
+		{
+			inversa.elementos[i] = this.elementos[j];
+		}
+		return inversa;
+	}
+
+	/**
+	 * Retorna uma cópia dessa {@link Pilha}.
+	 * 
+	 * @return Uma cópia dessa {@link Pilha}
+	 */
+	public Pilha copia()
+	{
+		Pilha copia = new Pilha(this.elementos.length);
+		copia.topo = this.topo;
+
+		for (int i = 0; i < this.topo; i++)
+		{
+			copia.elementos[i] = this.elementos[i];
+		}
+		return copia;
+	}
+
+	/**
+	 * Empilha todos os elementos de uma dada {@link Pilha} a essa {@link Pilha}, sem modificar o
+	 * estado da {@link Pilha} dada para ser concatenada com essa. Os elementos são empilhados até a
+	 * capacidade máxima da {@link Pilha}.
+	 * 
+	 * @param p
+	 *            Pilha que deve ter todos os seus elementos empilhados nessa {@link Pilha}.
+	 */
+	public void concatena(Pilha p)
+	{
+		// realiza uma cópia da pilha p para que ela não tenha o seu estado modificado.
+		Pilha copia = p.copia();
+
+		while (!copia.isEmpty())
+		{
+			this.push(copia.pop());
+		}
+	}
+
+	/**
+	 * Realiza uma pesquisa por um dado valor na {@link Pilha}, onde se o elemento estiver presente
+	 * retorna 1 caso contrário retorna 0.
+	 * 
+	 * @param value
+	 *            Valor a ser pesquisado na {@link Pilha}.
+	 * @return O valor 1 se o elemento estiver presente, ou 0 (zero) caso contrário.
+	 */
+	public int search(Object value)
+	{
+		int i = this.topo;
+
+		while (i >= 0 && this.elementos[i] != value)
+			i--;
+
+		return i < 0 ? 0 : 1;
+	}
+
+	/**
+	 * Apresenta no console {@link System#out} os elementos da {@link Pilha}.
+	 */
+	public void print()
+	{
+		for (int i = topo - 1; i >= 0; i--)
+		{
+			System.out.println(this.elementos[i]);
+		}
+	}
+
+	/**
+	 * Retorna a quantidade de elementos presentes na pilha, ou seja, a altura da {@link Pilha}. O
+	 * tamanho da pilha é diferente a sua capacidade. A capacidade representa a quantidade máxima de
+	 * elementos permitidos em uma pilha, enquanto o tamanho, representa a quantidade de elementos
+	 * que foram adicionados.
+	 * 
+	 * @return
+	 */
+	public int size()
+	{
+		return this.topo;
+	}
+
+	/**
+	 * Retorna <code>true</code> se a pilha estiver vazia ou <code>false</code> contrário. Um pilha
+	 * é considerada vazia quando não há nenhum elemento empilhado.
+	 * 
+	 * @return <code>true</code> se a pilha estiver vazia ou <code>false</code> contrário.
+	 */
+	public boolean isEmpty()
+	{
+		return this.topo == 0;
+	}
+}
+\end{lstlisting}
+
+\Question Implemente um algoritmo que receba duas pilhas, $p_1, p_2$, e passe todos os elementos da pilha $p_2$ para o topo da pilha $p_1$. 
+\begin{lstlisting}[label=concatena,caption=Concatena duas pilhas]
+	/**
+	 * Cria e retorna uma nova {@link Pilha} com todos dos elementos da pilha p1 e os elementos da
+	 * pilha p2 no topo.
+	 * 
+	 * @return Uma nova {@link Pilha} com todos os elementos da {@link Pilha} p2 no topo da
+	 *         {@link Pilha} p1.
+	 */
+	public Pilha questao1(Pilha p1, Pilha p2)
+	{
+		Pilha pilha = new Pilha(p1.size() + p2.size());
+		pilha.concatena(p1);
+		pilha.concatena(p2);
+
+		return pilha;
+	}
+\end{lstlisting}
+\Question Implemente um algoritmo que receba uma pilha e um número inteiro como parâmetros e retorne 1 se o valor informado fizer parte da pilha ou 0 (zero) caso contrário. 		
+
+\begin{lstlisting}
+Veja o método search na classe Pilha.
+\end{lstlisting}
+
+\Question Implemente um algoritmo que receba uma pilha como parâmetro e retorne como resultado uma cópia dessa pilha.
+
+\begin{lstlisting}
+Veja o método inverter da classe Pilha.
+\end{lstlisting}
+
+%\Question Implemente um algoritmo que teste se duas pilhas são ou não iguais. O algoritmo deve retornar 1 se as duas pilhas forem iguais, e 0 (zero) caso contrário. Ao final da execução, as duas pilhas devem estar no mesmo estado em que estavam no início.
+\Question Implemente um algoritmo que leia um conjunto de valores inteiros e armazene estes valores em duas pilhas, uma para os valores positivos lidos e a outra, para os valores negativos.
+\begin{lstlisting}[label=qst:04,caption=Separa os valores lidos em duas pilhas]
+	/**
+	 * Ler um conjunto de valores inteiros e armazena-os em duas pilhas. Todos os valores positivos
+	 * lidos são colocado na Pilha[0] e os valores negativos na Pilha[1].
+	 * 
+	 * @return Duas pilhas sendo que primeira só possui valores positivos enquanto a segunda só
+	 *         possui valores negativos.
+	 */
+	public Pilha[] questao4()
+	{
+		Pilha[] pilhas =
+		{ new Pilha(Integer.MAX_VALUE), new Pilha(Integer.MAX_VALUE) };
+
+		int value;
+		do
+		{
+			System.out.println("Informe um valor ou 0 (zero) para finalizar.");
+			Scanner scanner = new Scanner(System.in);
+			value = scanner.nextInt();
+			if (value > 0)
+			{
+				pilhas[0].push(value);
+			} else
+			{
+				pilhas[1].push(value);
+			}
+		} while (value != 0);
+
+		return pilhas;
+	}
+\end{lstlisting}
+\Question Imagine um colecionador de vinhos que compra vinhos recentes e os guarda em uma adega para envelhecerem, e que a cada ocasião especial abre sempre a última aquisição (para poupar os mais antigos). Construa um programa que:
+
+\begin{itemize}
+  \item permita incluir novos vinhos na adega;
+  \item informe qual vinho deve ser aberto em uma ocasião especial;
+  \item relacione as cinco aquisições mais antigas.
+  
+ Os dados básicos que o registro de vinhos deve conter são: nome do produto e safra.
+ 
+\begin{lstlisting}[label=vinho,caption=Código da classe Vinho]
+package br.projecao.ed.linear.exercicios;
+
+public class Vinho
+{
+	/**
+	 * Nome do vinho.
+	 */
+	private String nome;
+
+	/**
+	 * A safra de um vinho nada mais é do que o ano de produção do vinho.
+	 */
+	private Integer safra;
+
+	public Vinho(String nome, Integer safra)
+	{
+		this.nome = nome;
+		this.safra = safra;
+	}
+
+	/**
+	 * @return the nome
+	 */
+	public String getNome()
+	{
+		return nome;
+	}
+
+	/**
+	 * @return the safra
+	 */
+	public Integer getSafra()
+	{
+		return safra;
+	}
+}
+ \end{lstlisting}
+ 
+ \begin{lstlisting}[label=ler,caption=Código da classe Adega]
+ package br.projecao.ed.linear.exercicios;
+
+import br.projecao.ed.linear.Pilha;
+
+/**
+ * Uma adega de vinhos
+ * 
+ * @author alessandro.leite
+ */
+public class Adega
+{
+	private Pilha vinhos = new Pilha(Integer.MAX_VALUE);
+
+	/**
+	 * Inclui um novo {@link Vinho} na {@link Adega}
+	 * 
+	 * @param vinho
+	 *            {@link Vinho} a ser adicionado à {@link Adega}.
+	 */
+	public void incluir(Vinho vinho)
+	{
+		this.vinhos.push(vinho);
+	}
+
+	/**
+	 * Retorna o {@link Vinho} que deve ser aberto. O {@link Vinho} a ser aberto é sempre o último
+	 * que foi adquirido, ou seja, o {@link Vinho} adquirido recentemente.
+	 * 
+	 * @return O {@link Vinho} que deve ser aberto.
+	 */
+	public Vinho abrir()
+	{
+		return (Vinho) this.vinhos.pop();
+	}
+
+	/**
+	 * Retorna os cinco vinhos mais antigos da {@link Adega}.
+	 * 
+	 * @return Os cinco vinhos mais antigos da {@link Adega}.
+	 */
+	public Vinho[] obterCincoVinhosMaisAntigos()
+	{
+		Vinho[] aquisicoes = new Vinho[5];
+
+		Pilha vinhos = this.vinhos.inverter();
+
+		int i = 0;
+		while (i < 5 && !vinhos.isEmpty())
+		{
+			aquisicoes[i++] = (Vinho) vinhos.pop();
+		}
+
+		return aquisicoes;
+	}
+}
+ \end{lstlisting}
+\end{itemize} 
+
+\Question O problema das Torre de Hanói é bastante estudo em computação. O problema consiste em $N$ discos de diferentes diâmetros e três estacas: $A, B, C$. Inicialmente os discos estão encaixados na estaca $A$ onde o menor está em cima do maior disco. O objetivo é deslocar os discos para uma estaca $C$, usando a estaca $B$ como auxiliar. Somente o primeiro disco de cada estaca pode ser deslocado. Construa a resolução desse exercício considerando $N = 4$, ou seja, para quatro discos.
+ 
+\Question Uma pilha pode ser usada para rastrear os tipos de escopos encontrados em uma expressão matemática e verificar se o uso deles está correto. Os delimitadores de escopo podem ser os parênteses, os colchetes e as chaves. Escreva um programa que leia uma expressão matemática e verifique se os escopos estão posicionados de forma correta.
+
+
+%Para esse problema deve-se percorrer a sequência de caracteres dada da esquerda para a direita. Os caracteres $($, $[$ e $\{$ ser˜ao inseridos na pilha. No caso dos caracteres $)$, $]$ e $\}$, será verificado se o caractere que está na extremidade da pilha é do mesmo tipo do que está sendo processado. No caso positivo, ele será removido e a execução continua. No caso negativo, a sequência n˜ao está balanceada. No fim, a sequência será considerada correta se n˜ao há mais símbolos a processar e a pilha está vazia.
+
+\begin{lstlisting}
+	/**
+	 * Verifica se os escopos dos delimitadores: parênteses (), 
+	 * os colchetes [] e as chaves {} estão posicionados 
+	 * de forma correta.
+	 * 
+	 * @param expressao Expressão matemática a ser verificada se 
+	 * 									os escopos dos delimitadores estão posicionados 
+	 * 									de forma correta.
+	 * @return <code>true</code> se os escopos dos delimitadores estão
+	 *         posicionados de forma correta ou <code>false</code> caso
+	 *         contrário.
+	 */
+	boolean balanceada(String expressao) {
+		Pilha<Character> pilha = new Pilha<Character>();
+
+		for (char c : expressao.toCharArray()) {
+			switch (c) {
+			case '(':
+			case '[':
+			case '{':
+				pilha.push(c);
+				break;
+			case ')':
+				if (pilha.isEmpty())
+					return false;
+				else {
+					char d = pilha.pop();
+					if ('(' != d)
+						return false;
+				}
+				break;
+			case ']':
+				if (pilha.isEmpty())
+					return false;
+				else {
+					char d = pilha.pop();
+					if ('[' != d)
+						return false;
+				}
+				break;
+			case '}':
+				if (pilha.isEmpty())
+					return false;
+				else {
+					char d = pilha.pop();
+					if ('{' != d)
+						return false;
+				}
+				break;
+			}
+		}
+		return pilha.isEmpty();
+	}
+\end{lstlisting}
+
+\Question Escreva um programa que converta uma expressão \textbf{posfixa} na correspondente expressão \textbf{infixa}.
+
+\Question A formatação de um documentação html é definida por tags. As tags são usados em pares: um de abertura e um de fechamento. Exemplo $<em>$\textit{itálico}$</em>$  e  $<strong>$\textbf{negrito}$</strong>$. Escreva um programa que verifique se as tags de um arquivo html estão corretamente fechadas.  Considere apenas as tags strong, tt, small, big, h1, h2, h3, h4, ul, blockquote, div, table, tr, td, address, head, body, html.
+
+%http://www.ime.usp.br/~cef/mac122-2000/listas/lista-pilha/
+\Question Simule a execução do algoritmo de conversão para a notação posfixa com a expressão aritmética abaixo: 
+$$(A + B) * D + E/(F + A * D) + C$$
+
+
+\end{Exercise*}
+
+\end{document}

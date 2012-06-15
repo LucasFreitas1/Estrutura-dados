@@ -1,0 +1,126 @@
+\documentclass[10pt]{exam} %versao 2.2
+\usepackage{graphicx}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\usepackage{palatino, url, multicol}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\usepackage{amsmath}
+
+\begin{document}
+%imprimir solução ----------------------------------------
+%comente o comando \printanswers a seguir para gerar a prova
+%descomente o comando \printanswers a seguir para gerar o gabarito com soluções
+\printanswers
+
+% traduções ----------------------------------------
+\pointpoints{ponto}{pontos}
+\renewcommand{\solutiontitle}{\noindent\textbf{Solução:}\enspace}
+%\qformat{(\pointsofquestion{\arabic{question}}\points) \thequestion}
+%\qformat{Questão \thequestion \dotfill \thepoints}
+%\totalformat{Total da questão \thequestion: \totalpoints\ \points} %ou use como na próx. linha
+\totalformat{Total: \totalpoints\ \points}
+\marginpointname{ \points}
+\hqword{Questões} %substitutes text for “Question:”
+\hpgword{Páginas} %substitutes text for “Page:”
+\hpword{Total de pontos} %substitutes text for “Points:”
+\hsword{Pontos conseguidos} %substitutes text for “Score:”
+\htword{Total} %substitutes text for “Total”
+
+% ajustes ----------------------------------------
+%\pointsinrightmargin
+%\pointsinmargin
+\addpoints
+\bracketedpoints
+%\pointsdroppedatright
+\setlength\linefillheight{.1cm} %distância entre linhas
+
+
+% Cabeçalho e Rodapé ----------------------------------------
+\pagestyle{headandfoot}
+%\headrule % coloca uma linha
+\footrule
+\firstpageheader{}{}{}
+
+\chead[]{}
+\lfoot{\iflastpage{}{}}
+%\cfoot{\iflastpage{Fim do Exame}{Pág. \thepage\ de \numpages}}
+\cfoot{\iflastpage{}{ }}
+\rfoot{\iflastpage{Boa prova!}{}}
+
+\setlength\linefillheight{.30in} %modifica a distância entre as linhas para resposta das questões.
+
+\lstset{language=Java,showstringspaces=false,basicstyle=\footnotesize}
+
+\begin{table}
+\\
+\\
+  \begin{tabular}{|p{11cm}|p{5cm}|}  
+  \hline \textbf{Nome}: & \textbf{Matrícula}:\\
+  \hline \textbf{Disciplina}: Estrutura de Dados & \textbf{Data}: 19/03/2012\\
+  \hline \textbf{Professor}:  Alessandro  & \textbf{Turma}: TAD 4AN\\
+  \hline
+  \end{tabular}
+  
+\begin{center}
+  \textbf{Avaliação A1}
+\end{center}  
+
+ \begin{tabular}{|p{4cm}|p{13cm}|}
+    \hline & \\
+    & Leia  cada questão com atenção antes de responder. \\
+    & A prova é \textbf{individual} e \textbf{sem consulta}. \\
+    \textbf{Instruções} & Questões \textbf{rasuradas} \textbf{não serão corrigidas}. \\ 
+    & Esta avaliação só será corrigida se estiver escrita à \textbf{caneta azul} ou \textbf{preta}. \\
+    & A interpretação das questões faz parte da prova. \\
+    & Esta avaliação possui 6 questões totalizando $10$ pontos. \\
+    \hline 
+  \end{tabular}
+  
+\end{table}
+
+%\twocolumn
+
+\begin{questions}
+
+\sloppy
+
+\question[2] Escreva um algoritmo que dado uma matriz inteira $M_{15 x 15 }$ apresente somente os elementos acima da diagonal principal
+
+\question[1] Utilizando o algoritmo BubbleSort, mostre, passo a passo, os estágios da ordenação do vetor $\{3; 19; 25; 24; 1; 8; 10; 7; 9; 12; 10\}$
+
+\question[2] Quantas varreduras são necessárias para levar o elemento 12 para sua posição definitiva? E para que o elemento 1 atinja sua posição final? Quantas varreduras são necessárias para que a execução do algoritmo termine.
+
+\question[1] Considere a sequência de inteiros $S = \{8,9,7,9,3,2,3,8,4,6\}$. Desenhe a sequência de execução do algoritmo \textbf{Seleção Direta} para classificar o conjunto $S$.
+
+\question[2] Construa um algoritmo (função) que coloque em um vetor os 10 primeiros valores da seqüência de Fibonacci. A seqüência de Fibonacci é definida pela seguinte fórmula:
+
+\[
+  f(n) = \left\{ 
+  \begin{array}{l l}
+    1 & se \ n = 0  \\
+    1 & se \ n = 1 \\
+    f(n - 1) + f(n - 2) & se \ n \  >= 1 \\
+  \end{array} \right.
+\]
+
+\question[2] Construa um algoritmo (função) que coloque em um vetor os 10 primeiros  valores da função fatorial. Por exemplo, o elemento v[0] deve conter o fatorial de 0, o elemento v[1] o fatorial de 1 e assim por diante. Para calcular o valor do  fatorial de cada número é útil empregar a seguinte definição.
+
+\[
+  fatorian(n) = \left\{ 
+  \begin{array}{l l}
+    1 & se \ n = 0  \\
+    n * fatorial (n - 1) & se \ n > \ 0\\
+  \end{array} \right.
+\]
+
+
+\end{questions}
+
+
+\end{document} 

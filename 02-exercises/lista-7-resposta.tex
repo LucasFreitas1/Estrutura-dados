@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{listings}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+
+%\lstset{language=C,basicstyle=\footnotesize,
+%  keywordstyle=\ttfamily\color{brown},%OliveGreen
+% identifierstyle=\ttfamily\color{CadetBlue}\bfseries, 
+% commentstyle=\color{Brown},
+% stringstyle=\ttfamily,
+% showstringspaces=false}
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Estrutura de Dados)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 7)
+   /Keywords (Exercícios, Estrutura de dados)
+}
+
+\large \def\ExerciseName{Gabarito da Lista de Exercícios 7}
+
+\begin{Exercise*}
+
+\Question Escreva uma função recursiva que receba dois números inteiros positivos \textit{k} e \textit{n} e calcule o valor de $k^n$. 
+
+\parbox[c]{15.3cm}
+{
+  \vspace{0.5cm}
+  \textbf{Solução}\\
+}
+  
+  
+\begin{lstlisting}
+int potencia(int k, int n)
+{
+   if (n == 0)
+   {
+     return 1;
+   }else
+   {
+     n = n - 1;
+     return k * potencia(k, n);  
+    } 
+}
+\end{lstlisting}
+
+\Question A seguinte função calcula o Máximo Divisor Comum (MDC) dos inteiros positivos \textit{m} e \textit{n}. Escreva uma função recursiva equivalente.
+
+\begin{lstlisting}
+int mdc(int m, int n){
+ int r;
+ do{
+   r = m % n;
+   m = n; n = r;
+ }while(r != 0); 
+ return m;
+}
+\end{lstlisting}
+
+\Question Escreva uma função que converta um número inteiro de decimal para binário.
+
+\parbox[c]{15.3cm}
+{
+  \vspace{0.5cm}
+  \textbf{Solução}\\
+}
+\begin{lstlisting}
+/**
+ * Apresenta a representação binária do número n em decimal.*/
+void decimal2Binario(int n){
+  if (n == 0 || n == 1)
+       print(n);
+  else{
+    decimal2Binario(n/2);
+    print(n % 2);        
+  }  
+}
+\end{lstlisting}
+
+\Question Usando recursão, calcule a soma de todos os valores de um \textit{array}.
+
+\parbox[c]{15.3cm}
+{
+  \vspace{0.5cm}
+  \textbf{Solução}\\
+}
+\begin{lstlisting}
+/**
+ * Realiza a soma de todos os elementos do vetor v de tamanho n.
+ */
+int soma(int v[], int n)
+{
+  if (n < 0)
+  {
+    return 0;
+  } else 
+  {
+	return v[n - 1] + soma(v, n-- - 1);   
+  }
+}
+\end{lstlisting}
+
+\end{Exercise*}
+
+\end{document}

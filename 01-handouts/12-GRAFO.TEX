@@ -1,0 +1,309 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage[brazilian]{babel}
+\usepackage{graphicx}
+\usepackage[ruled,linesnumbered,portugues,noend]{algorithm2e}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{skak}% jogo de xadrez
+
+
+\usepackage{listings}
+\usecolortheme[named=Orange]{structure} 
+\setbeamertemplate{blocks}[rounded][shadow=true] 
+\useoutertheme{infolines} 
+\usepackage{beamerthemeshadow}
+
+\definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+
+
+%ref: http://www3.ntu.edu.sg/home5/PG04878518/LatexTips.html#q1
+\lstset{language=C,basicstyle=\footnotesize,   
+ commentstyle=\color{Brown},
+ stringstyle=\ttfamily,
+ showstringspaces=false}
+
+
+
+\setbeamertemplate{title page}
+{   
+\begin{centering}
+     
+     \vskip0pt plus 1filll
+     \includegraphics{../../../logotipo/logoAnhanguera.png}\\
+     Anhanguera Educacional/FACNET
+     \vskip0pt plus 1filll
+     \insertinstitute 
+     \vskip0pt plus 1filll    
+     \vskip0pt plus 1filll         
+     {\usebeamerfont{title}\usebeamercolor[fg]{}\inserttitle}
+     \vskip0pt plus 1filll
+     \insertauthor 
+     \\E-mail: \textit{aleite@facnet.com.br}
+     \vskip0pt plus 1filll
+     \textbf{Curso}: Bacharel em Sistema de Informação\\
+     \textbf{Disciplina}: Estrutura de dados
+     \vskip0pt plus 1filll     
+     Brasília\\
+     23/11/2009
+     \vskip0pt plus 1filll     
+   \end{centering}    
+}
+
+\author{Alessandro F. Leite}
+\date{\today}
+\title{Grafos} 
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\section{Grafos}
+\begin{frame}{Grafo}
+	\begin{itemize}
+		\item Grafos são estruturas de dados parecidas com árvores.
+		\item Em um sentido matemático, uma árvore é um tipo de grafo.
+		\item Grafos são flexíveis e excelentes para representação de problemas físicos ou abstratos.
+		\item Por exemplo, os nós em um Grafo podem representar cidades e as arestas podem representar rotas de vôo de linhas aéreas entre duas cidades.
+		\item Grafo tem ampla utilização na solução de problemas relacionados à área da ciência da computação.
+		\item Alguns problemas que podem ser tratados por meio de grafos são:	
+			\begin{enumerate}
+				\item Determinação de rotas de mensagem e/ou tráfego em geral.
+				\item Modelagem de circuitos digitais.
+				\item Representação de processos em um sistema paralelo ou distribuído.
+			\end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Grafo}
+	\begin{block}{Definição}
+	  Um grafo é um conjunto de \alert{nós ou vértices (V)} e um \alert{conjunto de arestas ou arcos} (A).
+	\end{block}
+	
+	\begin{block}{Definição}
+	  Um grafo \alert{\textbf{não-direcionado}} é um conjunto de pontos com linhas conectando alguns dos pontos. Os pontos são conhecidos com \alert{nós} ou \alert{vértices}, e as linhas são chamadas \alert{arestas}.
+	\end{block}	
+\end{frame}
+
+\begin{frame}{Grafo}
+\begin{figure}[ht]
+				\centering
+				\includegraphics[width=.7\textwidth]{images/Grafos/Exemplo-Grafo}				
+				\caption{Exemplos de grafos.}	
+				\label{fig:arvore}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Grafo}
+\begin{block}{Grafo direcionado}
+  Um grafo direcionado $G$ é uma dupla $(V,A)$, que se pode definir a ordem nos pares de nós onde:  
+		\begin{enumerate}
+			\item $V$: representa um conjunto finito de nós.
+			\item $A$: representa a relação binária que pode existir entre os nós.
+		\end{enumerate}
+\end{block}
+
+\begin{figure}[ht]
+				\centering
+				\includegraphics[width=.3\textwidth]{images/Grafos/Exemplo-Grafo-direcionado.png}				
+				\caption{Exemplo de grafo direcionado.}	
+				\label{fig:grafo-direcionado}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Grau de um nó}
+\begin{itemize}
+	\item A quantidade de arcos incidentes em um nó é chamado de grau do nó.
+	\item O grau de um nó é definido como sendo o grau de saída + grau de entrada.
+\end{itemize}
+\begin{columns}
+\column{5cm}
+\begin{figure}[ht]
+				\centering
+				\includegraphics[width=.5\textwidth]{images/Grafos/Exemplo-Grau-No}								
+				\label{fig:grau-no}
+\end{figure}
+\column{5cm}
+\begin{itemize}
+	\item O nó A tem grau igual a 2 (1 saída + 1 entrada).
+	\item O nó b tem grau igual a 5 (3 saídas + 2 entradas).
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Grafo cíclico}
+\begin{itemize}
+	\item Um grafo é considerado \alert{\textbf{cíclico}} quando existir um caminho de nó mínimo três nós que começam e terminam no mesmo nó.
+	\item Um ciclo ocorre quando um arco começa e termina no mesmo nó.
+\end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{images/Grafos/Exemplo-Grau-Ciclico}								
+	\caption{Grau cíclico.}
+	\label{fig:grafo-ciclico}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Grafo Acíclico}
+\begin{itemize}
+	\item Um grafo é considerado \alert{\textbf{acíclico}} quando não ocorre nenhum ciclo em circuitos nos nós, ou seja, a orientação das setas não termina no mesmo nó.
+\end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{images/Grafos/Exemplo-Grafo-Aciclico}								
+	\caption{Grau acíclico.}
+	\label{fig:grafo-aciclico}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Estrutura para armazenar Grafo}
+\begin{itemize}
+	\item Para representar um grafo são necessários dois conjuntos:	
+		\begin{enumerate}
+			\item Um para conter os nós ou vértices do grafo.
+			\item Um conjunto para conter os arcos ou arestas.
+		\end{enumerate}
+		\item Esses dois conjuntos podem ser representados pelas seguintes estruturas de dados:		
+		\begin{enumerate}
+			\item Lista de adjacência.
+			\item Matriz de adjacência.
+		\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lista de Adjacência}
+\begin{itemize}
+	\item A lista de adjacência para um Grafo $G$ usa um vetor com $n$ listas ligadas.
+	\item Cada posição do vetor corresponde a um Nó de $G(V,A)$.
+	\item Os arcos de um nó para outros são representados por listas ligadas.
+\end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.6in]{images/Grafos/Lista-adjacencia}								
+	\caption{Representação de grafo através de lista de adjacência.}
+	\label{fig:lista-adjacencia}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Matriz de Adjacência}
+\begin{itemize}
+	\item A matriz de adjacência para um grafo $G$ assume que os nós são enumerados de 1 até $N$.
+	\item A matriz de adjacência com dimensão $NxN$ de elementos, que representam os vértices.
+\end{itemize}
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline & A & B & C & D & E & F \\
+\hline A & 0 & 1 & 1 & 1 & 0 & 0\\
+\hline B & 0 & 0 & 0 & 1 & 1 & 0\\
+\hline C & 0 & 0 & 0 & 1 & 0 & 0\\
+\hline D & 0 & 0 & 0 & 0 & 0 & 1\\ 
+\hline E & 0 & 0 & 0 & 0 & 0 & 1\\
+\hline F & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+\end{tabular}
+\caption{Matriz de adjacência}
+\label{tab:matriz-adjacencia}
+\end{table}
+\end{frame}
+
+\begin{frame}{Aplicações de Grafos}
+\begin{itemize}
+	\item Os grafos podem ser úteis como auxílio na determinação de caminho máximo ou mínimo entre cidades.
+	\item Cidades podem ser representadas como vértices e as distâncias entre as cidades representadas como as arestas entre os vértices.
+	\item Fluxo máximo (veículos, aeronaves, dados, corrente elétrica, etc.) em uma rede de fluxo.
+	\item Caminho Euleriano.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Caminho Euleriano}.
+\begin{enumerate}
+	\item Uma aplicação interessante que pode ilustrar o uso de grafos na solução de problemas rotineiros é o chamado problema do caminho \textit{Euleriano}.
+	\item Nesse contexto temos o problema do carteiro chinês.
+	\item O problema do carteiro chinês é determinar como passar pelas ruas uma única vez, representadas por arestas em um grafo, como forma de caminhamento.
+	\item Um grafo admite um caminho \textit{Euleriano} se, e somente se, o número de arcos em cada vértice for par.	
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Inspetor de estradas}
+\begin{block}{Inspetor de estradas}
+Um funcionário encarregado de verificar o estado das estradas, deseja planejar a sua rota de inspeção. Idealmente, esta rota deveria iniciar na capital e percorrer cada estrada exatamente uma vez, retornando ao ponto de partida. Existe tal rota?
+\end{block}
+
+\begin{itemize}
+	\item Esse problema foi estudado pela primeira vez por Leonhard Euler(1707-1783) e ficou imortalizada como o
+\textit{Problema das Pontes de Königsberg}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Problema das Pontes de Königsberg}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=3.0in]{images/Grafos/ponte-konigsberg}								
+	\caption{As pontes de Königsberg.}
+	\label{fig:ponte-konigsberg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Problema das Pontes de Königsberg}
+\begin{itemize}
+	\item O objetivo é percorrer exatamente uma vez todas as sete pontes da cidade que conectam as duas ilhas
+entre si e as margens do rio, voltando ao ponto de partida.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Problema das Pontes de Königsberg}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.5in]{images/Grafos/ponte-konigsberg}										
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.5in]{images/Grafos/grafo-pontes-konigsberg}										
+\end{figure}
+\end{frame}
+
+\begin{frame}{Problema das Pontes de Königsberg}
+\begin{itemize}
+	\item Euler mostrou a não existência de tal circuito através de um argumento simples. Considere, por exemplo, a ilha da direita (\textit{d}). 
+	\item Um caminho qualquer deve chegar à ilha e sair dela o mesmo número de vezes. 
+	\item Logo, para que exista um caminho \textit{Euleriano}, deve haver um número par de pontes com extremidade nesta ilha.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Problema do caminho mais curto}
+\begin{itemize}
+	\item O problema do caminho mais curto consiste em determinar qual o melhor caminho para atravessar uma rede saindo de um ponto (origem) e chegando em outro (destino) com o menor custo possível.
+\end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=2.5in]{images/Grafos/exemplo_fluxo_rede}										
+\end{figure}
+\begin{itemize}
+	\item Qual(is) o(s) menor(es) caminho(s) para atravessar o grafo saído do vértice 1 e chegando ao vértice 2.
+\end{itemize}
+
+\end{frame}
+
+
+%\begin{frame}{Problema 2}
+%\begin{block}{Caixeiro viajante}
+%Um representante de vendas de uma companhia deseja planejar uma rota, iniciando na capital, na qual ele visite
+%cada cidade exatamente uma vez, voltando ao ponto de partida. Existe tal rota?
+%\end{block}
+%\end{frame}
+
+\end{document}

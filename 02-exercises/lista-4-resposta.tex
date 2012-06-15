@@ -1,0 +1,298 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 4)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+
+\large \def\ExerciseName{Gabarito da Lista de Exercícios 4}
+
+\begin{Exercise*}
+
+\begin{lstlisting}[label=fila,caption=Implementação de Fila Estática Circular em Java]
+package br.projecao.ed.linear;
+
+/**
+ * Implementação de Fila Estática Circular.
+ */
+public class FilaCircular
+{
+	private Object[] elementos;
+
+	/**
+	 * Marca o início da fila.
+	 */
+	private int inicio;
+
+	/**
+	 * Guarda a quantidade de elementos na fila. O tamanho não está relacionado com a capacidade da
+	 * fila, mas sim, a quantidade de elementos que encontra-se na fila.
+	 */
+	private int tamanho;
+
+	/**
+	 * Cria uma {@link FilaCircular} com a capacidade máxima informada.
+	 * 
+	 * @param capacidade
+	 *            Capacidade máxima da fila a ser criada.
+	 */
+	public FilaCircular(Integer capacidade)
+	{
+		this.elementos = new Object[capacidade];
+		this.inicio = tamanho = 0;
+	}
+
+	/**
+	 * Insere um dado valor na fila, desde que a fila não esteja cheia. O novo elemento é inserido
+	 * ao final da fila.
+	 * 
+	 * @param value
+	 *            Valor a ser inserido na fila.
+	 */
+	public void inserir(Object value)
+	{
+		if (this.tamanho < this.elementos.length)
+		{
+			int fim = this.inicio + this.tamanho % this.elementos.length;
+			this.elementos[fim] = value;
+			this.tamanho++;
+		}
+	}
+
+	/**
+	 * Remove e retorna o primeiro elemento da {@link FilaCircular}. desde que a fila não esteja vazia.
+	 * 
+	 * @return O primeiro elemento da fila, desde que a fila não esteja vazia.
+	 */
+	public Object remover()
+	{
+		if (!this.isEmpty())
+		{
+			Object elemento = this.elementos[this.inicio];
+			this.inicio = (this.inicio + 1) % this.elementos.length;
+			this.tamanho--;
+			return elemento;
+		}
+		return null;
+	}
+
+	/**
+	 * Retorna o tamanho da fila.
+	 * 
+	 * @return O tamanho da fila. Um valor maior ou igual zero e menor ou igual a capacidade máxima
+	 *         da fila.
+	 */
+	public int getTamanho()
+	{
+		return this.tamanho;
+	}
+
+	/**
+	 * Retorna <code>true</code> se a fila estiver vazia ou <code>false</code> caso contrário.
+	 * 
+	 * @return <code>true</code> se a fila estiver vazia ou <code>false</code> caso contrário.
+	 */
+	public boolean isEmpty()
+	{
+		return this.tamanho == 0;
+	}
+
+	/**
+	 * Insere o elemento na primeira posição da fila, simulando o comportamento de furar fila, sem
+	 * movimentar os demais elementos existentes na fila e respeitando a capacidade da fila.
+	 * 
+	 * @param value
+	 *            Valor a ser inserido no início da fila.
+	 */
+	public void furaFila(Object value)
+	{
+		if (tamanho < this.elementos.length)
+		{
+			this.inicio--;
+			if (this.inicio < 0)
+			{
+				this.inicio = this.elementos.length - 1;
+			}
+
+			this.elementos[this.inicio] = value;
+			this.tamanho++;
+		}
+	}
+}
+\end{lstlisting}
+
+\Question Escreva um algoritmo que forneça o maior, o menor e a média aritmética dos elementos de uma Fila.
+\begin{lstlisting}
+	/**
+	 * Apresenta o maior, menor e a média aritmética dos valores da fila. Assume-se que todos os elementos são números inteiros.
+	 */
+	public void maiorMenorMedia()
+	{
+		int soma = 0;
+
+		int maior = (Integer) this.elementos[this.inicio];
+		int menor = (Integer) this.elementos[this.inicio];
+
+		for (int i = this.inicio; i < tamanho;)
+		{
+			if ((Integer) this.elementos[i] > maior)
+			{
+				maior = (Integer) this.elementos[i];
+			} else if ((Integer) this.elementos[i] < menor)
+			{
+				menor = (Integer) this.elementos[i];
+			}
+			soma += (Integer) this.elementos[i];
+			i = (i + 1) % this.elementos.length;
+		}
+		System.out.printf("Maior valor: %s, Menor valor: %s, Média aritmética %s", maior, menor,
+				(soma / this.tamanho));
+	}
+\end{lstlisting}
+
+\Question Existem partes de sistemas operacionais que cuidam da ordem em que os programas devem ser executados. Por exemplo, em um sistema de computação de tempo compartilhado (\textit{time-shared}) existe a necessidade de manter um conjunto de processo em uma fila, esperando para serem executados. Assumindo que cada processo é representado por um registro composto por um número identificador do processo, escreva um algoritmo para retirar da fila o processo com o maior tempo de espera.
+
+\Question Se um fila representada por vetores não é considerada circular, sugere-se que a cada remoção deve-se deslocar para ``frente'' todo elemento restante de uma fila. Um método alternativo é adiar o deslocamente até que ``final'' seja igual ao último índice do vetor. Quando essa situação ocorre e faz-se uma tentativa de inserir um elemento na fila, a fila inteira é deslocada para ``frente'', de modo que o primeiro
+elemento da fila fique na primeira posição do vetor, ou posição 0, caso a implementação seja em C/C++/Java. Quais são as vantagens desse método sobre um deslocamento em cada operação de remoção? Quais as desvantagens? Reescreva as funções inserir, remover, vazia usando esse novo método.
+
+\Question Como você implementaria uma fila de pilhas? Uma pilha de filas? Uma fila de filas? Escreva algoritmos para implementar as operações corretas para cada uma destas estruturas de dados.
+
+\Question Considere uma fila circular. Escreva uma função que devolva o tamanho da fila. Escreva uma função que verifique se a fila está vazia e em caso negativo remova um elemento da fila e devolva esse elemento. Escreva uma função que verifique se a fila está cheia e em caso negativo insira um objeto na fila.
+
+\begin{lstlisting}
+
+	/**
+	 * Retorna o tamanho da fila.
+	 * 
+	 * @return O tamanho da fila. Um valor maior ou igual zero e menor ou igual a capacidade máxima
+	 *         da fila.
+	 */
+	public int getTamanho()
+	{
+		return this.tamanho;
+	}
+
+	/**
+	 * Remove e retorna o primeiro elemento da {@link FilaCircular} desde que a fila não esteja vazia.
+	 * 
+	 * @return O primeiro elemento da fila, desde que a fila não esteja vazia.
+	 */
+	public Object remover()
+	{
+		if (!this.isEmpty())
+		{
+			Object elemento = this.elementos[this.inicio];
+			this.inicio = (this.inicio + 1) % this.elementos.length;
+			this.tamanho--;
+			return elemento;
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * Insere um dado valor na fila, desde que a fila não esteja cheia. O novo elemento é inserido
+	 * ao final da fila.
+	 * 
+	 * @param value
+	 *            Valor a ser inserido na fila.
+	 */
+	public void inserir(Object value)
+	{
+		if (this.tamanho < this.elementos.length)
+		{
+			int fim = this.inicio + this.tamanho % this.elementos.length;
+			this.elementos[fim] = value;
+			this.tamanho++;
+		}
+	}
+\end{lstlisting}
+
+\Question Considere a implementação de filas circulares estáticas lineares. Escreva uma função \textbf{FuraFila}(Fila* fila, Elemento e) que insere um dado elemento  na primeira posição da fila. O detalhe é que seu algoritmo deve ser \textbf{O(1)}, ou seja, não pode movimentar os outros itens da fila. Note que neste caso, estaremos desrespeitando o conceito de Fila.
+
+\begin{lstlisting}
+	/**
+	 * Insere o elemento na primeira posição da fila, simulando o comportamento de furar fila, sem
+	 * movimentar os demais elementos existentes na fila e respeitando a capacidade da fila.
+	 * 
+	 * @param value
+	 *            Valor a ser inserido no início da fila.
+	 */
+	public void furaFila(Object value)
+	{
+		if (tamanho < this.elementos.length)
+		{
+			this.inicio--;
+			if (this.inicio < 0)
+			{
+				this.inicio = this.elementos.length - 1;
+			}
+
+			this.elementos[this.inicio] = value;
+			this.tamanho++;
+		}
+	}
+\end{lstlisting}
+		
+\end{Exercise*}
+
+\end{document}

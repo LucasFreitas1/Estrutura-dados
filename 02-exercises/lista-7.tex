@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{listings}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+
+\lstset{language=Java,basicstyle=\footnotesize,
+  keywordstyle=\ttfamily\color{brown},%OliveGreen
+ identifierstyle=\ttfamily\color{CadetBlue}\bfseries, 
+ commentstyle=\color{Brown},
+ stringstyle=\ttfamily,
+ showstringspaces=false}
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Estrutura de Dados)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 6)
+   /Keywords (Exercícios, Estrutura de dados)
+}
+
+\large \def\ExerciseName{Lista de Exercícios 7}
+
+\begin{Exercise*}
+
+\Question Escreva uma função recursiva que receba dois números inteiros positivos \textit{k} e \textit{n} e calcule o valor de $k^n$. 
+
+\Question A seguinte função calcula o Máximo Divisor Comum (MDC) dos inteiros positivos \textit{m} e \textit{n}. Escreva uma função recursiva equivalente.
+
+\begin{lstlisting}
+int mdc(int m, int n){
+ int r;
+ do{
+   r = m % n;
+   m = n; n = r;
+ }while(r != 0); 
+ return m;
+}
+\end{lstlisting}
+
+\Question Escreva uma função que converta um número inteiro de decimal para binário.
+
+\Question Usando recursão, calcule a soma de todos os valores de um \textit{array}.
+
+
+\end{Exercise*}
+
+\end{document}

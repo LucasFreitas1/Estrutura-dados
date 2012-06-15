@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 1)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+
+
+
+\begin{table}
+\centering
+	\begin{tabular}{cc}	  	  	  
+	     \begin{tabular}{c}
+	      \includegraphics[width=.1\textwidth]{../../../logotipo/logoAnhanguera.png}\\
+       \end{tabular}    
+    &     
+      \begin{tabular}{c}      
+         \textbf{Anhanguera Educacional}\\
+         \textbf{Faculdades de Negócio de Tecnologias - FACNET}\\
+         \textbf{Bacharel em Sistemas de Informação - BSI}\\
+         \textbf{Estrutura de Dados}	
+      \end{tabular}    
+	\end{tabular}
+\end{table}
+
+\large \def\ExerciseName{Lista de Exercícios 1}
+
+\begin{Exercise*}
+
+Considerando a implementação de um tipo abstrato Pilha de caracteres, cuja interface está definida no arquivo \textit{pilha.h} e a implementação no arquivo \textit{pilha.c} apresentada em sala de aula, implemente as questões abaixo.
+
+\Question \textbf{Implemente uma função que receba duas pilhas, $p_1, p_2$, e passe todos os elementos da pilha $p_2$ para o topo da pilha $p_1$. Essa função deve obedecer ao protótipo: }
+		\begin{verbatim}
+		   void concatena(Pilha* p1, Pilha* p2);
+		\end{verbatim} 
+		
+\parbox[c]{15.3cm}
+{
+  \vspace{0.5cm}
+  \textbf{Solução}\\
+}
+
+\begin{verbatim}
+/**
+ * Concatena o conteúdo da Pilha p2 para a Pilha p1, 
+ * colocando-a no topo da pilha p1.
+ */
+void concatena(Pilha* p1, Pilha* p2)
+{
+     while (!empty(p2))
+     {
+        char c = pop(p2);
+        push(p1,c);   
+     }
+}
+\end{verbatim}
+
+\Question \textbf{Implemente uma função que receba uma pilha e um caractere como parâmetros e retorne 1 se o caractere informado fizer parte da pilha ou 0 caso contrário. Essa função deve obedecer ao protótipo:} 
+		\begin{verbatim}
+		   int pesquisa(Pilha* p, char c);
+		\end{verbatim} 		
+
+\parbox[c]{15.3cm}
+{
+  \vspace{0.5cm}
+  \textbf{Solução}\\
+  Para implementar essa função, sem modificar a pilha recebida, devemos comparar cada elemento do vetor da pilha, com o valor que queremos verificar a sua existência na pilha.
+}
+\begin{verbatim}
+/**
+ * Pesquisa pelo elemento c na Pilha p. A função retorna 1
+ * se o elemento c estiver na pilha ou 0 caso contrário.
+ */
+int pesquisa(Pilha* p, char c)
+{
+    int i = p->topo;
+    while (i >= 0 && p->vet[i] != c)
+       i--;
+
+   return i < 0 ? 0 : 1;
+}
+\end{verbatim}
+		
+\Question \textbf{Implemente uma função que receba uma pilha como parâmetro e retorne como resultado uma pilha com os elementos na ordem inverta da pilha de entrada. A  figura} \ref{fig:exemplo-pilha-inversa} \textbf{ilustra essa inversão.} 
+\begin{figure}[ht]
+				\centering
+				\includegraphics[width=.4\textwidth]{images/pilha_inversa.png}					
+				\caption{Exemplo de pilha invertida}
+				\label{fig:exemplo-pilha-inversa}
+			\end{figure} 
+			
+Essa função deve obedecer ao protótipo: 			
+		\begin{verbatim}
+		   Pilha* inverte(Pilha* p);
+		\end{verbatim} 
+\parbox[c]{15.3cm}
+{
+  \vspace{0.5cm}
+  \textbf{Solução}\\
+ De modo geral, para invertemos uma pilha qualquer, basta desempilhar cada elemento da pilha recebida como parâmetro e empilhá-lo na pilha de retorno. Para não modificar a pilha de entrada, será necessário criar uma cópia e desempilhar os elementos da cópia.
+}
+
+\begin{verbatim}
+/*
+ * Cria uma Pilha com os elementos na ordem inversa aos 
+ * da pilha de entrada.
+ */
+Pilha* inverte(Pilha* p)
+{
+   Pilha* copy = copia(p);   
+   Pilha* inv = create();
+   while (!empty(copy))
+   {
+     push(inv,pop(copy));
+   }   
+   libera(copy);
+   return inv;
+}
+\end{verbatim}
+		
+\Question \textbf{Implemente uma função que receba uma pilha como parâmetro e retorne como resultado uma cópia dessa pilha. Essa função deve obedecer ao protótipo:}
+    \begin{verbatim}
+		   Pilha* copia(Pilha* p);
+		\end{verbatim} 		
+
+
+\parbox[c]{15.3cm}
+{
+  \vspace{0.5cm}
+  \textbf{Solução}\\
+}
+
+\begin{verbatim}
+/*
+ * Cria e retorna uma cópia da pilha p recebida como parâmetro.
+ */
+Pilha* copia(Pilha* p)
+{
+  Pilha* copia = create();
+  copia->topo = p->topo;
+  int i;
+  for(i = 0; i < p->topo; i++)
+  {
+    copia->vet[i] = p->vet[i]; 
+  }  
+  return copia;
+}
+\end{verbatim}
+
+O código-fonte completo encontra-se disponível está download no endereço: \url{http://ead.facnet.com.br/file.php/1400/03-EXERCICIOS/01-GABARITOS/lista-01-src.zip}. Para compilá-lo e executá-lo é necessário executar os seguintes passos:
+	\begin{enumerate}
+		\item Descompactar o arquivo: lista-01-src.zip.
+		\item Abrir o arquivo: ``\textit{ExemploProjetoPilha.dev}'' no Dev-C++.
+		\item Compilar o projeto (Ctrl + F9).
+		\item Executar o projeto (F9).
+	\end{enumerate}
+\end{Exercise*}
+
+\end{document}

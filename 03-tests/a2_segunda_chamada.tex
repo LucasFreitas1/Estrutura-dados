@@ -1,0 +1,134 @@
+\documentclass[10pt]{exam} %versao 2.2
+\usepackage{graphicx}
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\usepackage{palatino, url, multicol}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\usepackage{amsmath}
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+\begin{document}
+
+
+%imprimir solução ----------------------------------------
+%comente o comando \printanswers a seguir para gerar a prova
+%descomente o comando \printanswers a seguir para gerar o gabarito com soluções
+%\printanswers
+
+% traduções ----------------------------------------
+\pointpoints{ponto}{pontos}
+\renewcommand{\solutiontitle}{\noindent\textbf{Solução:}\enspace}
+%\qformat{(\pointsofquestion{\arabic{question}}\points) \thequestion}
+%\qformat{Questão \thequestion \dotfill \thepoints}
+%\totalformat{Total da questão \thequestion: \totalpoints\ \points} %ou use como na próx. linha
+\totalformat{Total: \totalpoints\ \points}
+\marginpointname{ \points}
+\hqword{Questões} %substitutes text for “Question:”
+\hpgword{Páginas} %substitutes text for “Page:”
+\hpword{Total de pontos} %substitutes text for “Points:”
+\hsword{Pontos conseguidos} %substitutes text for “Score:”
+\htword{Total} %substitutes text for “Total”
+
+% ajustes ----------------------------------------
+%\pointsinrightmargin
+%\pointsinmargin
+\addpoints
+\bracketedpoints
+%\pointsdroppedatright
+\setlength\linefillheight{.1cm} %distância entre linhas
+
+
+% Cabeçalho e Rodapé ----------------------------------------
+\pagestyle{headandfoot}
+%\headrule % coloca uma linha
+\footrule
+\firstpageheader{}{}{}
+
+\chead[]{}
+\lfoot{\iflastpage{}{}}
+%\cfoot{\iflastpage{Fim do Exame}{Pág. \thepage\ de \numpages}}
+\cfoot{\iflastpage{}{ }}
+\rfoot{\iflastpage{Boa prova!}{}}
+
+\setlength\linefillheight{.30in} %modifica a distância entre as linhas para resposta das questões.
+
+\lstset{language=Java,showstringspaces=false,basicstyle=\footnotesize}
+
+\begin{table}
+  \begin{tabular}{|p{11cm}|p{5cm}|}
+  %\hline \includegraphics[scale=0.2]{../../../../logotipo/logo} & \\		
+  \hline Nome: & Matrícula:\\
+   & \\
+  \hline Disciplina: Estrutura de Dados & Data: 28/05/2012\\  
+  & \\
+  \hline Professor:  Alessandro Ferreira Leite&   Nota \\
+  & \\
+  \hline 
+  \end{tabular}
+
+\begin{center}
+  \textbf{Avaliação A2 (Segunda Chamada)}
+\end{center}  
+
+   \begin{tabular}{|p{3cm}|p{13cm}|}
+    \hline & \\
+    & Leia  cada questão com atenção antes de responder. \\
+   \textbf{Instruções} & A prova é individual e sem consulta. \\
+    & Questões rasuradas não serão corrigidas. \\ 
+    & Esta avaliação só será corrigida se estiver escrita à caneta azul ou preta. \\
+    \hline 
+  \end{tabular}
+  
+\end{table}
+
+\begin{questions}
+
+\sloppy
+
+\question[1\half] Escreva um algoritmo que recebe duas filas encadeadas, sendo que cada uma delas contém valores numéricos ordenados. O algoritmo deverá formar uma terceira fila encadeada, também ordenada, na qual estarão os valores armazenados nas filas originais.
+
+\question[1\half] Dada uma fila onde cada elemento é um número, escreva um algoritmo que coloque os elementos desta fila em ordem crescente, usando duas pilhas como \textbf{únicas} variáveis auxiliares.
+
+\question[2] Existem partes de sistemas operacionais que cuidam da ordem em que os programas devem ser executados. Por exemplo, em um sistema de computação de tempo compartilhado (\textit{time-shared}) existe a necessidade de manter um conjunto de processo em uma fila, esperando para serem executados. Assumindo que cada processo é representado por um registro composto por um número identificador do processo, escreva um algoritmo para retirar da fila o processo com o maior tempo de espera.
+
+\end{questions}
+
+\end{document} 

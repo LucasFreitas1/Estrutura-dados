@@ -1,0 +1,580 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{graphicx}
+\usepackage[ruled,linesnumbered,portugues]{algorithm2e}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{natbib}
+
+\usepackage{amsthm}
+
+\usepackage{qtree}
+%\usepackage{lingmacros}
+%\usepackage{tree-dvips}
+
+
+\usepackage{listings}
+
+%\usecolortheme[named=Orange]{structure} 
+%\setbeamertemplate{blocks}[rounded][shadow=true] 
+\useoutertheme{infolines} 
+\usepackage{beamerthemeshadow}
+%
+%\setbeamertemplate{title page}
+%{   
+%\begin{centering}          
+%     \vskip0pt plus 7filll              
+%     {\usebeamerfont{title}\usebeamercolor[fg]{}\inserttitle}
+%     \vskip0pt plus 1filll
+%     \insertauthor      
+%     \vskip0pt plus 1filll     
+%   \end{centering}    
+%}
+
+%\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{background canvas}
+%{
+%  \includegraphics [width=\paperwidth,height=\paperheight]{../../../../logotipo/plano_fundo_slides.jpg}}
+
+%\usetheme[height=8cm]{Rochester}
+%\setbeamertemplate{blocks}[rounded][shadow=true]
+\lstset{language=C,showstringspaces=false,basicstyle=\footnotesize}
+	
+\author{Alessandro Ferreira Leite}
+\date{12/03/2012}
+\title{Estrutura de Dados \\ Métodos de Ordenação por Troca} 
+
+%\setbeamertemplate{frametitle}
+%{
+%  \color{black}
+%  \vspace{0.5cm} \textbf{\insertframetitle}
+%}
+
+\begin{document}
+%{
+%\setbeamertemplate{background canvas}{
+%  \includegraphics [width=\paperwidth,height=\paperheight]{../../../../logotipo/plano_fundo_tela_inicial.jpg}}
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+%}
+
+\section*{Sumário}
+\begin{frame}[plain]{Sumário}  
+  \tableofcontents%[hideallsubsections]
+\end{frame}
+
+\section{Classificação por Trocas}
+\begin{frame}[fragile,plain]{Classificação por Trocas}
+\begin{itemize}
+	\item Os métodos de classificação por trocas caracterizam-se por efetuarem a classificação por comparação entre pares de chaves, trocando-as de posição caso estejam fora de ordem no par.
+\end{itemize}
+\end{frame}
+
+\subsection{Método da Bolha - Bubblesort}
+\begin{frame}[fragile,plain]{Método da Bolha - Bubblesort}
+\begin{itemize}
+	\item Neste método, o princípio geral é aplicado a todos os pares consecutivos de chaves. 
+	\item Esse processo é executado enquanto houver pares consecutivos de chaves não ordenados.
+	\item O processo finaliza quando não mais restarem pares não ordenados.
+	\item O método da bolha é um dos algoritmos mais simples que existem.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,plain]{Método da Bolha - Bubblesort}
+\begin{itemize}
+	\item \textbf{Exemplo}: Suponha que se deseje classificar em ordem crescente o seguinte vetor:
+	 \begin{table}
+	 	 \begin{tabular}{|c|c|c|c|c|}
+		   \hline 28 & 26 & 30 & 24 & 25\\ \hline
+		 \end{tabular}
+  \end{table}  
+		\begin{enumerate}
+			\item Comparamos todos os pares de chaves consecutivas, a partir do par mais à esquerda ($V_i = 0$).			
+			\item Caso as chaves de um certo par encontrem fora da ordem desejada, efetuamos a troca das mesmas.
+			\item Ao processo de comparação das $n - 1$ chaves denominamos de \alert{varredura}.
+			\item O método efetuará tanto varreduras quanto forem necessárias para que todos os pares consecutivos de chaves se apresentem na ordem deseja.
+		\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,plain]{Método da Bolha - Bubblesort}
+  \begin{table}
+	 	 \begin{tabular}{c c c c cl}
+		   \hline \textcolor{red}{28} & \textcolor{red}{26} & 30 & 24 & 25 & compara \textbf{par(28,26)}: troca\\ 
+		   \hline 26 & \textcolor{red}{28} & \textcolor{red}{30} & 24 & 25 & compara \textbf{par(28,30)}: não troca\\ 
+		   \hline 26 & 28 & \textcolor{red}{30} & \textcolor{red}{24} & 25 & compara \textbf{par(30,24)}: troca\\ 
+		   \hline 26 & 28 & 24 & \textcolor{red}{30} & \textcolor{red}{25} & compara \textbf{par(30,25)}: troca\\ 
+		   \hline 26 & 28 & 24 & 25 & \textcolor{green}{30} & fim da primeira varredura\\ 
+		   \hline 
+	\end{tabular}
+ \end{table} 
+		\begin{itemize}
+			\item Como ainda existem pares não ordenados, reiniciamos o processo de comparações de pares de chaves, executando mais uma varredura.
+			\item Ao término da $1^a$ varredura, a chave de maior valor já está posicionada na sua posição definitiva.
+			\item Isto significa que na segunda varredura podemos desconsiderar a última posição do vetor, que portanto fica reduzido de um elemento.
+		\end{itemize} 
+\end{frame}	
+
+\begin{frame}[fragile,plain]{Método da Bolha - Bubblesort}
+\begin{itemize}
+	\item Segunda varredura
+\end{itemize}
+  \begin{table}
+	 	 \begin{tabular}{c c c c cl}
+		   \hline \textcolor{red}{26} & \textcolor{red}{28} & 24 & 25 & 30 & compara \textbf{par(26,28)}: não troca\\ 
+		   \hline 26 & \textcolor{red}{28} & \textcolor{red}{24} & 25 & 30 & compara \textbf{par(28,24)}: troca\\ 
+		   \hline 26 & 24 & \textcolor{red}{28} & \textcolor{red}{25} & 30 & compara \textbf{par(28,25)}: troca\\ 
+		   \hline 26 & 24 & 25 & \textcolor{green}{28} & \textcolor{green}{30} & fim da segunda varredura\\ 		   
+		   \hline 
+	\end{tabular}	
+ \end{table}  
+ 
+	\begin{itemize}
+		\item Terceira varredura
+	\end{itemize}
+	\begin{table}
+		\begin{tabular}{c c c c cl}
+			   \hline \textcolor{red}{26} & \textcolor{red}{24}& 25 & 28 & 30 & compara \textbf{par(26,24)}: troca\\ 		   
+			   \hline 24 & \textcolor{red}{26} & \textcolor{red}{25} & 28 & 30 & compara \textbf{par(26,25)}: troca\\ 		   
+			   \hline \textcolor{green}{24} & \textcolor{green}{25} & \textcolor{green}{26} & \textcolor{green}{28} & \textcolor{green}{30} & fim da terceira varredura\\ 		   
+			   \hline 
+		\end{tabular}
+	\end{table}		
+\end{frame}
+
+\begin{frame}[fragile,plain]{Método da Bolha - Bubblesort}  
+		\begin{itemize}
+			\item A denominação desse método resulta da associação das chaves com bolhas dentro de um fluido.
+			\item Cada bolha teria um diâmetro proporcional ao valor de uma chave.
+			\item Dessa forma, as bolhas maiores subiriam com velocidades maiores, o que faria com que, após um certo tempo, elas se arranjassem em ordem de tamanho.
+		\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,plain]{Método da Bolha - Bubblesort} 
+\begin{itemize}
+	\item \textbf{Algoritmo}	  
+		\begin{enumerate}
+			\item Percorra o vetor inteiro comparando os elementos adjacentes (\textit{dois a dois}).
+			\item Troque as posições dos elementos se eles estiverem fora de ordem.
+			\item Repita os dois passos acima com os primeiros $n-1$ elementos, depois com os primeiros $n - 2$, até que reste apenas um elemento.
+		\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\subsubsection{Implementação}
+\begin{frame}[fragile,plain]{Implementação - Bubblesort} 
+\begin{lstlisting}
+/**
+ * Classifica o vetor v, em ordem crescente,
+ * utilizando o método da bolha.
+ */
+void bubblesort(int v[]){ 
+ boolean troca = true;
+ int m = |v| // tamanho do vetor v 
+ int k = 1; // indica a posição onde ocorreu a última troca
+ int i;
+ while (troca){
+   troca = false;
+   for (i = 0; i < m ; i++){
+     if (v[i] > v[i + 1]){
+          int ch = v[i];
+          v[i] = v[i + 1];
+          v[i + 1] = ch;          
+          k = i; // posição da última troca.
+          troca = true;
+     }
+   }
+   m = k; // vetor já ordenado de m + 1 até n.
+ }
+}
+\end{lstlisting}
+%void bubblesort(int[] v){
+%  int n = v.length
+%  for (int i = n - 1; i >= 1; i--){
+%    for (int j = 0; j < i; j++){
+%       if (v[i] < v[j+1]){
+%          int ch = v[j];
+%          v[j] = v[j + 1];
+%          v[j+1] = ch;          
+%       }
+%    }
+%  } 
+%}
+\end{frame}
+
+\subsubsection{Análise de Desempenho}
+\begin{frame}[fragile,plain]{Análise de Desempenho - Bubblesort}
+\begin{itemize}
+	\item O pior caso acontece quando os elementos do vetor encontram-se na ordem inversa à desejada.
+	\item Nesses casos, a cada varredura, apenas uma chave será colocada no seu local definitivo.
+	\item Desse modo, as quantidades de comparações que serão efetuadas a cada varredura são as seguintes:	
+\end{itemize}
+	\begin{table}
+		\begin{tabular}{c l}
+		\hline nº da varredura & comparações efetuadas \\
+		\hline 1 & n - 1\\
+		       2 & n - 2\\
+		       3 & n - 3\\
+		       $\vdots$ & $\vdots$\\
+		       n - 1 & 1\\
+		\hline       
+		\end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}[fragile,plain]{Análise de Desempenho - Bubblesort}
+\begin{itemize}
+	\item Portanto, o número de comparações efetuadas será a soma do número de comparações de cada varredura.
+\end{itemize}
+$$C(n) = \sum_{i = 1}^{n - 1}{i} = \frac{(n - 1)n}{2} = \frac{n^2 - n}{2}$$
+
+\begin{itemize}
+	\item Sendo $n^2$ a parcela dominante, o método é de complexidade quadrática, ou seja, $O(n^2)$.
+\end{itemize}
+\end{frame}
+
+%\begin{frame}[fragile,plain]{Exercícios}
+%\begin{enumerate}
+%	\item Utilizando o algoritmo \textbf{BubbleSort}, mostre, passo a passo, os estágios da ordenação do vetor $[3, 19, 25, 24, 1, 8, 10, 7, 9, 12, 10]$.
+%	\item Quantas varreduras são necessários para levar o elemento $12$ para sua posição definitiva? E para que o elemento 1 atinja sua posição final? Quantas varreduras são necessárias para que a execução do algoritmo termine.
+%	\item Utilizando o algoritmo \textbf{HeapSort}, mostre, passo a passo, os estágios da ordenação do vetor $[3, 19, 25, 24, 1, 8, 10, 7, 9, 12, 10]$.
+%	\item O que é um \textit{heap}?
+%	\item Modifique o algoritmo \textbf{Heapsort} para realizar a ordenação de dados em ordem decrescente.
+%\end{enumerate}
+%\end{frame}
+
+
+\subsection{Método de Partição e Troca - QuickSort}
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+  \begin{block}{QuickSort}      
+			\begin{itemize}
+				\item O \textbf{quicksort} é um algoritmo de classificação que se baseia no paradigma de d\textbf{ividir para conquistar}.
+				\item O paradigma de dividir e conquistar pode ser descrito em 3 passos para ordenar um vetor de chaves V[p..r]:				
+			\begin{enumerate}
+				\item \textbf{Dividir} - O conjunto V[p..r] é particionado em dois subconjuntos V[p..q-1] e V[q + 1..r], tal que cada elemento de V[p..q - 1] é menor ou igual a v[q] que, por sua vez é igual ou menor a cada elemento V[q + 1..r]. O índice \textbf{q} é calculado como parte desse processo de particionamento.
+				\item \textbf{Conquistar} - Os dois subconjuntos V[p..q - 1] e V[q + 1..r] são ordenados por chamadas recursivas a \textit{quicksort}.
+				\item \textbf{Combinar} - Como os subconjuntos são ordenados localmente, não é necessário nenhum trabalho para combiná-lo.
+			\end{enumerate}
+			\end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+  \begin{block}{Idéia Básica}    
+		\begin{itemize}
+			\item O algoritmo divide o vetor de chaves em dois subconjuntos, através de um elemento denominado \textbf{pivô}, ou elemento de particionamento ($k$).
+			\item Compara recursivamente os elementos dos dois conjuntos com o \textbf{pivô}, e move-os para o conjunto correto, da direita ou esquerda, de modo que \textbf{todo elemento a esquerda} de $k$ \textbf{seja menor ou igual} a $k$, e os da direita sejam maior ou iguais a $k$.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+  \begin{block}{Descrição do método}    
+		\begin{itemize}
+			\item Dado um vetor $V[1..n]$ a ser ordenado.
+			\item Primeiro esse vetor é particionado em 3 segmentos, denotados como: $S_1, \ S_2, \ S_3$ da seguinte forma:	
+					\begin{enumerate}
+						\item $S_2$ terá comprimento 1 e conterá a chave denominada particionadora(\textit{pivô}), representada como $k$.
+						\item $S_1$ terá comprimento $\geq 0$ e conterá \alert{todas as chaves} cujos valores forem \alert{menores ou iguais} ao da chave particionadora. Esse segmento é particionado à esquerda de $S_2$.
+						\item $S_3$ também terá comprimento $\geq 0$ e conterá todas as chaves cujos valores forem \alert{maiores ou iguais} do que $k$. Esse segmento é posicionado à direita de $S_2$.
+					\end{enumerate}					
+		\end{itemize}		 
+  \end{block}
+\end{frame}
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+  \begin{block}{Representação do particionamento do vetor $V[1..n]$}    
+		 \begin{table}
+		   %\centering
+		   \begin{tabular}{lccccccr}
+		    vetor inicial: & & & & & & &  \\ 		    
+       \end{tabular}
+       \\
+		   \begin{tabular}{lccccccr}
+		    1 & & & & & & & n \\ 
+       \end{tabular}
+       \\
+       \begin{tabular}{|lccccccr|}
+		     \hline  & & & & & & &  \\ \hline		     
+       \end{tabular}
+       \\
+       \begin{tabular}{lccccccr}
+		      vetor particionado: & & & & & & & \\ 
+		      & & & & & & & \\ 
+       \end{tabular}
+       \\
+       \begin{tabular}{rccrcccl}
+		    1 & &k - 1 &  & k& k + 1& & n \\ 
+       \end{tabular}
+       \\
+       \begin{tabular}{|lccc|c|cccr|}
+		     \hline & & $S_1$& & $S_2$ & & $S_3$& &  \\ \hline
+       \end{tabular}
+		 \end{table}		 
+		\begin{itemize}
+			\item O processo de particionamento é reaplicado aos subconjuntos $S_1$ e $S_3$ e todos os subconjuntos correspondentes daí resultantes que tiverem comprimento $\geq 1$.
+			\item Quando não restarem subconjuntos a serem particionados, o vetor estará ordenado.
+		\end{itemize}		 
+  \end{block}
+\end{frame}
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Processo de Particionamento}	  
+		\begin{itemize}
+			\item Suponha o vetor $V[1..n]$, abaixo:
+		\end{itemize}
+		\begin{table}
+		  \centering
+   	  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+   	    \hline 9 & 25 & 10 & 18 & 5 & 7 & 15 & 3 \\ \hline
+	    \end{tabular}		    
+    \end{table}    
+		\begin{itemize}
+			\item Escolhemos a primeira chave, como sendo a \alert{particionadora} e a guardamos em uma variável temporária (k).
+			\item A posição ocupada pela chave particionadora ficará vazia, visualmente indicada pelo símbolo $\emptyset$.
+		\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{cccccccccc}
+   	     $\emptyset$ & 25 & 10 & 18 & 5 & 7 & 15 & 3 & k = 9 \\ 
+	    \end{tabular}		    
+    \end{table}  
+    
+\begin{itemize}
+	\item Marcamos também o início e o fim do vetor com dois ponteiros: \textbf{i} (de início) e \textbf{f}(de fim).
+\end{itemize}    
+	\end{block}
+\end{frame}
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 1º Passo}	  
+	  \begin{table}
+		 \centering
+		 \begin{tabular}{cccccccccccccc}
+		   $i$ & & & & & & & & & & & & $f$ \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{cccccccccccccc}
+		   $\downarrow$ & & & & & & & & & & & & $\downarrow$ \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{cccccccc}
+   	     $\emptyset$ & 25 & 10 & 18 & 5 & 7 & 15 & 3 \\ 
+	    \end{tabular}		    
+    \end{table}      
+		\begin{itemize}
+			\item Em seguida, comparamos o valor da chave apontada por $f$ com $k$. 
+			\item Se $v[f] < k$, então deslocamos a chave apontada por $f$ para o lado esquerdo do vetor, e avançamos o ponteiro $i$, para indicar que a chave recém movida já se encontra na posição correta.
+			\item \alert{A nova posição vaga passa a ser apontada por \textbf{f}}.
+		\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{ccccccccccccc}
+		    & $i$& & & & & & & & & & $f$ \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccccccccccc}
+		   & $\downarrow$& & & & & & & & & &  $\downarrow$ \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{cccccccc}
+   	     \textcolor{blue}{3} & 25 & 10 & 18 & 5 & 7 & 15 & $\emptyset$ \\ 
+	    \end{tabular}		    
+    \end{table}   
+	\end{block}
+\end{frame}	
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 2º Passo}	  	  	
+			\begin{itemize}
+				\item Agora comparamos a chave \textbf{25} com $k$. Como 25 é maior que $k$, deslocamos para a posição vaga, ao mesmo tempo que recuamos o ponteiro \textbf{f} uma posição para a esquerda, indicando que a chave 25 já se encontra no subconjunto correto.				
+			\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{ccccccccccccc}
+		    & $i$& & & & & & & & $f$ &  &  \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccccccccccc}
+		   & $\downarrow$& & & & & & & & $\downarrow$&& \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{cccccccc}
+   	     \textcolor{blue}{3} & $\emptyset$ & 10 & 18 & 5 & 7 & 15 & 25 \\ 
+	    \end{tabular}		    
+    \end{table}       		
+	\end{block}
+\end{frame}	
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 3º Passo}	  	  				   
+		\begin{itemize}
+			\item O processo prossegue comparando a chave \textbf{15}. Nesse caso, $15 > k$, não deve ser trocada de posição, pois já se encontra no subconjunto correto. Apenas deslocamos o ponteiro de $f$ para a esquerda.
+		\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{ccccccccccccc}
+		    & $i$& & & & & & $f$& &  &  &  \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccccccccccc}
+		   & $\downarrow$& & & & & & $\downarrow$& & & & \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{cccccccc}
+   	     \textcolor{blue}{3} & $\emptyset$ & 10 & 18 & 5 & 7 & 15 & 25 \\ 
+	    \end{tabular}		    
+    \end{table}    
+	\end{block}
+\end{frame}	
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 4º Passo}	  	  				   
+		\begin{itemize}
+			\item No passo seguinte a chave 7 é colocada na posição vaga apontada por $i$, pois $7 < k$, e o ponteiro $i$ é ajustado.
+		\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{ccccccccccccc}
+		    & & & $i$& & & & $f$& &  &  &  \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccccccccccc}
+		   & & & $\downarrow$& & & & $\downarrow$& & & & \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccllll}
+   	     \textcolor{blue}{3} & \textcolor{blue}{7} & 10 & 18 & 5 & $\emptyset$ & 15 & 25 \\ 
+	    \end{tabular}		    
+    \end{table}    
+	\end{block}
+\end{frame}	
+
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 5º Passo}	  	  				   
+		\begin{itemize}
+			\item Em seguida a chave 10 é comparada com $k$. Como $10 > k$, a chave é movida para a posição vazia, apontada por $f$ e recuamos o ponteiro $f$ em uma posição.
+		\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{ccccccccccccc}
+		    & & & $i$& & & $f$ & & &  &  &  \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccccccccccc}
+		   & & & $\downarrow$& & & $\downarrow$ & & & & & \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccllll}
+   	     \textcolor{blue}{03} & \textcolor{blue}{07} & $\emptyset$ & 18 & 05 & 10 & 15 & 25 \\ 
+	    \end{tabular}		    
+    \end{table}    
+	\end{block}
+\end{frame}	
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 6º Passo}	  	  				   
+		\begin{itemize}
+			\item Novamente, comparamos a chave 5 com $k$. Como $5 < k$, colocamos a chave \textbf{5} na posição vazia indica por $i$, e avançamos o ponteiro $i$ uma posição. A nova posição vazia agora é a indicada pelo ponteiro $f$.
+		\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{ccccccccccccc}
+		    & & & & & $i$& $f$ & & &  &  &  \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccccccccccc}
+		   & & & & & $\downarrow$& $\downarrow$ & & & & & \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccllll}
+   	     \textcolor{blue}{03} & \textcolor{blue}{07} & \textcolor{blue}{05} & 18 & $\emptyset$ & 10 & 15 & 25 \\ 
+	    \end{tabular}		    
+    \end{table}    
+	\end{block}
+\end{frame}	
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 7º Passo}	  	  				   
+		\begin{itemize}
+			\item Por fim, comparamos a chave 18 com $k$. Como $18 > k$, colocamos na posição vazia, indica por $f$, e recuamos o ponteiro $f$ uma posição. A nova posição vazia agora é indicada pelo ponteiro $i$.
+		\end{itemize}
+		\begin{table}
+		 \centering
+		 \begin{tabular}{ccccccccccccc}
+		    & & & & $i,f$& & & & &  &  &  \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccccccccccc}
+		   & & & & $\downarrow$& &  & & & & & \\
+		 \end{tabular}
+		 \\
+		 \begin{tabular}{ccccllll}
+   	     \textcolor{blue}{03} & \textcolor{blue}{07} & \textcolor{blue}{05} & $\emptyset$ & 18 & 10 & 15 & 25 \\ 
+	    \end{tabular}		    
+    \end{table}        
+	\end{block}
+\end{frame}	
+
+\begin{frame}[plain]{Método de Partição e Troca - QuickSort}
+	\begin{block}{Particionamento - 8º Passo}	  	  				   	
+	  \begin{itemize}
+			\item O resultado do 7º passo (correspondente ao $n-1$), produz a situação onde os ponteiros $i$ e $f$ se encontram.
+			\item A posição vaga apontada por eles, corresponde à posição do subconjunto $S_2$, ou seja, a posição onde o valor de $k$ deve ser inserido.
+			\item Assim, basta copiar o valor de $k$ para a posição apontada por $i$ e $f$ que o processo de particionamento estará concluído.
+	 \end{itemize}
+	 \begin{table}
+	  \centering
+	    \begin{tabular}{ccccllll}
+   	     03 & 07 & 05 & \alert{09} & 18 & 10 & 15 & 25 \\ 
+	    \end{tabular}		    
+	  \end{table}  	  
+		\begin{itemize}
+			\item Observe que embora os subconjuntos $S_1$ e $S_3$ ainda não estejam ordenados, $k$ já se encontra na posição definitiva.
+			\item O processo de classificação prossegue com o particionamento dos subconjuntos $S_1$ e $S_3$ e todos os demais subconjuntos de tamanho maior ou igual a um que forem se formando.
+		\end{itemize}
+	\end{block}	
+\end{frame}	
+
+\subsubsection{Implementação}
+\begin{frame}[plain,fragile]{Implementação do Quicksort}
+\begin{lstlisting}
+void quicksort(int v[], int i, int f){
+  if (f > i){
+    int k = partition(v,i,f);
+    quicksort(v,i, k -1);
+    quicksort(v, k + 1, f); 
+  }
+}
+int partition(int[] v, int p, int r){
+  int c = v[r], j = p, k;
+  for (k = p; k < r; k++)
+   if (v[k] < c){
+      trocar(v,j,k);
+      j++;
+   }
+   v[r] = v[j]; v[j] = c;
+   return j;
+}
+void trocar(int v[], int a, int b){
+  int t = v[a]; v[a] = v[b]; v[b] = t;
+}
+\end{lstlisting}
+\end{frame}
+
+%\subsubsection{Análise de Desempenho}
+%\begin{frame}[plain]{Análise de Desempenho}
+%\end{frame}
+
+
+%referencia = http://users.matrix.com.br/elton/UNISUL/08%20-%20An%E1lise%20de%20Algoritmos/trabalho2/
+
+
+
+
+\end{document}

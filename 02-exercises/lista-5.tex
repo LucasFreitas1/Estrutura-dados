@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+
+\begin{document}
+
+\pdfinfo{
+   /Author (Alessandro Leite)
+   /Title  (Lista de Exercícios)
+   /CreationDate (\today)
+   /Subject (Lista de Exercícios 5)
+   /Keywords (Exercícios, Estrutura de Dados)
+}
+
+
+\large \def\ExerciseName{Lista de Exercícios 5}
+
+\begin{Exercise*}
+
+\Question Considere uma lista de valores inteiros e implemente um algoritmo que receba como parâmetro dois valores ($n_1$ e $n_2$) e uma lista, e insira o valor $n_2$ após o nó que contém o valor $n_1$.
+
+\Question Construa um algoritmo que receba como parâmetros uma lista e um valor, valor este que representa a posição de um \textbf{nó} na lista. O algoritmo deverá retornar as informações contidas neste nó e a lista resultante da exclusão deste nó.
+
+\Question Construa um algoritmo que receba, como parâmetro, o endereço do primeiro nó de uma lista encadeada e um valor. O algoritmo deve retornar:
+\begin{enumerate}
+  \item O número total de nós da lista;
+  \item O número de nós da lista que possuem em seu conteúdo o valor passado como parâmetro e sua respectiva posição na lista;
+  \item O número de nós que possuem em seu conteúdo valores maiores do que o valor passado como argumento.
+\end{enumerate}
+
+\Question Construa um algoritmo que receba como parâmetros a referência para o primeiro nó de uma lista encadeada e dois valores, e retorne:
+\begin{enumerate}
+   \item  A lista resultante da troca de todas as ocorrências do primeiro valor pelo segundo, ambos passados como parâmetros; 
+   \item Número total de troca efetuadas. 
+\end{enumerate}
+
+\Question Construa um algoritmo que receba como parâmetro duas listas e um número inteiro $N$ e retorne a lista resultante da inserção da segunda lista na primeira, sequencialmente, a partir da posição $N$ da primeira lista.
+
+\Question Construa um algoritmo que receba como parâmetro duas listas encadeadas ordenadas e retorne a lista resultante da combinação das duas sendo que a lista resultante também deve estar ordenada.
+
+\Question Construa um algoritmo que receba como parâmetro duas listas encadeadas e retorne um valor lógico que indique se as duas listas são idênticas.
+
+\Question $[Desafio]$ Polinômios podem ser representados por meio de listas encadeadas, cujos nós são objetos com três atributos: coeficiente, expoente e uma referência ao nó seguinte. Construa um algoritmo que receba a variável  $X \in R$ como parâmetro, e retorne o resultado do calculo de $p(x)$.
+		
+\end{Exercise*}
+
+\end{document}

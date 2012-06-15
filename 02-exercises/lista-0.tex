@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered,portugues]{algorithm2e} %ruled
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usepackage{exercise}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\setlength{\topmargin}{-0.75in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+
+\begin{document}
+
+\begin{table}
+
+  \begin{tabular}{|p{11cm}|p{5cm}|}
+  \hline \textbf{Nome}: & \textbf{Matrícula}:\\
+  \hline \textbf{Disciplina}: Estrutura de Dados & \textbf{Data}: 27/02/2012\\
+  \hline \textbf{Professor}:  Alessandro & \textbf{Turma}: TAD / TRC 4AN\\
+  \hline
+  \end{tabular}
+  
+\end{table}
+
+  \large \def\ExerciseName{Lista de Exercícios 0}
+
+\begin{Exercise*}
+
+\Question Escreva um programa que leia os elementos de uma matriz $10 \ x \ 10$ e apresente separadamente:
+\begin{enumerate}
+	\item Todos os elementos, exceto os da diagonal principal.
+    \item Os elementos acima da diagonal principal.
+\end{enumerate}
+
+\Question Escreva um programa que dado uma matriz $M_{4 x 7}$ apresente a transposta da matriz M. A matriz transposta é gerada trocando linha por coluna.
+
+
+\Question Escreva um algoritmo que leia e armazene os elementos de uma matriz inteira $M_{10 x 10}$ e apresente os seus elementos segundo as seguintes regras:
+
+\begin{enumerate}
+   \item troque a segunda linha pela oitava linha;
+   \item troque a quarta linha pela décima linha;
+   \item troque a diagonal principal pela diagonal secundária
+\end{enumerate}
+
+\Question Escreva um programa que armazene valores inteiros para uma matriz de ordem quatro. Apresente toda a matriz e o determinante da matriz. O programa deve impedir a entrada do valor zero para qualquer elemento que se encontre na diagonal secundária ou abaixo da diagonal secundária e só deve permitir a entrada do zero para todo elemento que se encontre acima da diagonal secundária.
+
+\textbf{Considerações}: A solução desse algoritmo se torna simples desde que você saiba que, quando uma matriz tem um triângulo de zeros, em relação a Diagonal Secundária (DS), o cálculo do determinante se faz da seguinte forma:
+
+\begin{enumerate}
+   \item Multiplicam-se os elementos que estão na DS;
+   \item Se a matriz for de ordem par, será igual ao resultado do produto;
+   \item Se a matriz for de ordem ímpar, será igual ao resultado do produto negativado.
+\end{enumerate}
+
+
+\Question Escreva um algoritmo que leia os valores de uma matriz de ordem cinco e verifique se ela é ou não uma matriz identidade.
+Matriz identidade é uma matriz onde todos os elementos da diagonal principal (DP) são iguais a 1 e os outros iguais a zero.
+
+\end{Exercise*}
+
+\end{document}

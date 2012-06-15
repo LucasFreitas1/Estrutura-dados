@@ -1,0 +1,241 @@
+%\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{../../class/handout}
+%\usepackage{classes/infocomp}
+
+%\usepackage[brazil]{babel}
+%\usepackage[latin1]{inputenc}
+
+\usepackage[latin1]{inputenc}
+\usepackage[brazil]{babel}
+
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx,url}
+\usepackage[linesnumbered,portugues,noend,ruled]{algorithm2e} %ruled
+%muda a condificação da fonte, tornando possível copiar textos com 
+\usepackage[T1]{fontenc}
+%\usepackage{natbib}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{qtree}
+\usepackage[portugues]{algorithm2e}%ruled linesnumbered
+
+
+%virar a página - tag: \begin{sideways} \end{sideways}
+\usepackage{rotating}
+
+%\usepackage{caption2}
+%\renewcommand{\captionfont}{\footnotesize}
+%\renewcommand{\captionlabelfont}{\footnotesize \bfseries}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definição]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Exemplo]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
+
+	\usepackage{color}
+
+	\definecolor{dkgreen}{rgb}{0,0.6,0}
+	\definecolor{gray}{rgb}{0.5,0.5,0.5}
+	\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+	\lstset{ %
+	  language=Java,                % the language of the code
+	  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+	  numbers=left,                   % where to put the line-numbers
+	  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+	  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+	                                  % will be numbered
+	  numbersep=5pt,                  % how far the line-numbers are from the code
+	  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+	  showspaces=false,               % show spaces adding particular underscores
+	  showstringspaces=false,         % underline spaces within strings
+	  showtabs=false,                 % show tabs within strings adding particular underscores
+	  frame=single,                   % adds a frame around the code
+	  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+	  tabsize=2,                      % sets default tabsize to 2 spaces
+	  captionpos=b,                   % sets the caption-position to bottom
+	  breaklines=true,                % sets automatic line breaking
+	  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+	  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+	                                  % also try caption instead of title
+	  keywordstyle=\color{blue},          % keyword style
+	  commentstyle=\color{dkgreen},       % comment style
+	  stringstyle=\color{mauve},         % string literal style
+	  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+	  morekeywords={*,...}               % if you want to add more keywords to the set
+	}
+
+      
+
+\SetInstructor{Alessandro}
+\SetCourseTitle{Estrutura de Dados}
+\SetHandoutTitle{Árvores binárias}
+\SetSemester{1/2012}
+\SetDueDate{04/06/2012}
+
+
+\begin{document}
+	
+
+\maketitleinst
+
+\sloppy
+
+\section{Árvore binária}
+
+Uma \textbf{árvore binária} é uma árvore ordenada com as seguintes propriedades:
+
+\begin{enumerate}
+	\item Todos os nós têm no máximo dois filhos.
+	\item Cada nó filho é rotulado como sendo \textbf{filho da direita} ou um \textbf{filho da esquerda}.
+	\item O filho da esquerda precede o filho da direita na ordenação dos filhos de um nó.
+\end{enumerate}
+
+A subárvore enraizada no filho da direita ou no filho da esquerda de um nó interno $v$ é chamada de \textbf{subárvore direita} ou \textbf{subárvore esquerda} de $v$, respectivamente. Uma árvore binária é \textbf{própria} se cada nó tem zero ou dois filhos. Alguns autores também se referem a estas árvores, como árvores binárias \textbf{cheias}. Logo, em uma árvore binária própria todo nó interno tem exatamente dois filhos. Uma árvore binária que não é própria é dita \textbf{imprópria}.
+
+Uma \textbf{árvore binária} é chamada de \textbf{árvore de pesquisa binária} quando:	
+
+\begin{enumerate}
+			\item Os \textbf{valores} em \textbf{qualquer} \textbf{subárvore esquerda} são \textbf{menores} que o valor em seu \textbf{nó-pai}.
+			\item Os \textbf{valores} em qualquer \textbf{subárvore direta} são \textbf{maiores} que o valor em seu \textbf{nó-pai}.
+\end{enumerate}
+
+
+\begin{figure}[!htpb]
+	\centering
+	\Tree [.47 [.25 [.11 7 17 ] [.43 31 44 ] ] [.77 [.65 68 ] 93 ] ]
+	\caption{Árvore de pesquisa binária}
+	\label{fig:tree:binaria}
+\end{figure}
+
+
+Uma árvore binária pode ser definida como sendo:
+
+\begin{enumerate}
+	\item Uma \textbf{árvore vazia}; ou 
+	\item Um nó \textbf{raiz} tendo duas subárvores, identificadas como a \textbf{subárvore da direita} e a \textbf{subárvore da esquerda}.
+\end{enumerate}
+
+
+Considerando que precisamos armazenar $n$ nós em uma árvore binária, a sua altura ou número de níveis é $h_{max} = n$, onde $n$ é a quantidade de elementos ou Nós do conjunto árvore.
+
+A \textbf{altura máxima} de uma árvore será igual a $n$ se e somente se a árvore for \textbf{degenerada} e tiver \textbf{filhos} em uma \textbf{única direção} (Figura \ref{fig:tree:degenerada}).
+
+\begin{figure}[!htpb]
+	\centering
+	\Tree [.47 [.25  [.11  [.7  [.17  ] ] ] ] ]
+	\caption{Exemplo de árvore degenerada. A altura de $T$ é igual a $n$, onde $n$ é o número de nós de $T$. $h_{max} = 5$}
+	\label{fig:tree:degenerada}
+\end{figure}
+
+\subsection{Profundidade}
+
+A \textbf{profundidade} de uma \textbf{árvore binária} significa o nível máximo de qualquer folha na árvore. Isso equivale ao tamanho do percurso mais distante da raiz até qualquer folha.
+
+Se uma árvore binária tem $m$ nós no nível $l$, então ela terá no máximo $2m$ nós no nível $l + 1$. Como uma árvore binária pode conter no \textbf{máximo} \textbf{um nó nível 0(raiz)}, ela poderá conter no máximo $2^1$ nós no nível $l$.
+
+\textbf{Um árvore é estritamente binária} quando todo nó que \textbf{não} é \textbf{folha} tiver uma \textbf{subárvore} \textbf{esquerda} e \textbf{direita} \textbf{não vazias}.
+
+Uma árvore binária com $n$ folhas contém sempre $2n - 1$ nós. Logo, a altura mínima é $h_{min} = (\log_{2} n) + 1$.
+
+\subsection{Altura de uma Árvore binária}
+
+Uma \textbf{árvore binária} é dita \textbf{cheia}, ou \textbf{completa}, se todos os seus \textbf{nós internos} têm \textbf{duas subárvores associadas} e todos os nós \textbf{folhas} estão no \textbf{último nível}.
+
+Nesse tipo de árvore, temos um nó no nível $0$, dois nós no nível 1, quatro nós no nível 2, oito nós no nível 3, e assim sucessivamente.
+
+A altura de uma árvore é uma medida importante na avaliação da eficiência com que visitamos os nós de uma árvore.
+
+A altura indica o esforço computacional necessário para alcançar qualquer nó na árvore.
+
+\begin{figure}[!htpb]
+	\centering
+		\includegraphics[width=0.85\textwidth]{images/Arvores/NUMERO_MAXIMO_NIVES}
+	    \label{fig:NUMERO_MAXIMO_NIVES}
+	    \caption{Número máximo de nós nos níveis de uma árvore binária}
+\end{figure}
+
+\section{Percurso em Árvores Binárias}
+
+Muitas operações em árvores binárias envolvem o percurso de todas as subárvores, com a execução de alguma ação de tratamento em cada nó, de forma que é comum percorrer uma árvore em uma das seguintes ordens:
+
+\begin{enumerate}
+	\item \textbf{pré-ordem}: trata \textbf{raiz}, percorre \textbf{esquerda} (\textit{left}), percorre \textbf{direita} (\textit{right}).
+	\item \textbf{ordem simétrica}: percorre \textbf{esquerda} (\textit{left}), trata \textbf{raiz}, percorre \textbf{direita} (\textit{right}).
+	\item \textbf{pós-ordem}: percorre \textbf{esquerda} (\textit{left}), percorre \textbf{direita} (\textit{right}), trata \textbf{raiz}.
+\end{enumerate} 
+
+Nas \textbf{árvores binárias de busca}, a ordem \textbf{importante} é a \textbf{ordem simétrica}.
+
+\textbf{Exemplo:} Suponha que precisamos descobrir números repetidos em uma lista não-ordenada de números. 		
+	\begin{enumerate}
+		\item Uma possibilidade é comparar cada novo número com todos os números já lidos.
+		\item Manter uma lista ordenada dos números e a cada número lido fazer uma busca na lista.
+		\item Uma forma eficiente é usar uma \textbf{árvore binária} para manter os números. Dessa forma, o primeiro número é colocado na \textbf{raiz} da árvore. Cada novo número informado é comparado com o elemento raiz, caso seja \textbf{igual}, trata-se de uma \textbf{repetição},  partirmos para ler outro número. Se é \textbf{menor} repetimos o processo com a árvore da esquerda e se \textbf{maior} com a árvore da direita. Este processo continua até que uma repetição seja encontrada ou uma árvore vazia é achada. Neste caso, o número é inserido na posição devida na árvore.
+	\end{enumerate}
+
+
+Seja o conjunto $v$ fornecido pelo usuário.
+
+\begin{table}[!htpb]
+  \centering
+	\begin{tabular}{ccccccccc}
+	   7 & 8 & 2 & 5 & 8 & 3 & 5 & 10 & 4\\
+	\end{tabular}
+\end{table}	
+
+Inserindo cada valor em um árvore binária teremos a seguinte representação da árvore, temos:
+
+\begin{figure}[!htpb]
+	\centering
+	\Tree [.\fbox{7} [.\fbox{2} \fbox{} [.\fbox{5} [.\fbox{3} \fbox{} \fbox{4} ] \fbox{} ] ] [.\fbox{8} \fbox{10} ] ] 
+\end{figure}
+
+A partir da árvore construída, podemos obter os valores da árvore em ordem crescente percorrendo os nós em ordem simétrica. O algoritmo \ref{alg:simetrico} apresenta o pseudo-código pata obter os elementos de uma árvore binária $T$.
+
+
+\SetAlFnt{\footnotesize\sf}
+\begin{algorithm}[H]\label{alg:simetrico}
+\dontprintsemicolon
+\SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
+\SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
+\SetKwFor{ParaCada}{para cada}{faça}{fim}
+\SetKwFunction{simetrico}{simétrico($no$)}    
+  nos $\leftarrow$ \{\}\;
+  \Se{$no <> nulo$}{  
+    nos $\bigcup $ simetrico(left(no)) $\bigcup $ no\;    
+    nos $\bigcup $ simetrico(right(no))\;
+  }
+  \caption{simétrico($no$)}
+\end{algorithm}
+
+\begin{lstlisting}
+public List<No<E>> ascOrder(No<E> no) {
+  List<No<E>> nodes = new ArrayList<No<E>>();
+   if (no != null){
+     nodes.addAll(ascOrder(no.left()));
+     nodes.add(no);
+     nodes.addAll(ascOrder(no.right()));
+   }
+   return nodes;		
+}
+\end{lstlisting}
+
+ \end{document}

@@ -1,0 +1,424 @@
+%\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{../../class/handout}
+%\usepackage{classes/infocomp}
+
+%\usepackage[brazil]{babel}
+%\usepackage[latin1]{inputenc}
+
+\usepackage[latin1]{inputenc}
+\usepackage[brazil]{babel}
+
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx,url}
+\usepackage[linesnumbered,portugues,noend,ruled]{algorithm2e} %ruled
+%muda a condificação da fonte, tornando possível copiar textos com 
+\usepackage[T1]{fontenc}
+%\usepackage{natbib}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{qtree}
+\usepackage[portugues]{algorithm2e}%ruled linesnumbered
+
+
+%virar a página - tag: \begin{sideways} \end{sideways}
+\usepackage{rotating}
+
+%\usepackage{caption2}
+%\renewcommand{\captionfont}{\footnotesize}
+%\renewcommand{\captionlabelfont}{\footnotesize \bfseries}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definição]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Exemplo]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
+
+	\usepackage{color}
+
+	\definecolor{dkgreen}{rgb}{0,0.6,0}
+	\definecolor{gray}{rgb}{0.5,0.5,0.5}
+	\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+	\lstset{ %
+	  language=Java,                % the language of the code
+	  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+	  numbers=left,                   % where to put the line-numbers
+	  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+	  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+	                                  % will be numbered
+	  numbersep=5pt,                  % how far the line-numbers are from the code
+	  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+	  showspaces=false,               % show spaces adding particular underscores
+	  showstringspaces=false,         % underline spaces within strings
+	  showtabs=false,                 % show tabs within strings adding particular underscores
+	  frame=single,                   % adds a frame around the code
+	  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+	  tabsize=2,                      % sets default tabsize to 2 spaces
+	  captionpos=b,                   % sets the caption-position to bottom
+	  breaklines=true,                % sets automatic line breaking
+	  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+	  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+	                                  % also try caption instead of title
+	  keywordstyle=\color{blue},          % keyword style
+	  commentstyle=\color{dkgreen},       % comment style
+	  stringstyle=\color{mauve},         % string literal style
+	  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+	  morekeywords={*,...}               % if you want to add more keywords to the set
+	}
+
+      
+
+\SetInstructor{Alessandro}
+\SetCourseTitle{Estrutura de Dados}
+\SetHandoutTitle{Árvores}
+\SetSemester{1/2012}
+\SetDueDate{27/05/2012}
+
+
+\begin{document}
+	
+
+\maketitleinst
+
+\sloppy
+
+\section{Introdução}
+As estruturas de dados estudadas até agora são caracterizadas como lineares, como vetores e listas. A importância dessas é inegável, mas elas não são adequadas para representar dados que devem ser dispostos de maneira hierárquica. Como por exemplo, os arquivos em um computador são armazenados dentro de uma estrutura hierárquica de diretórios. Existe um diretório base dentro do qual podemos armazenar diversos subdiretórios e arquivos. Por sua vez, dentro deles, pode-se armazenar outros subdiretórios, e assim por diante, recursivamente.
+
+Por conta disso, as árvores são estruturas de dados adequadas para a representação de hierárquias. A forma mais natural de definir uma estrutura de árvore é usando a recursividade. Uma árvore pode ser representada graficamente como mostrado na Figura \ref{fig:rep-arvore}. As linhas que unem dois nós representam os relacionamentos lógicos e as dependências de subordinação existentes entre eles. Na figura pode-se observar que o nó \textbf{A} se relaciona somente com os nós \textbf{B}, \textbf{C}, e \textbf{D}, e não com os demais. Por sua vez, o nó \textbf{B} se relaciona com o \textbf{A} e também com o \textbf{E}. Intuitivamente, observa-se que os relacionamentos do nó \textbf{B} com \textbf{A} e \textbf{E} são diferentes $-$ existe uma hierárquia que faz com que o relacionamento de \textbf{E} para \textbf{B} seja o mesmo de \textbf{B} para \textbf{A}. A hierárquia de subordinação mostra que um subconjunto de nós é subordinado a outro nó. Por exemplo, o subconjunto de nós \textbf{H}, \textbf{I} e \textbf{J} está subordinado ao nó \textbf{D}.
+
+\begin{figure}[!htpb]
+	\Tree[.A [.B E ] [.C F G ] [.D [.H I J ] ] ]
+	\label{fig:rep-arvore}
+	\caption{Representação gráfica de uma árvore.}
+\end{figure}
+
+Os relacionamentos de subordinação, formando hierarquias, podem representar diferentes significados, como:
+
+\begin{enumerate}
+	\item hierarquias de especialização, representando classes e subclasses, conforme mostrado na Figura 2, na qual um \textbf{veículo} (classe) pode ser especializado em \textbf{aéreo}, \textbf{terrestre} ou \textbf{aquático} (subclasses). Cada uma dessas classes pode, por sua vez, ser especializada em outras categorias;
+	\item hierarquias de composição, conforme mostrado na Figura 3. Neste exemplo, o nó que representa um carro é composto por três partes: \textbf{chassi}, \textbf{motor} e \textbf{rodas}.
+\end{enumerate}
+
+\begin{figure}[!htpb]
+	\Tree[.Veículo [.Aéreo Avião Helicóptero ] [.Terrestre Carro Motocicleta ] [.Aquático [.Motor Navio Iate, Lancha ] Vela Remo ] ]
+	\label{fig:rep-classe}
+	\caption{Hierárquia de especialização.}
+\end{figure}
+
+
+\begin{figure}[!htpb]
+	\Tree[.Carro Chassis Motor Rodas ]
+	\label{fig:composicao}
+	\caption{Hierárquia de composição.}
+\end{figure}
+
+Uma árvore é composta por um conjunto de nós. 
+
+\section{Definição}
+
+\begin{definition}
+Uma árvore é um tipo abstrato de dados que armazena elementos de forma hierárquica. Com exceção do elemento topo, cada elemento da árvore tem um \textbf{pai} e zero ou mais elementos \textbf{filhos}.
+
+Normalmente, o elemento topo é chamado \textbf{raiz} da árvore, mas é desenhado como sendo o elemento mais alto, com todos os demais conectados abaixo (exatamente ao contrário de uma árvore real).
+\end{definition}
+
+Formalmente define-se uma \textbf{árvore} $T$ como um conjunto de \textbf{nós} que armazenam elementos em relacionamentos \textbf{pai-filho} com as seguintes propriedades:
+	\begin{enumerate}
+		\item Se $T$ não é vazia, ela tem um nó especial chamado de \textbf{raiz} de $T$ que não tem pai.
+		\item Cada nó $v$ de $T$ diferente da raiz tem um único nó \textbf{pai}, $w$; todo nó com pai $w$ é \textbf{filho} de $w$.
+	\end{enumerate}
+
+Com base nessa definição, uma árvore pode ser vazia, o que significa que ela não tem nós. Isso permite definir uma árvore recursivamente, de maneira que uma árvore $T$ ou está vazia ou consiste em um nó $r$, chamado raiz de $T$, e um conjunto de árvores cuja raízes são filhas de $r$.
+
+\subsection{Relacionamento entre os nós}
+
+Os relacionamentos de uma árvore caracterizam-se como: Dois nós que são filhos do mesmo pai são \textbf{irmãos}. Um nó $v$ é \textbf{externo} se $v$ não tem filhos. Um nó $v$ é \textbf{interno} se tem um ou mais filhos. Nós externos também são conhecidos como \textbf{folhas}. 
+
+Um nó $u$ é \textbf{ancestral} de um nó $v$, se $u = v$, ou $u$ é ancestral o pai de $v$. Da mesma forma, diz-se que um nó $v$ é \textbf{descendente} de um nó $u$ se $u$ é ancestral de $v$. Por exemplo, na Figura 1 C é ancestral de F e I é descendente de H. A \textbf{subárvore} de $T$ \textbf{enraizada} no nó $v$ é a árvore que consiste em todos os descendentes de $v$ em $T$ (incluindo o próprio $v$). 
+
+\subsection{Arestas e Caminhos em Árvores}
+Uma aresta de uma árvore $T$ é um par de nós $(u,v)$ tal que $u$ é pai de $v$ ou vice-versa. Um \textbf{caminho} de $T$ é uma sequência de nós tais que quaisquer dois nó consecutivos da sequência formam uma aresta. Por exemplo, a árvore da Figura 1 contém o caminho (A, D, H, J). Por exemplo, os relacionamento de herança entre classes em programas Java formam uma árvore. A raiz, \textit{java.lang.Object}, é o ancestral de todas as outras classes. Cada classe C é descendente desta raiz e é a raiz de uma subárvore de classes que estendem C. Logo, existe um caminho de C para a raiz, \textit{java.lang.Object}, nessa árvore de herança.
+
+\subsection{Árvores ordenadas}
+
+Uma árvore é \textbf{ordenada} se existe uma ordem linear definida para os filhos de cada nó, ou seja, se é possível identificar os filhos de um nó como sendo o primeiro, segundo, terceiro e assim por diante. Tal ordenação normalmente é desenhada organizando-se os irmãos da esquerda para direita, de acordo com a relação entre os mesmos. Árvores ordenadas normalmente indicam o relacionamento linear existente entre os irmãos, listando-os na ordem correta. Por exemplo, os componentes de um documento estruturado, tal como um livro, é organizado hierarquicamente como uma árvore cujos nós internos são partes, capítulos e seções, e os nós externos são os parágrafos, tabelas, figuras e assim por diante. A raiz da árvore corresponde ao livro propriamente dito. Esta árvore é um exemplo de uma árvore ordenada porque existe uma ordem bem definida entre os filhos de cada nó.
+
+
+\begin{figure}[!htpb]
+	\Tree[.Livro Prefácio [.Parte-A [.Cap1 1.1 $\cdots$ 1.4 ] [.Cap5 5.1 $\cdots$ 5.7 ] ] [.Parte-B [.Cap6 6.1 6.2 ] [.Cap9 9.1 ] ] [.Referências ] ]
+	\label{fig:arvore-ordenada}
+	\caption{Árvore ordenada associada a um livro.}
+\end{figure}
+
+\subsection{Tipo Abstrato de Dados Árvore (TAD)}
+
+O Tipo Abstrato de Dados (TAD) árvore armazena elementos em posições como as de uma lista, que são definidas em relação às posições de seus vizinhos. As \textbf{posições} de uma árvore são \textbf{nós}, e o posicionamento pela vizinhança satisfaz as relações pai-filho, que definem uma árvore válida. Entretanto, os termos ``posição'' e ``nó'' são usados com o mesmo sentido no caso de árvore. 
+
+Na tabela \ref{tab:operacoes} apresenta as operações válidas para um tipo árvore.
+
+\begin{table}[!htpb]
+	\centering
+	\begin{tabular}{|l|l|}
+   \hline \textbf{Operação} & \textbf{Descrição} \\
+   \hline element() & Retorna o objeto nessa posição\\
+   \hline root() & Retorna a raiz da árvore.\\
+   \hline parent($v$) & Retorna o nó pai de $v$.\\
+   \hline children($v$) & Retorna um conjunto contendo os filhos do nó $v$.\\
+   \hline isInternal($v$) & Testa se um nó $v$ é interno.\\
+   \hline isExternal($v$) & Testa se um nó $v$ é externo.\\
+   \hline isRoot($v$) & Testa se um nó $v$ é a raiz. \\
+   \hline size() & Retorna o número de nós na árvore.\\
+   \hline isEmpty() & Testa se uma árvore tem ou não algum nó.\\
+   \hline positions() & Retorna um conjunto com todos os nós da árvore.\\
+   \hline replace($v$,$e$) & Retorna o elemento armazenado em $v$ e o substitui por $e$.\\
+   \hline   
+\end{tabular}
+  \caption{Operações válidas para o tipo árvore}
+  \label{tab:operacoes}
+\end{table}
+
+Na Listagem \ref{lst:arvore}, temos a definição de uma interface Java representando uma árvore (Tree).
+%language=Java,showstringspaces=false,basicstyle=\tiny,
+\begin{lstlisting}[caption=Interface Java Tree representando o TAD árvore ,label=lst:arvore]
+/**
+ * Interface para uma árvore onde os nós podem ter uma quantidade arbritária de
+ * filhos.
+ * 
+ * @param <E>
+ */
+public interface Tree<E> {
+
+  /**Retorna a quantidade de nós da árvore.*/
+  public int size();
+  /**Retorna <code>true</code> se a árvore está vazia.*/
+  public boolean isEmpty();
+  /**Retorna um iterator sobre os elementos armazenados na árvore. */
+  public Iterator<E> iterator();
+  /**Retorna uma coleção iterável dos nós*/
+  public Iterable<No<E>> positions();
+  /**Substitui o elemento armazenado em um dado nodo.*/
+  public E replace(No<E> v, E e);
+  /** Retorna a raiz da árvore*/
+  public No<E> root();
+  /** Retorna o pai de um dado nó. */
+  public No<E> parent(No<E> v);
+  /**Retorna uma coleção iterável dos filhos de um dado nó.*/
+  public Iterable<No<E>> children(No<E> v);
+  /**Retorna se um dado nó é interno.*/
+  public boolean isInternal(No<E> v);
+  /**Retorna se um dado nó é externo.*/
+  public boolean isExternal(No<E> v);
+  /**Retorna se um dado nó é a raiz da árvore.*/
+  public boolean isRoot(No<E> v);
+}
+\end{lstlisting}
+
+\section{Algoritmos de Percurso em Árvores}
+
+\subsection{Profundidade} 
+
+Seja $v$ um nó de uma árvore $T$. A profundidade de $v$ é o número de \textbf{ancestrais} de $v$ excluindo o próprio $v$. Por exemplo, na árvore da Figura \ref{fig:altura}, o nó que armazena \textit{Internacional} tem profundidade igual a 2. Observa-se que a profundidade da raiz de $T$ é zero.
+
+A profundidade de um nó $v$ pode ser definida recursivamente como:		
+\begin{itemize}
+	\item Se $v$ é a raiz, então a profundidade de $v$ é 0.
+	\item Em qualquer outro caso, a profundidade de $v$ é um mais a profundidade do pai de $v$.
+\end{itemize}
+
+
+\begin{figure}[!htpb]
+%	\tiny{
+	\Tree [.{R\&D Corporation} [.Vendas Nacional [.Internacional Europa {América do Sul} ] ] Compras [.Manufatura TV CD MP3 ] P\&D ]
+	\caption{Árvore com 12 nós representando a estrutura organizacional de uma empresa fictícia. Os filhos da raiz armazenam P\&D, Venda, Compras e Manufatura.}
+%	}
+	\label{fig:altura}
+\end{figure}
+
+Baseado na definição, no algoritmo \ref{alg:depth} é apresentado um algoritmo recursivo simples, \textbf{profundidade}, para calcular a profundidade de um nó $T$. Este algoritmo chama a si próprio recursivamente sobre o pai de $v$ e acrescenta 1 ao valor retornado. Na listagem \ref{lst:profundidade}, temos uma implementação em Java deste algoritmo.
+
+%\begin{block}{Algoritmo para calcular a profundidade de um nó $v$ de $T$}
+\SetAlFnt{\footnotesize\sf}
+\begin{algorithm}[H]\label{alg:depth}
+\dontprintsemicolon
+\SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
+\SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
+  \eSe{ $v$ é a raiz de $T$}{
+    \Return 0\;
+  }{
+    \Return 1 + profundidade($T$,$w$), \textit{onde $w$ são os pais de $v$ em $T$}\;
+  }    
+  \caption{profundidade($T$, $v$)}
+\end{algorithm}
+
+%[label=concatena,caption=Concatena duas pilhas]
+\begin{lstlisting}[caption=Algoritmo para calcular a profundidade de um nó $v$ de uma árvore $T$ escrito em Java, label=lst:profundidade]
+public static <E> int profundidade(Tree<E> t, No<E> v){
+  return (t.isRoot(v)) ? 0 : 
+     1 + profundidade(t, t.parent(v));
+}
+\end{lstlisting}
+
+\subsection{Altura}
+
+A \textbf{altura} de um nó $v$ em uma árvore $T$ é definida recursivamente como:		
+
+\begin{enumerate}
+	\item Se $v$ é um nó externo, então a altura de $v$ é 0.
+	\item Em qualquer outro caso, a altura de $v$ é um mais a altura máxima dos filhos de $v$.
+\end{enumerate}
+
+A \textbf{altura} de uma árvore não vazia $T$ é a altura da raiz de $T$. Por exemplo, a árvore da figura \ref{fig:altura} tem altura igual a 4.
+
+A altura de uma árvore não vazia $T$ é igual a profundidade máxima dos nós externos de $T$.
+
+%\begin{block}{Algoritmo para calcular a altura de uma árvore não-vazia $T$}
+\SetAlFnt{\footnotesize\sf}
+\begin{algorithm}[H]\label{alg:height}
+\dontprintsemicolon
+\SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
+\SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
+\SetKwFor{ParaCada}{para cada}{faça}{fim}
+\SetKwFunction{profundidade}{profundidade($T$,$v$)}
+  h $\leftarrow$ 0\;
+  \ParaCada{vértice $v$ em $T$}{
+    \Se{$v$ é um nó externo de $T$}{
+      h $\leftarrow$ Máximo(h, \profundidade )\;
+    }
+    \Return h\;
+  }
+  \caption{Altura($T$)}
+\end{algorithm}
+
+
+\begin{lstlisting}[caption=Algoritmo para calcular a altura de uma árvore não-vazia $T$, label=lst:altura]
+public static <E> int altura(Tree<E> t) {
+  int h = 0; 
+  for (No<E> v : t.positions()) {
+    h = Math.max(h, profundidade(t, v));
+  }
+  return h;
+}
+\end{lstlisting}
+
+\subsection{Caminhamento Prefixado (Pré-ordem)}
+
+O \textbf{caminhamento} de uma árvore $T$ é uma forma sistemática de acessar ou ``visitar'' todos os nós de $T$.
+
+Em um \textbf{caminhamento prefixado} de uma árvore $T$, a raiz de $T$ é visitada primeira e, então as subárvores, cujas raízes são seus filhos, são percorridas recursivamente. Se a árvore está ordenada, então as subárvores são percorridas de acordo com a ordem dos filhos. A ação específica associada com a ``visita'' de um nó $v$ depende da aplicação de caminhamento, e pode envolver qualquer coisa, desde incremento de um contador até um cálculo complexo para $v$. 
+
+O algoritmo \ref{alg:preorder} apresenta o pseudocódigo para o caminhamento prefixado de uma subárvore cuja raiz é o nó $v$. 
+
+%\begin{block}{Algoritmo de percurso Prefixado}
+%\SetAlFnt{\footnotesize\sf}
+\begin{algorithm}[H]\label{alg:preorder}
+\dontprintsemicolon
+\SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
+\SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
+\SetKwFor{ParaCada}{para cada}{faça}{fim}
+\SetKwFunction{preorder}{preorder($T$,$w$)}  
+  executa a ação de visita para o nó $v$\;
+  \ParaCada{filho $w$ de $v$ em $T$}{
+    \preorder
+  }
+  \caption{preorder($T$, $v$)}
+\end{algorithm}
+
+A chamada inicia à esta rotina dar-se-a da seguinte forma:
+
+\begin{lstlisting}
+	preorder(t, t.root());
+\end{lstlisting}
+
+onde $t$ é uma árvore não-vazia.
+
+O algoritmo de caminhamento préfixado é útil para produzir uma ordenação linear dos nós de uma árvore, na qual os pais devem aparecer antes dos filhos na ordenação. 
+
+\textbf{Exemplo:} O caminahmento préfixado de uma árvore associada a um documento examina o documento inteiro, sequencialmente, do início ao fim. Se os nós externos são removidos antes do caminhamento, então o índice do documento é percorrido, conforme mostra a figura \ref{fig:ex:prefixado}.
+
+\begin{figure}[!htpb]
+	\centering
+    \includegraphics[width=3.5in]{images/Arvores/exemplo-prefixado}
+	\caption{Caminhamento prefixado sobre uma árvore ordenada onde os filhos de cada nó estão ordenados da esquerda para a direita}
+	\label{fig:ex:prefixado}
+\end{figure}
+
+%O caminhamento prefixado é uma forma eficiente de se percorrer todos os nós de uma árvore. Para justificar essa afirmação, considere-se o tempo de execução do caminhament prefixado de uma árvore $T$ com $n$ nós, considerando que a ``visita'' aos nós consome tempo $\Omega(1)$. 
+
+\subsection{Caminhamento Pós-Fixado (Pós-ordem)}
+
+Outro tipo importante de caminhamento em árvores é o caminhamento pós-fixado. Este algoritmo pode ser entendido como o oposto do caminhamento prefixado, porque primeiro percorre recursivamente as subárvores enraizadas nos filhos da raizl e depois visita a raiz. É similar ao caminhamento préfixado, entretanto, na medida que usando o mesmo para resolver um determinado problema, especializa-se a ação associada com a ``visitação'' de um nó $v$. Ainda, da mesma forma que o caminhamento prefixado, se a árvore for ordenada, as chamadas recursivas nos filhos de um nó $v$ são feitas de acordo com sua ordem específica. 
+
+O algoritmo \ref{alg:postorder} apresenta o pseudocódigo para o caminhamento pós-fixado de uma árvore $T$ cuja raiz é o nó $v$.
+
+	\SetAlFnt{\footnotesize\sf}
+	\begin{algorithm}[H]\label{alg:postorder}
+	\dontprintsemicolon
+	\SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
+	\SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
+	\SetKwFor{ParaCada}{para cada}{faça}{fim}
+	\SetKwFunction{postorder}{posorder($T$,$w$)}  
+	  \ParaCada{filho $w$ de $v$ em $T$}{
+	    \postorder
+	  }
+	  executa a ação de visita para o nó $v$\;
+	  \caption{Pós-Fixado($T$, $v$)}
+	\end{algorithm}
+
+\begin{lstlisting}
+public static <E> String imprimirPosfixado(Tree<E> t, No<E> v){
+  StringBuilder s =  new StringBuilder();
+  for(No<E> w : t.children(v)){
+    s.append(imprimirPosfixado(t, w) + " ");
+  }
+  s.append(v.element());
+  return s.toString();
+}
+\end{lstlisting}
+
+O nome do caminhamento pós-fixado vem do fato de que o caminhamento visitará o nó $v$ depois de ter visitado todos os outros nós da subárvore com raiz em $v$, conforme nos mostra a Figura \ref{fig:ex:postorder}.
+
+\begin{figure}[!htpb]
+	\centering
+    \includegraphics[width=3.5in]{images/Arvores/exemplo-posfixado}
+	\caption{Caminhamento pós-fixado sobre uma árvore ordenada.}
+	\label{fig:ex:postorder}
+\end{figure}
+
+O método de caminhamento pós-fixado é útil para resolver problemas em que se deseja calcular alguma propriedade para cada nó $v$ da árvore, mas o cálculo desta propriedade para $v$ implica que se tenha calculado anteriormente a mesma propriedade para seus filhos. Um exemplo de tal aplicação é ilustrado a seguir.
+
+\textbf{Exemplo:} Considere-se a árvore $T$ de um sistema de arquivos, cujos nós externos representam arquivos e os nós internos representam diretórios. Supondo-se que se deseja calcular o espaço em disco usado por um diretório, o que é recursivamente definido pela soma do:
+
+\begin{enumerate}
+	\item tamanho do diretório propriamente dito.
+	\item tamanhos dos arquivos armazenados no diretório.
+	\item espaço usado pelos diretórios filhos.
+\end{enumerate}
+
+Este cálculo pode ser feito com um caminhamento pós-fixado sobre a árvore $T$. Depois que as subárvores de um nó interno $v$ forem percorridas, calcula-se o espaço usado por $v$, somando o tamanho do diretório $v$ propriamente dito e o tamanho dos arquivos armazenados no próprio diretório $v$ com o espaço usado por cada filho interno de $v$, que é calculado pelo caminhamento pós-fixado recursivo dos filhos de $v$.
+
+\begin{figure}[!htpb]
+		\centering
+    \includegraphics[width=3.5in]{images/Arvores/exemplo-app-posfixado}
+	\caption{Árvore representando um sistema de arquivos, mostrando o nome o tamanho dos arquivos/diretórios associados a cada nó e o espaço em disco usado para os diretórios associados a cada nó interno}.
+	\label{fig:ex:app-posorder}
+\end{figure}
+
+
+ \end{document}

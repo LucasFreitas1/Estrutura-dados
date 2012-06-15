@@ -1,0 +1,261 @@
+\documentclass[10pt]{exam} %versao 2.2
+\usepackage{graphicx}
+\usepackage{amsmath} % habilita funções matemáticas do AMS-LaTeX
+%\usepackage[brazil]{babel} % dicionário para o ".tex", traduções na compilação
+\usepackage[brazilian]{babel}
+\usepackage[latin1]{inputenc} % acentuação usando UTF8 (ou senao, use latin1)
+
+\usepackage{palatino, url, multicol}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\usepackage{amsmath}
+
+\usepackage{color}
+ 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+\begin{document}
+
+
+%imprimir solução ----------------------------------------
+%comente o comando \printanswers a seguir para gerar a prova
+%descomente o comando \printanswers a seguir para gerar o gabarito com soluções
+%\printanswers
+
+% traduções ----------------------------------------
+\pointpoints{ponto}{pontos}
+\renewcommand{\solutiontitle}{\noindent\textbf{Solução:}\enspace}
+%\qformat{(\pointsofquestion{\arabic{question}}\points) \thequestion}
+%\qformat{Questão \thequestion \dotfill \thepoints}
+%\totalformat{Total da questão \thequestion: \totalpoints\ \points} %ou use como na próx. linha
+\totalformat{Total: \totalpoints\ \points}
+\marginpointname{ \points}
+\hqword{Questões} %substitutes text for “Question:”
+\hpgword{Páginas} %substitutes text for “Page:”
+\hpword{Total de pontos} %substitutes text for “Points:”
+\hsword{Pontos conseguidos} %substitutes text for “Score:”
+\htword{Total} %substitutes text for “Total”
+
+% ajustes ----------------------------------------
+%\pointsinrightmargin
+%\pointsinmargin
+\addpoints
+\bracketedpoints
+%\pointsdroppedatright
+\setlength\linefillheight{.1cm} %distância entre linhas
+
+
+% Cabeçalho e Rodapé ----------------------------------------
+\pagestyle{headandfoot}
+%\headrule % coloca uma linha
+\footrule
+\firstpageheader{}{}{}
+
+\chead[]{}
+\lfoot{\iflastpage{}{}}
+%\cfoot{\iflastpage{Fim do Exame}{Pág. \thepage\ de \numpages}}
+\cfoot{\iflastpage{}{ }}
+\rfoot{\iflastpage{Boa prova!}{}}
+
+\setlength\linefillheight{.30in} %modifica a distância entre as linhas para resposta das questões.
+
+\lstset{language=Java,showstringspaces=false,basicstyle=\footnotesize}
+
+\begin{table}
+  \begin{tabular}{|p{11cm}|p{5cm}|}  
+  \hline Nome: & Matrícula:\\
+   & \\
+  \hline Disciplina: Estrutura de Dados & Data: \\  
+  & \\
+  \hline Professor:  Alessandro&   Nota \\
+  & \\
+  \hline 
+  \end{tabular}
+  
+\begin{center}
+  \textbf{Gabarito da Avaliação A2}
+\end{center}  
+
+   \begin{tabular}{|p{3cm}|p{13cm}|}
+    \hline & \\
+    & Leia  cada questão com atenção antes de responder. \\
+   \textbf{Instruções} & A prova é individual e sem consulta. \\
+    & Questões rasuradas não serão corrigidas. \\ 
+    & Esta avaliação só será corrigida se estiver escrita à caneta azul ou preta. \\
+    \hline 
+  \end{tabular}
+  
+\end{table}
+
+\begin{questions}
+
+\sloppy
+
+%\question[1] Explique porque a alocação dinâmica é melhor mesmo na situação de termos um vetor de tamanho infinito.
+
+\question[1\half] A formatação de um documentação html é definida por tags. As tags são usados em pares: um de abertura e um de fechamento. Exemplo $<em>$\textit{itálico}$</em>$  e  $<strong>$\textbf{negrito}$</strong>$. Escreva um programa que verifique se as tags de um arquivo html estão corretamente fechadas.  Considere apenas as tags strong, tt, small, big, h1, blockquote, div, table, tr, td, address, head, body, html.
+\begin{solution}
+\begin{lstlisting}
+	/**
+	 * Verifica se as tags html: strong, em, tt estão posicionados de forma
+	 * correta, ou seja, se para cada tag de abertura há uma correspondente
+	 * fechando segundo o seu escopo de modo a estarem balanceadas.
+	 * 
+	 * @param tags
+	 *            Tags html a serem verificadas se estão balanceadas.
+	 * @return <code>true</code> se as tags estiverem balanceadas, ou seja
+	 *         posicionados de forma correta ou <code>false</code> caso
+	 *         contrário.
+	 */
+	public boolean balanceada(String[] tags) {
+		Pilha<String> pilha = new Pilha<String>();
+
+		for (String tag : tags) {
+
+			if (isTagAbertura(tag)) {
+				pilha.push(tag);
+				continue;
+			}
+
+			if (tag.equals("</strong>")) {
+				if (pilha.isEmpty() || !"<strong>".equals(pilha.pop()))
+					return false;
+			}
+
+			if (tag.equals("</em>")) {
+				if (pilha.isEmpty() || !"<em>".equals(pilha.pop()))
+					return false;
+			}
+
+			if (tag.equals("</tt>")) {
+				if (pilha.isEmpty() || !"<tt>".equals(pilha.pop()))
+					return false;
+			}
+		}
+		return pilha.isEmpty();
+	}
+
+	/**
+	 * Verifica se uma dada palavra é uma tag html de abertura.
+	 * 
+	 * @param tag
+	 *            Palavra a ser verificada se trata-se de uma tag html de
+	 *            abertura. Exemplo de tags: strong, em, tt.
+	 * @return <code>true</code> se for uma tag html de abertura ou
+	 *         <code>false</code> caso contrário.
+	 */
+	private boolean isTagAbertura(String tag) {
+		return tag.equals("<strong>") || tag.equals("<em>")
+				|| tag.equals("<tt>");
+	}
+\end{lstlisting}
+\end{solution}
+
+\question[1\half] Implemente um algoritmo que teste se duas pilhas são ou não iguais. O algoritmo deve retornar 1 se as duas pilhas forem iguais, e 0 (zero) caso contrário. Ao final da execução, as duas pilhas devem estar no mesmo estado em que estavam no início.
+\begin{solution}
+\begin{lstlisting}
+	/**
+	 * Verifica se duas pilhas são iguais, mudar o estado das pilhas. Duas pilhas
+	 * são iguais quando possuem os mesmos elementos.
+	 * 
+	 * @param p1
+	 *            Pilha a ser verificada se é igual a pilha P2.
+	 * @param p2
+	 *            Pilha a ser verificada se é igual a pilha P1.
+	 * @return
+	 */
+	public static int iguais(Pilha<?> p1, Pilha<?> p2) {
+
+		if (p1.size() != p2.size()) {
+			return 1;
+		} else {
+
+			Pilha<?> p3 = p1.copia();
+			Pilha<?> p4 = p2.copia();
+
+			while (!p3.isEmpty() && p3.pop() == p4.pop())
+				;
+
+			return p3.isEmpty() ? 1 : 0;
+		}
+	}
+\end{lstlisting}
+\end{solution}
+\question [2] Implemente as operações de \textbf{inserir} e \textbf{remover} de uma \textbf{Fila} utilizando uma \textbf{Lista Encadeada Simples}.  Compute a complexidade de tempo de cada função.
+
+\begin{solution}
+\begin{lstlisting}
+public class Fila<E> {
+
+	private ListaEncadeada<E> elementos = new ListaEncadeada<E>();
+
+	/**
+	 * Adiciona um dado elemento no final da fila em tempo constante O(1).
+	 * 
+	 * @param elemento
+	 *            Elemento a ser adicionado.
+	 */
+	public void adicionar(E elemento) {
+		elementos.adicionarAoFinal(elemento);
+	}
+
+	/**
+	 * Remove e retorna o primeiro elemento da fila, desde que a fila não esteja
+	 * vazia em tempo constante O(1).
+	 * 
+	 * @return O primeiro elemento da fila que foi removido, ou
+	 *         <code>null</code> se a fila estiver vazia.
+	 */
+	public E remover() {
+		return this.isEmpty() ? null : elementos.removerDoInicio();
+	}
+
+	/**
+	 * Retorna <code>true</code> se essa fila estiver vazia ou
+	 * <code>false</code> caso contrário.
+	 * 
+	 * @return <code>true</code> se essa fila estiver vazia ou
+	 *         <code>false</code> caso contrário.
+	 */
+	public boolean isEmpty() {
+		return this.elementos.isEmpty();
+	}
+}
+\end{lstlisting}
+\end{solution}
+
+\end{questions}
+
+
+\end{document} 
