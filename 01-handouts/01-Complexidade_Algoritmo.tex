@@ -1,9 +1,4 @@
-%\documentclass[a4paper,12pt]{article}
-\documentclass[a4paper,12pt]{../../class/handout}
-%\usepackage{classes/infocomp}
-
-%\usepackage[brazil]{babel}
-%\usepackage[latin1]{inputenc}
+\documentclass[a4paper,12pt]{handout}
 
 \usepackage[latin1]{inputenc}
 \usepackage[brazil]{babel}
@@ -12,20 +7,13 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx,url}
-\usepackage[linesnumbered,portugues,noend,ruled]{algorithm2e} %ruled
+\usepackage[linesnumbered,noend,ruled,portuguese]{algorithm2e} %ruled
 %muda a condificação da fonte, tornando possível copiar textos com 
 \usepackage[T1]{fontenc}
-%\usepackage{natbib}
 \usepackage{listings}
 \usepackage{multicol}
-
-
-%virar a página - tag: \begin{sideways} \end{sideways}
 \usepackage{rotating}
-
-%\usepackage{caption2}
-%\renewcommand{\captionfont}{\footnotesize}
-%\renewcommand{\captionlabelfont}{\footnotesize \bfseries}
+\usepackage{cleveref}
 
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -53,6 +41,13 @@
 \SetSemester{1/2012}
 \SetDueDate{27/02/2012}
 
+\graphicspath
+{%
+  {images/}%
+}%
+
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+
 
 \begin{document}
 
@@ -70,7 +65,7 @@ Um algoritmo é um procedimento, consistindo de um conjunto de regras não ambígua
 
 Um algoritmo resolve um problema quando, para qualquer entrada, produz uma resposta correta, se forem concedidos tempo e memória suficientes, para sua execução. O fato de um algoritmo resolver um problema não implica que seja aceitável na prática. Os recursos de espaço e tempo requeridos têm grande importância em casos práticos.
 
-Às vezes, o algoritmo mais imediato está longe de ser razoável em termos de eficiência. Um exemplo, é o caso da solução de equações lineares. O método de Cramer, calculando o determinante através de sua definição, requer dezenas de milhões de anos para resolver um sistema $20 \ x \ 20$. Um sistema como esse pode ser resolvido em tempo razoável pelo método de Gauss. A tabela \ref{tab:problema_tempo} mostra o desempenho desses dois algoritmos que calculam o determinante de uma matriz $n \ x \ n$, considerando tempos de operações de um computador real.
+Às vezes, o algoritmo mais imediato está longe de ser razoável em termos de eficiência. Um exemplo, é o caso da solução de equações lineares. O método de Cramer, calculando o determinante através de sua definição, requer dezenas de milhões de anos para resolver um sistema $20 \ x \ 20$. Um sistema como esse pode ser resolvido em tempo razoável pelo método de Gauss. A~\cref{tab:problema_tempo} mostra o desempenho desses dois algoritmos que calculam o determinante de uma matriz $n \ x \ n$, considerando tempos de operações de um computador real.
 
 \begin{table}[h!]
   \centering
@@ -94,7 +89,7 @@ O crescente avanço tecnológico, permitindo a criação de máquinas cada vez mais r
 Na área de análise de algoritmos , existem dois tipos de problemas bem definidos:% \cite{knuth:71}:
 
 \begin{itemize}
-   \item \textbf{Análise de um algoritmo particular}: Qual é o custo de usar um dado algoritmo para resolver um problema específico? Neste caso, características importantes do algoritmo em questão devem ser investigadas. Por exemplo, no problema das equações lineares, para entradas menores que três ($n \leq 3$), o tempo requerido utilizando o método de Cramer é mais rápido que o método de Gauss, mas para entrada maiores, o método de Gauss é muitas vezes mais rápido (Vide tabela \ref{tab:problema_tempo}).
+   \item \textbf{Análise de um algoritmo particular}: Qual é o custo de usar um dado algoritmo para resolver um problema específico? Neste caso, características importantes do algoritmo em questão devem ser investigadas. Por exemplo, no problema das equações lineares, para entradas menores que três ($n \leq 3$), o tempo requerido utilizando o método de Cramer é mais rápido que o método de Gauss, mas para entrada maiores, o método de Gauss é muitas vezes mais rápido (Vide~\Cref{tab:problema_tempo}).
    \item \textbf{Análise de uma classe de algoritmos}: Qual é o algoritmo de menor custo possível para resolver um problema particular? Neste caso, toda uma família de algoritmos para resolver um problema específico é investigada com o objetivo de identificar um que seja o melhor possível. Isso significa impor limites para a complexidade computacional dos algoritmos pertencentes à classe 
 \end{itemize}
 
@@ -155,7 +150,7 @@ int maximo(int [] v, int n){
 }
  \end{lstlisting}
  
-Será que o algoritmo da listagem \ref{lst:maximo}, para obter o maior elemento de um vetor,  é ótimo? Ou seja, que nenhum outro algoritmo, que utilize como medida de custo o número de comparações consegue encontrar o maior elemento de um vetor $v$ de tamanho $n$ em tempo menor a $f(n) = n - 1$?
+Será que o algoritmo da~\Cref{lst:maximo}, para obter o maior elemento de um vetor,  é ótimo? Ou seja, que nenhum outro algoritmo, que utilize como medida de custo o número de comparações consegue encontrar o maior elemento de um vetor $v$ de tamanho $n$ em tempo menor a $f(n) = n - 1$?
 
 \begin{theorem}
      Qualquer algoritmo para encontrar o maior elemento de um conjunto com $n$ elementos, para $n \geq 1$ faz pelo menos $n - 1$ comparações.
@@ -167,7 +162,7 @@ Será que o algoritmo da listagem \ref{lst:maximo}, para obter o maior elemento d
   
 Portanto, como o algoritmo apresentado, que obtém o maior valor de um vetor $v$ de $n$ elementos possui complexidade igual ao limite inferior de custo, então o \textbf{algoritmo é ótimo}.
 
-Normalmente, a medida de custo de execução depende do tamanho da entrada, mas, este não é o único fato que influencia o custo. O custo de execução pode sofrer influência do tipo da entrada. Considere um outro algoritmo para obter o máximo e o mínimo de um vetor de tamanho igual a $n$. Um algoritmo simples para resolver esse problema pode ser derivado do algoritmo \ref{lst:maximo}.
+Normalmente, a medida de custo de execução depende do tamanho da entrada, mas, este não é o único fato que influencia o custo. O custo de execução pode sofrer influência do tipo da entrada. Considere um outro algoritmo para obter o máximo e o mínimo de um vetor de tamanho igual a $n$. Um algoritmo simples para resolver esse problema pode ser derivado do~\cref{lst:maximo}.
 
 \begin{lstlisting}[frame=single,language=C,label=lst:max-min,caption=Algoritmo para obter o maior e o menor elemento de um vetor.]
 
@@ -186,7 +181,7 @@ int[] maximo_minimo(int[]  v, int n){
 }
  \end{lstlisting}
 
-O algoritmo \ref{lst:max-min} podem ser facilmente melhorado. Basta observar que a comparação $v[i] < min$ somente é necessária quando o resultado da comparação $v[i] > max$ é falso. Uma nova versão do algoritmo pode ser vista no algoritmo \ref{lst:max-min-2}. Para essa implementação, os casos a considerar são:
+O~\cref{lst:max-min} podem ser facilmente melhorado. Basta observar que a comparação $v[i] < min$ somente é necessária quando o resultado da comparação $v[i] > max$ é falso. Uma nova versão do algoritmo pode ser vista no~\cref{lst:max-min-2}. Para essa implementação, os casos a considerar são:
 
 \begin{itemize}
   \item melhor caso: $f(n) = n - 1$
@@ -226,11 +221,11 @@ int[] maximo_minimo_melhorado(int[]  v, int n){
  Uma função $f(n)$ domina assintoticamente outra função $g(n)$ se existem duas constantes positivas $c$ e $m$ tais que, para $n \ge m$, temos $|g(n)| \leq c * |f(n)|$.
  \end{definition}
  
- A figura \ref{fig:dominacao-assintotica}, expressa graficamente o significado da definição anterior.
+ \Cref{fig:dominacao-assintotica}, expressa graficamente o significado da definição anterior.
  
  \begin{figure}[htpb!]
    \centering
-   \includegraphics{01-img/dominacao_assintotica}
+   \includegraphics{dominacao_assintotica}
    \caption{Dominação assintótica de $f(n)$ sobre $g(n)$.}   
    \label{fig:dominacao-assintotica}
  \end{figure}
@@ -257,13 +252,13 @@ Uma função $g(n)$ é $O(f(n))$ se existem duas constantes positivas $c$ e $m$ tai
 \end{definition}
 
 \begin{example}
-   Seja $g(n) = (n + 1) ^ 2$. Logo, $g(n)$ é $O(n^2)$, quando m = 1 e c = 4. Isso porque $(n + 1) ^ 2 \ \leq 4n^2$, para $n \ge 1$. A figura \ref{fig:bigoh} apresenta gráficamente a dominação assintótica que ilustra a notação O.
+   Seja $g(n) = (n + 1) ^ 2$. Logo, $g(n)$ é $O(n^2)$, quando m = 1 e c = 4. Isso porque $(n + 1) ^ 2 \ \leq 4n^2$, para $n \ge 1$. A~\cref{fig:bigoh} apresenta gráficamente a dominação assintótica que ilustra a notação O.
 \end{example}
 
  \begin{figure}[htpb!]
    \centering
-   \includegraphics{01-img/notacao-bigoh}
-   \caption{A notação O define um limite superior para a função.}   
+   \includegraphics{notacao-bigoh}
+   \caption{A notação O define um limite superior para a função}
    \label{fig:bigoh}
  \end{figure}
  
@@ -277,7 +272,7 @@ Uma função $g(n)$ é $O(f(n))$ se existem duas constantes positivas $c$ e $m$ tai
  
  \subsection{Operações com a Notação O}
  
- A tabela \ref{tab:operacao-bigoh} apresenta as operações que podem ser realizadas com a notação O.
+ A~\cref{tab:operacao-bigoh} apresenta as operações que podem ser realizadas com a notação O.
  
  \begin{table}[h!]
    \centering

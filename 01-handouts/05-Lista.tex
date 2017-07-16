@@ -4,30 +4,27 @@
 \usepackage{color}
 \usepackage[brazilian]{babel}
 \usepackage{graphicx}
-\usepackage[ruled,linesnumbered,portugues]{algorithm2e}
 \usepackage{setspace}
 \usepackage{listings}
 \usepackage{natbib}
 \usepackage{hyperref}
+\usepackage{lmodern}
 
 \usepackage{pgfpages}
-%\mode<handout>{\setbeamercolor{background canvas}{bg=black!5}}
-%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
-
-
-%\usecolortheme[named=Orange]{structure} 
 \setbeamertemplate{blocks}[rounded][shadow=true] 
 \useoutertheme{infolines} 
 \usepackage{beamerthemeshadow}
 
-%\usepackage{handoutWithNotes}
-%\pgfpagesuselayout{4 on 1 with notes}[a4paper,border shrink=5mm]
-
-
-
 \author{Alessandro Ferreira Leite}
 \date{02/04/2012}
-\title{Estrutura de Dados \\ Estrutura de dados Linear: Lista} 
+\title{Estrutura de Dados \\ Estrutura de dados Linear: Lista}
+
+\graphicspath
+{%
+  {images/listalinear/}%
+}%
+
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 
 \begin{document}
 
@@ -64,8 +61,8 @@
 \end{itemize}
 \begin{figure}[ht]
 				\centering
-				\includegraphics[width=.6\textwidth]{01-img/listalinear/lista-linear.png}				
-				\caption{Exemplo de representação de lista.}	
+				\includegraphics[width=.6\textwidth]{lista-linear}
+				\caption{Exemplo de representação de lista}	
 				\label{fig:lista-linear-repre}
 			\end{figure} 
 \end{frame}

@@ -4,18 +4,23 @@
 \usepackage{color}
 \usepackage[brazilian]{babel}
 \usepackage{graphicx}
-\usepackage[ruled,linesnumbered,portugues]{algorithm2e}
 \usepackage{setspace}
 \usepackage{listings}
 \usepackage{natbib}
 \usepackage{hyperref}
+\usepackage{lmodern}
+\usepackage{beamerthemeshadow}
 
-
-\usepackage{listings}
-%\usecolortheme[named=Orange]{structure} 
 \setbeamertemplate{blocks}[rounded][shadow=true] 
 \useoutertheme{infolines} 
-\usepackage{beamerthemeshadow}
+
+
+\graphicspath
+{%
+  {images/filas/}%
+}%
+
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 
 
 \author{Alessandro Ferreira Leite}
@@ -31,12 +36,12 @@
 
 \section{Filas}
   \begin{frame}{Introdução}    
-		\begin{itemize}
-			\item Assim como a estrutura de dados Pilha, Fila é outra estrutura de dados bastante utilizada em computação.
-			\item Um exemplo é a implementação de uma fila de impressão.
-			\item Se uma impressora é compartilhada por várias máquinas, normalmente adota-se uma estratégia para determinar a ordem de impressão dos documentos.
-			\item A maneira mais simples é tratar todas as requisições com a mesma prioridade e imprimir os documentos na ordem em que foram submetidos - o primeiro submetido é o primeiro a ser impresso.
-		\end{itemize}
+	\begin{itemize}
+	  \item Assim como a estrutura de dados Pilha, Fila é outra estrutura de dados bastante utilizada em computação.
+	  \item Um exemplo é a implementação de uma fila de impressão.
+	  \item Se uma impressora é compartilhada por várias máquinas, normalmente adota-se uma estratégia para determinar a ordem de impressão dos documentos.
+	  \item A maneira mais simples é tratar todas as requisições com a mesma prioridade e imprimir os documentos na ordem em que foram submetidos -- o primeiro submetido é o primeiro a ser impresso.
+	\end{itemize}
   \end{frame}
   
 \begin{frame}{Fila}
@@ -48,21 +53,21 @@
 \begin{frame}{Representação}
 \begin{itemize}
 	\item Os nós de uma fila são armazenados em endereços contínuos.	
-	\item A Figura \ref{fig:fila-representacao} temos a representação de uma fila com três elementos.
+	\item A Figura~\ref{fig:fila-representacao} temos a representação de uma fila com três elementos.
 \end{itemize}
 \begin{figure}[ht]
-				\centering
-				\includegraphics[width=.6\textwidth]{01-img/filas/exemplo_fila_tres_elementos.png}				
-				\caption{Exemplo de representação de fila.}	
-				\label{fig:fila-representacao}
-			\end{figure} 
+	\centering
+	\includegraphics[width=.6\textwidth]{exemplo_fila_tres_elementos}
+	\caption{Exemplo de representação de fila}	
+	\label{fig:fila-representacao}
+\end{figure} 
 \begin{itemize}
 	\item Após a retirada de um elemento (\textit{primeiro}) temos:
 	\begin{figure}[ht]
-				\centering
-				\includegraphics[width=.6\textwidth]{01-img/filas/exemplo_fila_tres_retirada.png}				
-				\caption{Representação de uma fila após a remoção do elemento ``A''.}	
-			\end{figure} 
+		\centering
+		\includegraphics[width=.6\textwidth]{exemplo_fila_tres_retirada}
+		\caption{Representação de uma fila após a remoção do elemento ``A''}
+	\end{figure} 
 \end{itemize}
 \end{frame}
 
@@ -71,10 +76,10 @@
 \begin{itemize}
 	\item Após a inclusão de dois elementos temos:
 	\begin{figure}[ht]
-				\centering
-				\includegraphics[width=.6\textwidth]{01-img/filas/exemplo_fila_tres_inclusao.png}				
-				\caption{Representação de uma fila após a inclusão de dois elementos ``D'' e ``E''.}	
-			\end{figure} 
+		\centering
+		\includegraphics[width=.6\textwidth]{exemplo_fila_tres_inclusao.png}
+		\caption{Representação de uma fila após a inclusão de dois elementos ``D'' e ``E''}	
+	\end{figure} 
 \end{itemize}
 \begin{itemize}
 	\item Como podemos observar, a operação de inclusão e retirada de um item da fila incorre na mudança do endereço do ponteiro que informa onde é o início e o término da fila.
@@ -106,35 +111,34 @@
 	  \item As operações básicas que devem ser implementadas em uma estrutura do tipo Fila são:		
   \end{itemize}
   \begin{table}[ht]
-			  \centering
-						\begin{tabular}{l|l}
-						    \hline \textbf{Operação} & \textbf{Descrição} \\
-						    \hline criar() & aloca dinamicamente a estrutura da fila.\\
-						    \hline insere(f,e) & adiciona um novo elemento \textit{(e)}, no final da fila \textit{f}.\\
-						    \hline retira(f) & remove o elemento do início da fila \textit{f}.\\						   
+	\centering
+	\begin{tabular}{l|l}
+	   \hline \textbf{Operação} & \textbf{Descrição} \\
+	   \hline criar() & aloca dinamicamente a estrutura da fila.\\
+	   \hline insere(f,e) & adiciona um novo elemento \textit{(e)}, no final da fila \textit{f}.\\
+	   \hline retira(f) & remove o elemento do início da fila \textit{f}.\\						   
 						    %\hline pesquisar(f,e) & pesquisa o elemento \textit{e} na fila \textit{f}.\\
-						    \hline 
-						\end{tabular}
-						\caption{Operações básicas da estrutura de dados fila.}
-				\end{table}
+		\hline 
+	\end{tabular}
+	\caption{Operações básicas da estrutura de dados fila}
+	\end{table}
 \end{frame}
  
 \begin{frame}{Operações auxiliares}   
-			\begin{itemize}
-				\item Além das operações básicas, temos as operações ``auxiliares''. São elas:
-			\end{itemize}
-			\begin{table}[ht]
-			  \centering
-						\begin{tabular}{l|l}
-						    \hline \textbf{Operação} & \textbf{Descrição} \\						    
-						    \hline vazia(f) & informa se a fila está ou não vazia.\\
-						    \hline libera(f) & destrói a estrutura, e assim libera toda a memória alocada.\\
-						    \hline 
-						\end{tabular}
-						\caption{Operações auxiliares da estrutura de dados fila.}
-				\end{table}
+	\begin{itemize}
+	   \item Além das operações básicas, temos as operações ``auxiliares''. São elas:
+	\end{itemize}
+	\begin{table}[ht]
+	  \centering
+	   \begin{tabular}{l|l}
+	      \hline \textbf{Operação} & \textbf{Descrição} \\		
+	      \hline vazia(f) & informa se a fila está ou não vazia\\
+	      \hline libera(f) & destrói a estrutura, e assim libera toda a memória alocada\\
+	      \hline 
+		\end{tabular}
+		\caption{Operações auxiliares da estrutura de dados fila}
+		\end{table}
   \end{frame}
-
 
 \begin{frame}[fragile,plain]{Interface do Tipo Fila}
 \footnotesize
@@ -170,17 +174,17 @@ void libera(Fila* f);
 		\item Por exemplo, se inserirmos os elementos 8, 7, 4, 3 e depois retiramos dois elementos, a fila não estará mais nas posições iniciais do vetor.
 	\end{itemize}
 	\begin{figure}[ht]
-				\centering
-				\includegraphics[width=.6\textwidth]{01-img/filas/fila_insercao_quatro_elementos.png}				
-				\caption{Fila após inserção de quatro elementos.}	
+	   \centering
+	   \includegraphics[width=.6\textwidth]{fila_insercao_quatro_elementos}
+	   \caption{Fila após inserção de quatro elementos}	
 	\end{figure} 	
 \end{frame}
 
 \begin{frame}{Implementação de Fila com Vetor}	
 	\begin{figure}[ht]
-				\centering
-				\includegraphics[width=.6\textwidth]{01-img/filas/exemplo_fila_remove_dois_elementos.png}				
-				\caption{Fila após retirar dois elementos.}	
+	   \centering
+	   \includegraphics[width=.6\textwidth]{exemplo_fila_remove_dois_elementos}		
+	   \caption{Fila após retirar dois elementos}	
 	\end{figure} 	
 	\begin{itemize}
 		\item Com essa estratégia, é fácil observar que, em um dado instante, a parte ocupada pelo vetor pode chegar a última posição.
@@ -305,8 +309,8 @@ int main(void)
 
 \begin{frame}{Referências}
 	\begin{enumerate}
-		\item Tenenbaum, A. M., Langsam, Y., and Augestein, M. J. (1995). Estruturas de Dados Usando C. MAKRON Books, pp. 207-250.
-		\item Wirth, N. (1989). Algoritmos e Estrutura de dados. LTC, pp. 151-165.
+	   \item Tenenbaum, A. M., Langsam, Y., and Augestein, M. J. (1995). Estruturas de Dados Usando C. MAKRON Books, pp. 207-250.
+	   \item Wirth, N. (1989). Algoritmos e Estrutura de dados. LTC, pp. 151-165.
 	\end{enumerate}
 \end{frame}
 

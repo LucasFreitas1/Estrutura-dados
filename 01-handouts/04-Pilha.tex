@@ -4,19 +4,23 @@
 \usepackage{color}
 \usepackage[brazilian]{babel}
 \usepackage{graphicx}
-\usepackage[ruled,linesnumbered,portugues]{algorithm2e}
 \usepackage{setspace}
 \usepackage{listings}
 \usepackage{natbib}
 \usepackage{hyperref}
-
-
-\usepackage{listings}
-%\usecolortheme[named=Orange]{structure} 
-\setbeamertemplate{blocks}[rounded][shadow=true] 
-\useoutertheme{infolines} 
 \usepackage{beamerthemeshadow}
 \usepackage{listings}
+\usepackage{lmodern}
+
+\setbeamertemplate{blocks}[rounded][shadow=true] 
+\useoutertheme{infolines} 
+
+\graphicspath
+{%
+  {images/pilha/}%
+}%
+
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 
 
 \author{Alessandro Ferreira Leite}
@@ -60,7 +64,7 @@
 				\item Os elementos da pilha só podem ser retirado na ordem inversa à ordem em que foram inseridos				
 					\begin{itemize}
 						\item O primeiro que sai é o último que entrou.
-						\item Por essa razão, uma pilha é dita uma estrutura do tipo: \alert{LIFO}(\textit{last-in, first} ou UEPS último a entrar é o primeiro a sair.)
+						\item Por essa razão, uma pilha é dita uma estrutura do tipo: \alert{LIFO}~(\textit{last-in, first} ou UEPS último a entrar é o primeiro a sair.)
 					\end{itemize}
 			\end{itemize}
   \end{frame}
@@ -82,10 +86,10 @@
   \end{frame}
   
    \begin{frame}{Exemplo} 
-		   	\begin{figure}[ht]
-				\centering
-				\includegraphics[width=.6\textwidth]{01-img/pilha/pilha.png}					
-			\end{figure} 
+   	  \begin{figure}[ht]
+		\centering
+		\includegraphics[width=.6\textwidth]{pilha}
+	\end{figure} 
    \end{frame}
   
    \begin{frame}{Operações auxiliares}   

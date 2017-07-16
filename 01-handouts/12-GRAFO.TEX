@@ -4,16 +4,14 @@
 \usepackage{color}
 \usepackage[brazilian]{babel}
 \usepackage{graphicx}
-\usepackage[ruled,linesnumbered,portugues,noend]{algorithm2e}
+\usepackage[ruled,linesnumbered,noend,portuguese]{algorithm2e}
 \usepackage{setspace}
 \usepackage{listings}
 \usepackage{natbib}
 \usepackage{hyperref}
 \usepackage{skak}% jogo de xadrez
+\usepackage{lmodern}
 
-
-\usepackage{listings}
-\usecolortheme[named=Orange]{structure} 
 \setbeamertemplate{blocks}[rounded][shadow=true] 
 \useoutertheme{infolines} 
 \usepackage{beamerthemeshadow}
@@ -22,41 +20,20 @@
 \definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
 \definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
 
-
 %ref: http://www3.ntu.edu.sg/home5/PG04878518/LatexTips.html#q1
 \lstset{language=C,basicstyle=\footnotesize,   
  commentstyle=\color{Brown},
  stringstyle=\ttfamily,
  showstringspaces=false}
 
+\graphicspath
+{%
+  {images/Grafos/}%
+}%
 
+\DeclareGraphicsExtensions{.pdf,.jpeg,.jpg,.png}
 
-\setbeamertemplate{title page}
-{   
-\begin{centering}
-     
-     \vskip0pt plus 1filll
-     \includegraphics{../../../logotipo/logoAnhanguera.png}\\
-     Anhanguera Educacional/FACNET
-     \vskip0pt plus 1filll
-     \insertinstitute 
-     \vskip0pt plus 1filll    
-     \vskip0pt plus 1filll         
-     {\usebeamerfont{title}\usebeamercolor[fg]{}\inserttitle}
-     \vskip0pt plus 1filll
-     \insertauthor 
-     \\E-mail: \textit{aleite@facnet.com.br}
-     \vskip0pt plus 1filll
-     \textbf{Curso}: Bacharel em Sistema de Informação\\
-     \textbf{Disciplina}: Estrutura de dados
-     \vskip0pt plus 1filll     
-     Brasília\\
-     23/11/2009
-     \vskip0pt plus 1filll     
-   \end{centering}    
-}
-
-\author{Alessandro F. Leite}
+\author{Alessandro Ferreira Leite}
 \date{\today}
 \title{Grafos} 
 
@@ -95,10 +72,10 @@
 
 \begin{frame}{Grafo}
 \begin{figure}[ht]
-				\centering
-				\includegraphics[width=.7\textwidth]{images/Grafos/Exemplo-Grafo}				
-				\caption{Exemplos de grafos.}	
-				\label{fig:arvore}
+	\centering
+	\includegraphics[width=.7\textwidth]{Exemplo-Grafo}
+	\caption{Exemplos de grafos}
+	\label{fig:arvore}
 \end{figure}
 \end{frame}
 
@@ -112,10 +89,10 @@
 \end{block}
 
 \begin{figure}[ht]
-				\centering
-				\includegraphics[width=.3\textwidth]{images/Grafos/Exemplo-Grafo-direcionado.png}				
-				\caption{Exemplo de grafo direcionado.}	
-				\label{fig:grafo-direcionado}
+	\centering
+	\includegraphics[width=.3\textwidth]{Exemplo-Grafo-direcionado}
+	\caption{Exemplo de grafo direcionado}
+	\label{fig:grafo-direcionado}
 \end{figure}
 \end{frame}
 
@@ -127,9 +104,9 @@
 \begin{columns}
 \column{5cm}
 \begin{figure}[ht]
-				\centering
-				\includegraphics[width=.5\textwidth]{images/Grafos/Exemplo-Grau-No}								
-				\label{fig:grau-no}
+	\centering
+	\includegraphics[width=.5\textwidth]{Exemplo-Grau-No}
+	\label{fig:grau-no}
 \end{figure}
 \column{5cm}
 \begin{itemize}
@@ -148,7 +125,7 @@
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics{images/Grafos/Exemplo-Grau-Ciclico}								
+	\includegraphics{Exemplo-Grau-Ciclico}
 	\caption{Grau cíclico.}
 	\label{fig:grafo-ciclico}
 \end{figure}
@@ -161,8 +138,8 @@
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics{images/Grafos/Exemplo-Grafo-Aciclico}								
-	\caption{Grau acíclico.}
+	\includegraphics{Exemplo-Grafo-Aciclico}
+	\caption{Grau acíclico}
 	\label{fig:grafo-aciclico}
 \end{figure}
 \end{frame}
@@ -191,8 +168,8 @@
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.6in]{images/Grafos/Lista-adjacencia}								
-	\caption{Representação de grafo através de lista de adjacência.}
+	\includegraphics[width=1.6in]{Lista-adjacencia}
+	\caption{Representação de grafo através de lista de adjacência}
 	\label{fig:lista-adjacencia}
 \end{figure}
 \end{frame}
@@ -250,8 +227,8 @@ Um funcionário encarregado de verificar o estado das estradas, deseja planejar a
 \begin{frame}{Problema das Pontes de Königsberg}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=3.0in]{images/Grafos/ponte-konigsberg}								
-	\caption{As pontes de Königsberg.}
+	\includegraphics[width=3.0in]{ponte-konigsberg}
+	\caption{As pontes de Königsberg}
 	\label{fig:ponte-konigsberg}
 \end{figure}
 \end{frame}
@@ -266,12 +243,12 @@ entre si e as margens do rio, voltando ao ponto de partida.
 \begin{frame}{Problema das Pontes de Königsberg}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.5in]{images/Grafos/ponte-konigsberg}										
+	\includegraphics[width=1.5in]{ponte-konigsberg}
 \end{figure}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.5in]{images/Grafos/grafo-pontes-konigsberg}										
+	\includegraphics[width=1.5in]{grafo-pontes-konigsberg}
 \end{figure}
 \end{frame}
 
@@ -290,12 +267,11 @@ entre si e as margens do rio, voltando ao ponto de partida.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=2.5in]{images/Grafos/exemplo_fluxo_rede}										
+	\includegraphics[width=2.5in]{exemplo_fluxo_rede}
 \end{figure}
 \begin{itemize}
 	\item Qual(is) o(s) menor(es) caminho(s) para atravessar o grafo saído do vértice 1 e chegando ao vértice 2.
 \end{itemize}
-
 \end{frame}
 
 

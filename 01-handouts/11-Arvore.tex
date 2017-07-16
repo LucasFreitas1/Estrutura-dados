@@ -1,33 +1,17 @@
-%\documentclass[a4paper,12pt]{article}
-\documentclass[a4paper,12pt]{../../class/handout}
-%\usepackage{classes/infocomp}
-
-%\usepackage[brazil]{babel}
-%\usepackage[latin1]{inputenc}
-
+\documentclass[a4paper,12pt]{handout}
 \usepackage[latin1]{inputenc}
 \usepackage[brazil]{babel}
-
 \usepackage{times}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx,url}
-\usepackage[linesnumbered,portugues,noend,ruled]{algorithm2e} %ruled
-%muda a condificação da fonte, tornando possível copiar textos com 
+\usepackage[linesnumbered,noend,ruled,portuguese]{algorithm2e} 
 \usepackage[T1]{fontenc}
-%\usepackage{natbib}
 \usepackage{listings}
 \usepackage{multicol}
 \usepackage{qtree}
-\usepackage[portugues]{algorithm2e}%ruled linesnumbered
-
-
-%virar a página - tag: \begin{sideways} \end{sideways}
 \usepackage{rotating}
-
-%\usepackage{caption2}
-%\renewcommand{\captionfont}{\footnotesize}
-%\renewcommand{\captionlabelfont}{\footnotesize \bfseries}
+\usepackage{lmodern}
 
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -48,48 +32,51 @@
       \hskip1.5em plus0em minus0.5em \fi \nobreak
       \vrule height0.75em width0.5em depth0.25em\fi}
 
+\usepackage{color}
 
-	\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
 
-	\definecolor{dkgreen}{rgb}{0,0.6,0}
-	\definecolor{gray}{rgb}{0.5,0.5,0.5}
-	\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
 
-	\lstset{ %
-	  language=Java,                % the language of the code
-	  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
-	  numbers=left,                   % where to put the line-numbers
-	  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
-	  stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
-	                                  % will be numbered
-	  numbersep=5pt,                  % how far the line-numbers are from the code
-	  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
-	  showspaces=false,               % show spaces adding particular underscores
-	  showstringspaces=false,         % underline spaces within strings
-	  showtabs=false,                 % show tabs within strings adding particular underscores
-	  frame=single,                   % adds a frame around the code
-	  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
-	  tabsize=2,                      % sets default tabsize to 2 spaces
-	  captionpos=b,                   % sets the caption-position to bottom
-	  breaklines=true,                % sets automatic line breaking
-	  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-	  title=\lstname,                   % show the filename of files included with \lstinputlisting;
-	                                  % also try caption instead of title
-	  keywordstyle=\color{blue},          % keyword style
-	  commentstyle=\color{dkgreen},       % comment style
-	  stringstyle=\color{mauve},         % string literal style
-	  escapeinside={\%*}{*)},            % if you want to add a comment within your code
-	  morekeywords={*,...}               % if you want to add more keywords to the set
-	}
+\graphicspath
+{%
+  {images/Arvores/}%
+}%
 
-      
+\DeclareGraphicsExtensions{.pdf,.jpeg,.jpg,.png}
 
 \SetInstructor{Alessandro}
 \SetCourseTitle{Estrutura de Dados}
 \SetHandoutTitle{Árvores}
 \SetSemester{1/2012}
 \SetDueDate{27/05/2012}
-
 
 \begin{document}
 	
@@ -106,7 +93,7 @@ Por conta disso, as árvores são estruturas de dados adequadas para a representaç
 \begin{figure}[!htpb]
 	\Tree[.A [.B E ] [.C F G ] [.D [.H I J ] ] ]
 	\label{fig:rep-arvore}
-	\caption{Representação gráfica de uma árvore.}
+	\caption{Representação gráfica de uma árvore}
 \end{figure}
 
 Os relacionamentos de subordinação, formando hierarquias, podem representar diferentes significados, como:
@@ -117,16 +104,15 @@ Os relacionamentos de subordinação, formando hierarquias, podem representar dife
 \end{enumerate}
 
 \begin{figure}[!htpb]
-	\Tree[.Veículo [.Aéreo Avião Helicóptero ] [.Terrestre Carro Motocicleta ] [.Aquático [.Motor Navio Iate, Lancha ] Vela Remo ] ]
-	\label{fig:rep-classe}
-	\caption{Hierárquia de especialização.}
+  \Tree[.Veículo [.Aéreo Avião Helicóptero ] [.Terrestre Carro Motocicleta ] [.Aquático [.Motor Navio Iate, Lancha ] Vela Remo ] ]
+  \label{fig:rep-classe}
+  \caption{Hierárquia de especialização}
 \end{figure}
-
 
 \begin{figure}[!htpb]
 	\Tree[.Carro Chassis Motor Rodas ]
 	\label{fig:composicao}
-	\caption{Hierárquia de composição.}
+	\caption{Hierárquia de composição}
 \end{figure}
 
 Uma árvore é composta por um conjunto de nós. 
@@ -164,7 +150,7 @@ Uma árvore é \textbf{ordenada} se existe uma ordem linear definida para os filho
 \begin{figure}[!htpb]
 	\Tree[.Livro Prefácio [.Parte-A [.Cap1 1.1 $\cdots$ 1.4 ] [.Cap5 5.1 $\cdots$ 5.7 ] ] [.Parte-B [.Cap6 6.1 6.2 ] [.Cap9 9.1 ] ] [.Referências ] ]
 	\label{fig:arvore-ordenada}
-	\caption{Árvore ordenada associada a um livro.}
+	\caption{Árvore ordenada associada a um livro}
 \end{figure}
 
 \subsection{Tipo Abstrato de Dados Árvore (TAD)}
@@ -246,7 +232,7 @@ A profundidade de um nó $v$ pode ser definida recursivamente como:
 \begin{figure}[!htpb]
 %	\tiny{
 	\Tree [.{R\&D Corporation} [.Vendas Nacional [.Internacional Europa {América do Sul} ] ] Compras [.Manufatura TV CD MP3 ] P\&D ]
-	\caption{Árvore com 12 nós representando a estrutura organizacional de uma empresa fictícia. Os filhos da raiz armazenam P\&D, Venda, Compras e Manufatura.}
+	\caption{Árvore com 12 nós representando a estrutura organizacional de uma empresa fictícia. Os filhos da raiz armazenam P\&D, Venda, Compras e Manufatura}
 %	}
 	\label{fig:altura}
 \end{figure}
@@ -256,7 +242,7 @@ Baseado na definição, no algoritmo \ref{alg:depth} é apresentado um algoritmo re
 %\begin{block}{Algoritmo para calcular a profundidade de um nó $v$ de $T$}
 \SetAlFnt{\footnotesize\sf}
 \begin{algorithm}[H]\label{alg:depth}
-\dontprintsemicolon
+\DontPrintSemicolon
 \SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
 \SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
   \eSe{ $v$ é a raiz de $T$}{
@@ -291,7 +277,7 @@ A altura de uma árvore não vazia $T$ é igual a profundidade máxima dos nós exter
 %\begin{block}{Algoritmo para calcular a altura de uma árvore não-vazia $T$}
 \SetAlFnt{\footnotesize\sf}
 \begin{algorithm}[H]\label{alg:height}
-\dontprintsemicolon
+\DontPrintSemicolon
 \SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
 \SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
 \SetKwFor{ParaCada}{para cada}{faça}{fim}
@@ -328,7 +314,7 @@ O algoritmo \ref{alg:preorder} apresenta o pseudocódigo para o caminhamento pref
 %\begin{block}{Algoritmo de percurso Prefixado}
 %\SetAlFnt{\footnotesize\sf}
 \begin{algorithm}[H]\label{alg:preorder}
-\dontprintsemicolon
+\DontPrintSemicolon
 \SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
 \SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
 \SetKwFor{ParaCada}{para cada}{faça}{fim}
@@ -369,7 +355,7 @@ O algoritmo \ref{alg:postorder} apresenta o pseudocódigo para o caminhamento pós
 
 	\SetAlFnt{\footnotesize\sf}
 	\begin{algorithm}[H]\label{alg:postorder}
-	\dontprintsemicolon
+	\DontPrintSemicolon
 	\SetKwFor{Enqto}{enquanto}{faça}{fim enquanto}
 	\SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim se}
 	\SetKwFor{ParaCada}{para cada}{faça}{fim}
